@@ -369,6 +369,18 @@
       gap: 14px;
       margin-bottom: 18px;
       min-height: 140px;
+      max-height: 480px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 4px;
+      scroll-behavior: smooth;
+    }
+    .chat-thread::-webkit-scrollbar {
+      width: 5px;
+    }
+    .chat-thread::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.18);
+      border-radius: 4px;
     }
 
     .msg-row {
@@ -706,9 +718,10 @@
         <!-- Language Switcher -->
         <div class="d-flex align-items-center gap-1">
           <i class="bi bi-translate text-muted small"></i>
-          <select id="userLang" class="form-select form-select-sm border-0 bg-transparent fw-medium" style="width: 105px; font-size: 0.85rem;" onchange="onLanguageChange()">
+          <select id="userLang" class="form-select form-select-sm border-0 bg-transparent fw-medium" style="width: 110px; font-size: 0.85rem;" onchange="onLanguageChange()">
             <option value="en" selected>English</option>
             <option value="hi">हिन्दी</option>
+            <option value="pa">ਪੰਜਾਬੀ</option>
             <option value="hinglish">Hinglish</option>
           </select>
         </div>
@@ -1562,6 +1575,12 @@
 
     // Initialize on load
     window.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem("udyam_lang");
+      if (savedLang && ["en", "hi", "pa", "hinglish"].includes(savedLang)) {
+        const langEl = document.getElementById("userLang");
+        if (langEl) langEl.value = savedLang;
+        userProfile.language = savedLang;
+      }
       checkPartnerReferral();
       checkRecoveryReentry();
       initConversation(activeCategory);
@@ -1575,8 +1594,22 @@
     function onLanguageChange() {
       const lang = document.getElementById("userLang").value;
       userProfile.language = lang;
-      // Re-prime conversation in the new language
-      initConversation(activeCategory);
+      localStorage.setItem("udyam_lang", lang);
+
+      // Persist to backend active session without wiping context or history
+      if (currentSessionId) {
+        fetch("/api/advisor/session/language", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: currentSessionId, language: lang })
+        }).catch(() => {});
+      }
+
+      // If customer has not started chatting yet, re-render starter greeting in new language
+      const userMsgs = conversationHistory.filter(m => m.role === "user");
+      if (userMsgs.length === 0) {
+        initConversation(activeCategory);
+      }
     }
 
     // Select Business Category (Single-Select Mutually Exclusive)
@@ -1678,6 +1711,15 @@
       });
     }
 
+    function smartScrollChat(force = false) {
+      const box = document.getElementById("chatThread");
+      if (!box) return;
+      const isNearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
+      if (force || isNearBottom) {
+        box.scrollTop = box.scrollHeight;
+      }
+    }
+
     function appendBubbleDOM(role, content) {
       const box = document.getElementById("chatThread");
       const row = document.createElement("div");
@@ -1689,6 +1731,7 @@
       
       row.appendChild(bubble);
       box.appendChild(row);
+      smartScrollChat(role === 'user');
       return bubble;
     }
 
@@ -1779,6 +1822,7 @@
                   cursorSpan.remove();
                   streamBubble.innerHTML = escapeHtml(accumulatedAssistantText);
                   streamBubble.appendChild(cursorSpan);
+                  smartScrollChat(false);
                 } else if (eventData.type === "meta") {
                   metaPayload = eventData.data;
                 } else if (eventData.type === "done") {
@@ -1799,6 +1843,14 @@
 
         // Process Meta Payload
         if (metaPayload) {
+          if (metaPayload.detected_language) {
+            const langSelect = document.getElementById("userLang");
+            if (langSelect && langSelect.value !== metaPayload.detected_language) {
+              langSelect.value = metaPayload.detected_language;
+              userProfile.language = metaPayload.detected_language;
+              localStorage.setItem("udyam_lang", metaPayload.detected_language);
+            }
+          }
           if (metaPayload.session_id) {
             currentSessionId = metaPayload.session_id;
             localStorage.setItem("udyam_session_id", currentSessionId);
@@ -1915,7 +1967,7 @@
 
       const panel = document.getElementById("recPanel");
       panel.style.display = "block";
-      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      // Auto-scroll removed: Persistent recommendation updates in place without moving user away from chat
 
       recalculateQuote();
 

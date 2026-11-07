@@ -483,6 +483,19 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
             "suggested_addon": MODULAR_ADDONS["addon_cloud_backup"]
         })
 
+    # Need 6: Cloud POS & GST Billing Software (P19)
+    has_pos = "P19" in bundle_product_ids
+    asked_pos = (
+        any(k in pains_text for k in ["billing", "invoice", "invoicing", "pos", "gst bill", "bills", "parcha"]) or
+        any("P19" in n.get("classified_requirement", "") or "billing" in n.get("customer_statement", "").lower() for n in identified_needs)
+    )
+    if asked_pos and not has_pos:
+        unmet.append({
+            "requirement": "Cloud POS & GST Billing Counter (P19)",
+            "evidence": "Customer requires tablet/phone GST invoicing software with UPI acceptance.",
+            "suggested_addon": MODULAR_ADDONS["addon_pos"]
+        })
+
     return unmet
 
 

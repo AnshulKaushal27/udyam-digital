@@ -82,6 +82,18 @@ from operations_intelligence import (
     simulate_what_if_scenario
 )
 
+from conversational_ai import (
+    OFFICIAL_CATALOGUE,
+    detect_natural_language_switch,
+    classify_user_response,
+    handle_indecision_policy,
+    get_or_create_preference_state,
+    detect_billing_and_invoicing_intent,
+    validate_catalogue_eligibility,
+    build_proactive_sales_prompt,
+    generate_deterministic_consultant_reply
+)
+
 # Load .env file
 ENV_PATH = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(ENV_PATH, override=True)
@@ -731,10 +743,14 @@ def control_update_milestone(order_id):
         else:
             m["status"] = "PENDING"
 
-    # Phase 6: Proactive Installation Risk Engine recalculation on milestone change
-    order["installation"]["risk_assessment"] = evaluate_order_risk(order)
-
-    # Phase 4: Order Activation Commission Trigger
+    # Phase 6: Proactive Installation Risk Engine recalculation on milestone change
+
+    order["installation"]["risk_assessment"] = evaluate_order_risk(order)
+
+
+
+    # Phase 4: Order Activation Commission Trigger
+
     if target_step == 5:
         update_commission_on_activation(order_id)
 
@@ -1030,6 +1046,25 @@ def get_or_create_session(session_id=None, business_type="kirana", language="en"
                 "discovery_status": "in_progress" # "in_progress" | "complete"
             },
             "identified_needs": [],
+            "preference_tracking": {},
+            "billing_intent": {
+                "active": False,
+                "requested_feature": None,
+                "current_method": None,
+                "gst_required": None,
+                "monthly_invoices": None,
+                "deployment_preference": None,
+                "inventory_needed": None,
+                "catalogue_product_id": "P19",
+                "catalogue_product_name": "Cloud POS & Billing",
+                "catalogue_price_inr": 599
+            },
+            "recommendation_lifecycle": {
+                "status": "not_ready",
+                "last_bundle_id": None,
+                "rejection_reason": None,
+                "alternative_offered": False
+            },
             "messages": []
         }
         return CUSTOMER_SESSIONS[new_sid]
@@ -1038,6 +1073,28 @@ def get_or_create_session(session_id=None, business_type="kirana", language="en"
     session["updated_at"] = datetime.now().isoformat()
     if language:
         session["profile"]["preferred_language"] = language
+    if "preference_tracking" not in session:
+        session["preference_tracking"] = {}
+    if "billing_intent" not in session:
+        session["billing_intent"] = {
+            "active": False,
+            "requested_feature": None,
+            "current_method": None,
+            "gst_required": None,
+            "monthly_invoices": None,
+            "deployment_preference": None,
+            "inventory_needed": None,
+            "catalogue_product_id": "P19",
+            "catalogue_product_name": "Cloud POS & Billing",
+            "catalogue_price_inr": 599
+        }
+    if "recommendation_lifecycle" not in session:
+        session["recommendation_lifecycle"] = {
+            "status": "not_ready",
+            "last_bundle_id": None,
+            "rejection_reason": None,
+            "alternative_offered": False
+        }
     if business_type and (session["profile"].get("locations") or 1) < 2:
         new_btype = get_category_bundle_id(business_type).replace("bundle_", "")
         if new_btype != session["profile"]["business_type"] and len(session["messages"]) == 0:
@@ -1241,13 +1298,21 @@ def extract_and_update_profile(session, user_text, llm_meta=None):
     # 6. Run Needs Classification
     session["identified_needs"] = deterministic_classify_needs(user_text, session["identified_needs"], profile["business_type"])
 
-def check_discovery_completion(profile, identified_needs, message_count, user_text=""):
+def check_discovery_completion(profile, identified_needs, message_count, user_text="", session=None):
     """
     Discovery Completeness Evaluator:
     Determines whether sufficient contextual intelligence has been gathered to make a recommendation.
     Never forces the merchant into a long interrogation.
     """
     text_low = user_text.lower()
+    
+    # Check if billing/invoicing intent is active
+    if session and session.get("billing_intent", {}).get("active"):
+        b_intent = session["billing_intent"]
+        # Only complete once monthly volume (~300-400) or deployment preference is captured
+        if b_intent.get("monthly_invoices") is not None or b_intent.get("deployment_preference") is not None:
+            return True
+        return False
     
     # 1. Explicit user request to view plan, pricing, or recommendation
     if any(k in text_low for k in ["plan", "recommend", "price", "kitna", "cost", "package", "batao", "suggest", "quote", "options"]):
@@ -1358,8 +1423,26 @@ def get_default_conversation_starter(business_type="kirana", lang="en"):
         }
     }
     
+    # Add Punjabi variants
+    starters["kirana"]["pa"] = {
+        "message": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਤੁਹਾਡੀ ਦੁਕਾਨ 'ਤੇ ਲਗਭਗ ਕਿੰਨੇ ਲੋਕ ਜਾਂ ਸਟਾਫ ਕੰਮ ਕਰਦੇ ਹਨ?",
+        "quick_replies": ["ਸਿਰਫ਼ ਮੈਂ (1 ਵਿਅਕਤੀ)", "2–3 ਸਟਾਫ", "4–8 ਸਟਾਫ", "8 ਤੋਂ ਵੱਧ"]
+    }
+    starters["clinic"]["pa"] = {
+        "message": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਡਾਕਟਰ ਸਾਹਿਬ! ਕੀ ਮਰੀਜ਼ਾਂ ਦੇ ਰਿਕਾਰਡ ਅਤੇ ਬਿਲਿੰਗ ਲਈ ਕਲਾਊਡ ਬੈਕਅੱਪ ਜਾਂ ਤੇਜ਼ ਇੰਟਰਨੈਟ ਚਾਹੀਦਾ ਹੈ?",
+        "quick_replies": ["ਹਾਈ-ਸਪੀਡ ਫਾਈਬਰ Wi-Fi", "ਸੁਰੱਖਿਅਤ 1TB ਕਲਾਊਡ ਬੈਕਅੱਪ", "ਬਿਲਿੰਗ & ਈਮੇਲ ਸੂਟ", "ਇਹ ਸਾਰੇ"]
+    }
+    starters["multisite"]["pa"] = {
+        "message": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਤੁਹਾਡੇ ਕੁੱਲ ਕਿੰਨੇ ਸਟੋਰ ਜਾਂ ਬ੍ਰਾਂਚਾਂ ਹਨ?",
+        "quick_replies": ["2–3 ਸਟੋਰ", "4–8 ਸਟੋਰ", "10 ਤੋਂ ਵੱਧ", "ਨਵੀਂ ਬ੍ਰਾਂਚ ਸ਼ੁਰੂ ਕਰ ਰਹੇ ਹਾਂ"]
+    }
+    starters["manufacturer"]["pa"] = {
+        "message": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਕੀ ਤੁਹਾਡੀ ਫੈਕਟਰੀ ਲਈ ERP ਜਾਂ ਮਸ਼ੀਨ IoT ਵਾਸਤੇ ਡੈਡੀਕੇਟਿਡ ਲੀਜ਼ਡ ਲਾਈਨ ਚਾਹੀਦੀ ਹੈ?",
+        "quick_replies": ["1:1 ਡੈਡੀਕੇਟਿਡ ਲੀਜ਼ਡ ਲਾਈਨ", "ERP ਲਈ ਸਟੈਟਿਕ IP", "ਮਸ਼ੀਨ IoT ਸੈਂਸਰ", "ਇਹ ਸਾਰੇ"]
+    }
+
     category_data = starters.get(btype, starters["kirana"])
-    lang_key = lang if lang in ["en", "hi", "hinglish"] else "en"
+    lang_key = lang if lang in ["en", "hi", "pa", "hinglish"] else "en"
     res = category_data.get(lang_key, category_data["en"])
     
     return {
@@ -1395,6 +1478,25 @@ def advisor_get_session(session_id):
         "message_count": len(session["messages"])
     })
 
+@app.route("/api/advisor/session/language", methods=["POST"])
+def advisor_update_session_language():
+    """Dynamically updates language preference in active session without wiping context or history."""
+    data = request.json or {}
+    sid = data.get("session_id")
+    lang = data.get("language", "en").lower()
+    if lang not in ["en", "hi", "pa", "hinglish"]:
+        lang = "en"
+    
+    session = CUSTOMER_SESSIONS.get(sid)
+    if session:
+        session["profile"]["preferred_language"] = lang
+        session["updated_at"] = datetime.now().isoformat()
+    return jsonify({
+        "status": "success",
+        "session_id": sid,
+        "language": lang
+    })
+
 @app.route("/api/advisor/session/reset", methods=["POST"])
 def advisor_reset_session():
     """Resets or initializes a fresh customer discovery session."""
@@ -1412,41 +1514,7 @@ def advisor_reset_session():
     })
 
 def build_advisor_prompt(session, lang):
-    profile = session["profile"]
-    btype = profile.get("business_type", "kirana")
-    target_bundle_id = f"bundle_{btype}"
-    bundle_info = HERO_BUNDLES.get(target_bundle_id, HERO_BUNDLES["bundle_kirana"])
-    identified_needs = session.get("identified_needs", [])
-    needs_summary = ", ".join([f"{n['category']} ({n['type']})" for n in identified_needs]) if identified_needs else "None yet"
-
-    return (
-        "You are an experienced, empathetic, and consultative Airtel Business sales advisor in India helping an MSME business owner.\n"
-        "Your objective: Understand the merchant's operational reality deeply before recommending a digital bundle.\n\n"
-        "CORE CONVERSATION PRINCIPLES:\n"
-        "1. ASK EXACTLY ONE QUESTION AT A TIME. Keep normal responses strictly between 5 and 25 words.\n"
-        "2. Acknowledge what the customer just shared with natural empathy (e.g., 'Samajh gaya.', 'Theek hai.', 'Understood.', 'Achha, that makes sense.').\n"
-        "3. DO NOT ASK QUESTIONS ALREADY ANSWERED. Inspect the Known Profile below.\n"
-        "4. DO NOT dump product catalogues, technical specs, or pricing prematurely.\n"
-        "5. Language: Strictly respond in the requested language: " + lang.upper() + " (English, Hindi, or conversational Hinglish). Keep vocabulary natural (kirana shop, billing, staff, UPI, disconnections).\n"
-        "6. Handle edge cases naturally:\n"
-        "   - Ambiguous answers: ask a polite clarifying follow-up.\n"
-        "   - Requirement changes: warmly acknowledge and pivot context.\n"
-        "   - Unrelated questions: answer politely in 10-15 words, then gently resume business discovery.\n\n"
-        f"TARGET SEGMENT: {btype.upper()} ({bundle_info['segment']})\n"
-        f"KNOWN PROFILE: {json.dumps(profile, ensure_ascii=False)}\n"
-        f"IDENTIFIED NEEDS: {needs_summary}\n\n"
-        "RECOMMENDATION TRANSITION:\n"
-        "When discovery is complete (or customer asks for a recommendation), transition warmly in 1 short sentence explaining why this Airtel bundle solves their core problem, and set recommend_bundle to '" + target_bundle_id + "'.\n\n"
-        "STREAMING OUTPUT FORMAT:\n"
-        "Output your conversational message to the user directly (5-25 words).\n"
-        "Then, on a new line, output the exact marker ||META|| followed by a single-line JSON object:\n"
-        '{"profile_updates": {"employees": <number or null>, "locations": <number or null>, "pain_points": [...], "digital_tools": [...]}, '
-        '"quick_replies": ["option 1", "option 2", "option 3"], '
-        '"recommend_bundle": "' + target_bundle_id + '" or null, '
-        '"discovery_complete": true or false, '
-        '"why_brief": "<1 sentence plain-language explanation if recommending>"}\n'
-        "Always supply 2 to 4 contextual quick replies that make it effortless for the merchant to answer the current question."
-    )
+    return build_proactive_sales_prompt(session, lang)
 
 @app.route("/api/advisor/chat/stream", methods=["POST"])
 def advisor_chat_stream():
@@ -1467,7 +1535,14 @@ def advisor_chat_stream():
             last_user_text = m.get("content") or m.get("text", "")
             break
 
+    # Natural Language Switch Detection
     if last_user_text:
+        detected_lang = detect_natural_language_switch(last_user_text)
+        if detected_lang:
+            lang = detected_lang
+            session["profile"]["preferred_language"] = lang
+        # Update billing/invoicing intent & customer response classification
+        detect_billing_and_invoicing_intent(last_user_text, session)
         extract_and_update_profile(session, last_user_text)
 
     # Re-evaluate btype and target bundle dynamically AFTER extraction
@@ -1559,49 +1634,19 @@ def advisor_chat_stream():
 
         # Fallback generator if Groq was unavailable or failed
         if not groq_success:
-            is_complete = check_discovery_completion(profile, session["identified_needs"], user_count, last_user_text)
+            is_comp = check_discovery_completion(profile, session["identified_needs"], user_count, last_user_text, session)
+            fb_text, fb_quick, fb_bundle, fb_complete, fb_why = generate_deterministic_consultant_reply(session, last_user_text, lang)
+            is_fin = is_comp or fb_complete
 
-            if btype == "kirana":
-                if not is_complete and user_count <= 1:
-                    text = "Samajh gaya. Aapki dukaan par UPI payments aur POS machine use karte hain?"
-                    quick = ["Yes, both UPI & POS", "Only QR payments", "POS card machine", "Cash mainly"]
-                elif not is_complete and user_count == 2:
-                    text = "Theek hai. Internet slow hone par evening rush me payments rukte hain kya?"
-                    quick = ["Yes, evening me rukte hain", "Disconnections happen", "Speed slow rehti hai", "No issues"]
-                else:
-                    text = "Understood. Aapke liye reliable AirFiber ke saath automatic 4G backup best rahega taaki UPI kabhi na ruke."
-                    quick = ["View Package Details", "Check Installation SLA", "Can I add static IP?"]
-            elif btype == "clinic":
-                if not is_complete and user_count <= 1:
-                    text = "Samajh gaya doctor saab. Patient files aur medical records ka secure cloud backup zaroori hai?"
-                    quick = ["Yes, 1TB backup needed", "Only fast Wi-Fi", "Need guest Wi-Fi for patients", "Billing suite too"]
-                else:
-                    text = "Understood! Clinic Suite with 300 Mbps symmetrical fiber and 1TB encrypted cloud backup is ideal for your practice."
-                    quick = ["View Package Details", "Check Installation SLA", "Book Appointment"]
-            elif btype == "multisite":
-                if not is_complete and user_count <= 1:
-                    text = "Got it. Do you need centralized CCTV monitoring and SD-WAN failover across your branches on a single bill?"
-                    quick = ["Yes, CCTV & SD-WAN both", "Single bill is critical", "Need CCTV mainly", "Just fast internet"]
-                else:
-                    text = "Understood! Multi-Site Retail Pro links all branches with 1 Gbps fiber, SD-WAN, and 4x Cloud CCTV."
-                    quick = ["View Package Details", "Check Installation SLA", "Request Site Survey"]
-            else: # manufacturer
-                if not is_complete and user_count <= 1:
-                    text = "Understood. Do you require dedicated uncompressed leased line bandwidth with static IP for ERP?"
-                    quick = ["Yes, 1:1 Leased Line", "Static IP for ERP", "Machine IoT sensors", "All of these"]
-                else:
-                    text = "Understood. The Small Manufacturing Suite with uncompressed leased line and machine IoT telemetry is the right fit."
-                    quick = ["View Package Details", "Check Installation SLA", "Talk to Enterprise Team"]
-
-            for w in text.split(" "):
+            for w in fb_text.split(" "):
                 yield f"data: {json.dumps({'type': 'chunk', 'text': w + ' '})}\n\n"
-                time.sleep(0.04)
+                time.sleep(0.01)
 
             parsed_meta = {
-                "quick_replies": quick,
-                "recommend_bundle": target_bundle_id if is_complete else None,
-                "discovery_complete": is_complete,
-                "why_brief": bundle_data["why"]
+                "quick_replies": fb_quick,
+                "recommend_bundle": (fb_bundle or target_bundle_id) if is_fin else None,
+                "discovery_complete": is_fin,
+                "why_brief": fb_why or bundle_data.get("why", "")
             }
         else:
             parsed_meta = {}
@@ -1619,7 +1664,7 @@ def advisor_chat_stream():
             extract_and_update_profile(session, last_user_text, parsed_meta)
 
             # Re-evaluate discovery completion deterministically
-            is_complete = check_discovery_completion(profile, session["identified_needs"], user_count, last_user_text)
+            is_complete = check_discovery_completion(profile, session["identified_needs"], user_count, last_user_text, session)
             if parsed_meta.get("discovery_complete") or is_complete:
                 parsed_meta["discovery_complete"] = True
                 parsed_meta["recommend_bundle"] = target_bundle_id
@@ -1692,9 +1737,12 @@ def advisor_chat_stream():
             "quick_replies": parsed_meta.get("quick_replies", []),
             "recommend_bundle": target_bundle_id if is_finished else None,
             "why_brief": parsed_meta.get("why_brief") or current_bundle_data.get("why_brief", current_bundle_data.get("why", "")),
-            "engine": "Groq (GPT-OSS-120B Live)" if groq_success else "Airtel Rule Engine (Fallback)",
+            "engine": "Groq (GPT-OSS-120B Live)" if groq_success else "Airtel Proactive Sales Advisor",
             "recommendation": rec_result if is_finished else None,
-            "quote": quote_obj if is_finished else None
+            "quote": quote_obj if is_finished else None,
+            "detected_language": lang,
+            "billing_intent": session.get("billing_intent", {}),
+            "preference_tracking": session.get("preference_tracking", {})
         }
 
         if final_meta["recommend_bundle"]:
@@ -1718,11 +1766,16 @@ def advisor_chat():
     profile = session["profile"]
 
     if message:
+        detected_lang = detect_natural_language_switch(message)
+        if detected_lang:
+            lang = detected_lang
+            session["profile"]["preferred_language"] = lang
+        detect_billing_and_invoicing_intent(message, session)
         extract_and_update_profile(session, message)
 
     btype = profile["business_type"]
     msg_count = len(session["messages"]) + 1
-    is_complete = check_discovery_completion(profile, session["identified_needs"], msg_count, message)
+    is_complete = check_discovery_completion(profile, session["identified_needs"], msg_count, message, session)
     profile["discovery_status"] = "complete" if is_complete else "in_progress"
 
     # Deterministic Recommendation Engine (Phase 2)
@@ -1760,47 +1813,42 @@ def advisor_chat():
     }
     SHARED_QUOTES[quote_id] = quote_obj
 
-    live_reply, live_bundle_id, engine_name = call_live_llm(message, lang)
-    
-    if live_reply:
+    # Consultative Proactive Sales Discovery Logic
+    fb_text, fb_quick, fb_bundle, fb_complete, fb_why = generate_deterministic_consultant_reply(session, message, lang)
+    is_finished = is_complete or fb_complete
+
+    # For billing workflow in progress, keep discovery_complete False
+    if session.get("billing_intent", {}).get("active") and not is_finished:
         return jsonify({
             "status": "success",
             "session_id": session["session_id"],
-            "quote_id": quote_id,
-            "reply": live_reply,
+            "quote_id": None,
+            "reply": fb_text,
             "profile": profile,
             "identified_needs": session["identified_needs"],
-            "discovery_status": profile["discovery_status"],
-            "bundle": best_bundle,
-            "recommendation": rec_result,
-            "quote": quote_obj,
-            "discovery_complete": is_complete,
-            "quick_replies": ["Looks good", "Check Price", "Can I add Wi-Fi?"],
-            "engine": engine_name
+            "discovery_status": "in_progress",
+            "bundle": None,
+            "recommendation": None,
+            "quote": None,
+            "discovery_complete": False,
+            "quick_replies": fb_quick,
+            "engine": "Airtel Proactive Sales Advisor"
         })
-
-    # High quality fallback
-    if lang == "hi":
-        reply = f"नमस्ते! आपके व्यवसाय के लिए '{best_bundle['name']}' सबसे उपयुक्त है। इसमें ₹{best_bundle['monthly_inr']}/माह में तेज़ इंटरनेट, बैकअप और डिजिटल टूल्स मिलते हैं।"
-    elif lang == "hinglish":
-        reply = f"Namaste ji! Aapke business ke liye best package hai '{best_bundle['name']}'. ₹{best_bundle['monthly_inr']}/month me continuous internet aur backup tools milenge."
-    else:
-        reply = f"Based on your requirements, we recommend '{best_bundle['name']}' at ₹{best_bundle['monthly_inr']}/month with 99.9% uptime SLA."
 
     return jsonify({
         "status": "success",
         "session_id": session["session_id"],
         "quote_id": quote_id,
-        "reply": reply,
+        "reply": fb_text,
         "profile": profile,
         "identified_needs": session["identified_needs"],
-        "discovery_status": profile["discovery_status"],
+        "discovery_status": "complete" if is_finished else "in_progress",
         "bundle": best_bundle,
         "recommendation": rec_result,
         "quote": quote_obj,
-        "discovery_complete": is_complete,
-        "quick_replies": ["Looks good", "Check Price", "Can I add Wi-Fi?"],
-        "engine": "Airtel Rule Engine"
+        "discovery_complete": is_finished,
+        "quick_replies": fb_quick,
+        "engine": "Airtel Proactive Sales Advisor"
     })
 
 @app.route("/api/quote/calculate", methods=["POST"])
