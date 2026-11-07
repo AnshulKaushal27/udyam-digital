@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Kirana Store Awning & Building -->
+  <rect x="10" y="24" width="44" height="32" rx="3" fill="#FFFFFF" stroke="#20252D" stroke-width="2"/>
+  
+  <!-- Awning -->
+  <path d="M8 24 L56 24 L52 14 L12 14 Z" fill="#20252D"/>
+  <path d="M18 14 L24 14 L22 24 L16 24 Z" fill="#E31E24"/>
+  <path d="M30 14 L36 14 L34 24 L28 24 Z" fill="#E31E24"/>
+  <path d="M42 14 L48 14 L46 24 L40 24 Z" fill="#E31E24"/>
+
+  <!-- Shelves inside store -->
+  <line x1="16" y1="36" x2="32" y2="36" stroke="#E7E5E0" stroke-width="1.5"/>
+  <rect x="18" y="29" width="4" height="6" rx="1" fill="#D89A43"/>
+  <rect x="24" y="28" width="5" height="7" rx="1" fill="#42846A"/>
+
+  <!-- Shop Counter -->
+  <rect x="15" y="44" width="22" height="12" rx="1" fill="#F4F3EF" stroke="#20252D" stroke-width="1.5"/>
+
+  <!-- UPI QR Stand on counter -->
+  <rect x="20" y="38" width="8" height="9" rx="1" fill="#FFFFFF" stroke="#20252D" stroke-width="1.2"/>
+  <rect x="21" y="39" width="6" height="2" fill="#E31E24"/>
+  <rect x="22" y="42" width="2" height="2" fill="#20252D"/>
+  <rect x="25" y="44" width="2" height="2" fill="#20252D"/>
+  <line x1="24" y1="47" x2="24" y2="49" stroke="#20252D" stroke-width="1.2"/>
+
+  <!-- Digital POS / Wi-Fi Signal on Right -->
+  <rect x="41" y="38" width="9" height="15" rx="2" fill="#20252D"/>
+  <rect x="43" y="40" width="5" height="4" rx="0.5" fill="#42846A"/>
+  
+  <!-- Connectivity Signal Beams -->
+  <path d="M43 31 A5 5 0 0 1 48 31" stroke="#E31E24" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M40 27 A9 9 0 0 1 51 27" stroke="#D89A43" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

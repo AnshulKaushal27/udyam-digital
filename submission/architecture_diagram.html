@@ -1,0 +1,160 @@
+<!DOCTYPE html><html><body style='margin:20px; background:#f1f5f9; display:flex; justify-content:center;'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="1200" height="850">
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .layer-bg { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1.5; rx: 12; }
+      .layer-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #64748b; letter-spacing: 1px; text-transform: uppercase; }
+      .comp-box { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1.2; rx: 8; }
+      .comp-box-highlight { fill: #fef2f2; stroke: #e40000; stroke-width: 1.5; rx: 8; }
+      .comp-box-green { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 8; }
+      .comp-box-blue { fill: #f0f9ff; stroke: #0284c7; stroke-width: 1.5; rx: 8; }
+      .comp-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12.5px; font-weight: bold; fill: #0f172a; }
+      .comp-desc { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #475569; }
+      .badge { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: bold; fill: #ffffff; }
+      .arrow { stroke: #94a3b8; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-red { stroke: #e40000; stroke-width: 2; stroke-dasharray: 4,4; fill: none; marker-end: url(#arrowhead-red); }
+      .main-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #0f172a; }
+      .main-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; fill: #64748b; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e40000" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="850" class="bg" />
+
+  <!-- Title Banner -->
+  <rect x="40" y="25" width="1120" height="60" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" rx="10" />
+  <rect x="40" y="25" width="8" height="60" fill="#e40000" rx="3" />
+  <text x="65" y="52" class="main-title">Project Udyam Digital: End-to-End System Architecture</text>
+  <text x="65" y="72" class="main-sub">Airtel SYNC 2026 · Digital Track | Multilingual GenAI Advisor, Smart KYC &amp; Telecom Fulfillment Stack</text>
+
+  <!-- LAYER 1: CLIENT & CHANNEL EXPERIENCE -->
+  <rect x="40" y="105" width="1120" height="135" class="layer-bg" />
+  <text x="65" y="130" class="layer-title">Layer 1: Multichannel Client &amp; Partner Experience Layer</text>
+
+  <!-- Comp 1.1: Mobile Web App -->
+  <rect x="65" y="145" width="340" height="75" class="comp-box-blue" />
+  <text x="80" y="170" class="comp-title">Mobile-First PWA (React / Next.js)</text>
+  <text x="80" y="190" class="comp-desc">Responsive self-serve portal for MSME owners.</text>
+  <text x="80" y="206" class="comp-desc">Interactive dynamic quote slider &amp; real-time order tracker.</text>
+
+  <!-- Comp 1.2: WhatsApp Bot -->
+  <rect x="430" y="145" width="340" height="75" class="comp-box-green" />
+  <text x="445" y="170" class="comp-title">WhatsApp Conversational Bot (Cloud API)</text>
+  <text x="445" y="190" class="comp-desc">Zero-download native regional chat interface.</text>
+  <text x="445" y="206" class="comp-desc">Supports voice notes &amp; text in Hindi, Tamil, Telugu, English.</text>
+
+  <!-- Comp 1.3: Partner Assisted App -->
+  <rect x="795" y="145" width="340" height="75" class="comp-box-highlight" />
+  <text x="810" y="170" class="comp-title">Partner Co-Pilot Portal (Assisted Mode)</text>
+  <text x="810" y="190" class="comp-desc">Tablet view for 10k+ Airtel channel partners &amp; field reps.</text>
+  <text x="810" y="206" class="comp-desc">Dynamic QR code attribution &amp; abandoned lead recovery.</text>
+
+  <!-- LAYER 2: INTELLIGENCE & ADVISORY -->
+  <rect x="40" y="260" width="1120" height="150" class="layer-bg" />
+  <text x="65" y="285" class="layer-title">Layer 2: Intelligence &amp; Product Bundling Engine</text>
+
+  <!-- Comp 2.1: GenAI Advisor -->
+  <rect x="65" y="300" width="340" height="90" class="comp-box-highlight" />
+  <text x="80" y="325" class="comp-title">Multilingual GenAI Advisor (Gemini/LLM)</text>
+  <text x="80" y="345" class="comp-desc">Natural language intent extractor &amp; business profiler.</text>
+  <text x="80" y="362" class="comp-desc">3-turn diagnostic (Industry, Size, Current Tools).</text>
+  <text x="80" y="378" class="comp-desc">Generates plain-language 'Why this bundle' value briefs.</text>
+
+  <!-- Comp 2.2: Product Rule Engine -->
+  <rect x="430" y="300" width="340" height="90" class="comp-box" />
+  <text x="445" y="325" class="comp-title">Rule &amp; Dependency Solver Engine</text>
+  <text x="445" y="345" class="comp-desc">Enforces product_catalogue.csv eligibility constraints.</text>
+  <text x="445" y="362" class="comp-desc">City tier checks (Tier 1 vs 2), min employees &amp; sites.</text>
+  <text x="445" y="378" class="comp-desc">Dependency resolution (e.g. Secure Wi-Fi requires Fibre).</text>
+
+  <!-- Comp 2.3: Dynamic Quote Calculator -->
+  <rect x="795" y="300" width="340" height="90" class="comp-box-blue" />
+  <text x="810" y="325" class="comp-title">Dynamic Quote &amp; Add-on Calculator</text>
+  <text x="810" y="345" class="comp-desc">Instant transparent single-bill monthly pricing.</text>
+  <text x="810" y="362" class="comp-desc">Toggleable modular add-ons (CCTV, Static IP, Extra SIMs).</text>
+  <text x="810" y="378" class="comp-desc">Replaces 5-day opaque multi-page PDF quotes.</text>
+
+  <!-- LAYER 3: VERIFICATION, KYC & DPDP SECURITY -->
+  <rect x="40" y="430" width="1120" height="175" class="layer-bg" />
+  <text x="65" y="455" class="layer-title">Layer 3: Smart KYC, Document Verification &amp; DPDP Security Engine</text>
+
+  <!-- Comp 3.1: Consent & PII Gateway -->
+  <rect x="65" y="470" width="250" height="115" class="comp-box-green" />
+  <text x="80" y="495" class="comp-title">DPDP Consent Gateway</text>
+  <text x="80" y="515" class="comp-desc">Granular unbundled bilingual notice.</text>
+  <text x="80" y="532" class="comp-desc">Automated PII RegEx Redactor.</text>
+  <text x="80" y="549" class="comp-desc">Aadhaar (XXXX-XXXX-1234).</text>
+  <text x="80" y="566" class="comp-desc">Immutable audit trail logging.</text>
+
+  <!-- Comp 3.2: Registry Connectors -->
+  <rect x="335" y="470" width="260" height="115" class="comp-box" />
+  <text x="350" y="495" class="comp-title">Mock Registry Connectors</text>
+  <text x="350" y="515" class="comp-desc">GSTIN Registry API (3,534 records).</text>
+  <text x="350" y="532" class="comp-desc">Udyam MSME API (2,723 records).</text>
+  <text x="350" y="549" class="comp-desc">Format check: 'X' in PAN, '00' dist.</text>
+  <text x="350" y="566" class="comp-desc">0-typing auto-fill in &lt;500ms.</text>
+
+  <!-- Comp 3.3: OCR & Cross-Field Engine -->
+  <rect x="615" y="470" width="260" height="115" class="comp-box-highlight" />
+  <text x="630" y="495" class="comp-title">OCR &amp; Anomaly Detector</text>
+  <text x="630" y="515" class="comp-desc">Tesseract / Vision document extraction.</text>
+  <text x="630" y="532" class="comp-desc">Utility bill 90-day date check.</text>
+  <text x="630" y="549" class="comp-desc">Anchor date: 15-Jul-2026.</text>
+  <text x="630" y="566" class="comp-desc">Signatory name fuzzy match &gt;90%.</text>
+
+  <!-- Comp 3.4: Ephemeral Cache -->
+  <rect x="895" y="470" width="240" height="115" class="comp-box" />
+  <text x="910" y="495" class="comp-title">Secure Ephemeral Storage</text>
+  <text x="910" y="515" class="comp-desc">AES-256 encrypted RAM cache.</text>
+  <text x="910" y="532" class="comp-desc">Auto-purge within 24 hours.</text>
+  <text x="910" y="549" class="comp-desc">DoT compliance cold archive.</text>
+  <text x="910" y="566" class="comp-desc">Zero third-party monetization.</text>
+
+  <!-- LAYER 4: TELECOM OMS & TRACKER -->
+  <rect x="40" y="625" width="1120" height="150" class="layer-bg" />
+  <text x="65" y="650" class="layer-title">Layer 4: Telecom Fulfillment, OMS &amp; Real-Time Tracking</text>
+
+  <!-- Comp 4.1: Order Management System -->
+  <rect x="65" y="665" width="340" height="90" class="comp-box" />
+  <text x="80" y="690" class="comp-title">Core Telecom OMS &amp; Provisioning</text>
+  <text x="80" y="710" class="comp-desc">Creates unified subscriber account across all products.</text>
+  <text x="80" y="727" class="comp-desc">Triggers SIM dispatch &amp; SaaS license generation.</text>
+  <text x="80" y="744" class="comp-desc">Generates single monthly consolidated B2B bill.</text>
+
+  <!-- Comp 4.2: Feasibility & Field Dispatch -->
+  <rect x="430" y="665" width="340" height="90" class="comp-box" />
+  <text x="445" y="690" class="comp-title">GIS Feasibility &amp; Workforce Dispatch</text>
+  <text x="445" y="710" class="comp-desc">Instant FTTH fiber splitters vs 5G AirFiber feasibility.</text>
+  <text x="445" y="727" class="comp-desc">Assigns nearest field engineer with route tracking.</text>
+  <text x="445" y="744" class="comp-desc">Automated SLA management (target: &lt;4 days install).</text>
+
+  <!-- Comp 4.3: Self-Serve Live Tracker -->
+  <rect x="795" y="665" width="340" height="90" class="comp-box-green" />
+  <text x="810" y="690" class="comp-title">Real-Time Self-Serve Order Tracker</text>
+  <text x="810" y="710" class="comp-desc">Zero-chase magic link tracker sent via SMS/WhatsApp.</text>
+  <text x="810" y="727" class="comp-desc">Milestone stepper: Order -&gt; KYC -&gt; Dispatch -&gt; Active.</text>
+  <text x="810" y="744" class="comp-desc">Slashes customer chase calls from 3.0 to &lt;0.2.</text>
+
+  <!-- Connecting Arrows -->
+  <line x1="235" y1="220" x2="235" y2="300" class="arrow" />
+  <line x1="600" y1="220" x2="600" y2="300" class="arrow" />
+  <line x1="965" y1="220" x2="965" y2="300" class="arrow" />
+
+  <line x1="235" y1="390" x2="235" y2="470" class="arrow" />
+  <line x1="600" y1="390" x2="465" y2="470" class="arrow" />
+  <line x1="965" y1="390" x2="745" y2="470" class="arrow" />
+
+  <line x1="465" y1="585" x2="235" y2="665" class="arrow" />
+  <line x1="745" y1="585" x2="600" y2="665" class="arrow" />
+  <line x1="965" y1="585" x2="965" y2="665" class="arrow" />
+
+  <!-- Footer Tag -->
+  <text x="65" y="810" font-family="'Segoe UI', Arial, sans-serif" font-size="10px" fill="#94a3b8">Project Udyam Digital Architecture · Designed for Airtel SYNC 2026 · Digital Track Submission</text>
+</svg>
+</body></html>

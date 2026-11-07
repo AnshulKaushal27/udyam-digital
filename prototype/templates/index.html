@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Udyam Digital · Accel / Airtel Business</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --airtel-red: #e40000;
+      --airtel-dark: #0f172a;
+      --airtel-navy: #1e293b;
+      --airtel-bg: #f8fafc;
+      --airtel-border: #e2e8f0;
+    }
+    body {
+      background-color: var(--airtel-bg);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #334155;
+    }
+    .navbar-airtel {
+      background-color: var(--airtel-dark);
+      border-bottom: 3px solid var(--airtel-red);
+    }
+    .brand-title {
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+    .badge-sync {
+      background-color: var(--airtel-red);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .nav-tabs .nav-link {
+      color: #64748b;
+      font-weight: 600;
+      border: none;
+      padding: 12px 20px;
+    }
+    .nav-tabs .nav-link.active {
+      color: var(--airtel-red);
+      border-bottom: 3px solid var(--airtel-red);
+      background: transparent;
+    }
+    .card-custom {
+      border: 1px solid var(--airtel-border);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      background: #ffffff;
+    }
+    .btn-airtel {
+      background-color: var(--airtel-red);
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      padding: 8px 18px;
+      transition: all 0.2s;
+    }
+    .btn-airtel:hover {
+      background-color: #b80000;
+      color: #ffffff;
+    }
+    .chat-bubble-user {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      border-radius: 14px 14px 2px 14px;
+      padding: 10px 14px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .chat-bubble-bot {
+      background-color: #fef2f2;
+      border: 1px solid #fee2e2;
+      color: #0f172a;
+      border-radius: 14px 14px 14px 2px;
+      padding: 12px 16px;
+      max-width: 85%;
+      margin-right: auto;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+    .prompt-chip {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-block;
+      margin: 4px 2px;
+      transition: all 0.2s;
+    }
+    .prompt-chip:hover {
+      border-color: var(--airtel-red);
+      color: var(--airtel-red);
+      background-color: #fff5f5;
+    }
+    .stepper-item {
+      position: relative;
+      display: flex;
+      gap: 15px;
+      padding-bottom: 25px;
+    }
+    .stepper-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 35px;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+    }
+    .stepper-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      z-index: 2;
+    }
+    .stepper-icon.completed { background-color: #10b981; color: white; }
+    .stepper-icon.in-progress { background-color: #e40000; color: white; animation: pulse 2s infinite; }
+    .stepper-icon.pending { background-color: #e2e8f0; color: #94a3b8; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(228, 0, 0, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(228, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(228, 0, 0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-airtel py-2">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <span class="brand-title fs-4">Airtel <span class="text-danger">Business</span></span>
+        <span class="badge-sync">SYNC 2026</span>
+      </a>
+      <div class="d-flex align-items-center gap-3 text-white">
+        <span class="d-none d-md-inline small text-light opacity-75">Project Udyam Digital · Track A Prototype</span>
+        <button class="btn btn-sm btn-outline-light d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#llmSettingsModal">
+          <i class="bi bi-key-fill text-warning"></i> <span>LLM API Keys</span>
+        </button>
+        <span class="badge bg-success" id="llmStatusBadge"><i class="bi bi-circle-fill me-1" style="font-size: 8px;"></i> Rule Engine Active</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container-fluid py-4 px-4">
+
+    <!-- Header Stats Banner -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card card-custom p-3 border-start border-4 border-danger">
+          <div class="text-muted small fw-bold">FUNNEL CONVERSION LIFT</div>
+          <div class="fs-4 fw-bold text-dark">7.36% → 22.0% <span class="badge bg-success fs-6">+198%</span></div>
+          <div class="small text-muted">Eliminates 56% drop at quote stage</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-custom p-3 border-start border-4 border-primary">
+          <div class="text-muted small fw-bold">ONBOARDING TIME (TAT)</div>
+          <div class="fs-4 fw-bold text-dark">17.6 Days → 3.5 Days</div>
+          <div class="small text-muted">-80% faster via instant KYC</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-custom p-3 border-start border-4 border-warning">
+          <div class="text-muted small fw-bold">CUSTOMER ACQUISITION COST</div>
+          <div class="fs-4 fw-bold text-dark">₹15,000 → ₹3,800</div>
+          <div class="small text-muted">-75% cost savings per customer</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-custom p-3 border-start border-4 border-success">
+          <div class="text-muted small fw-bold">STATUS CHASE CALLS</div>
+          <div class="fs-4 fw-bold text-dark">3.0 → &lt; 0.2 Calls</div>
+          <div class="small text-muted">Zero-chase live milestone tracker</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4 bg-white rounded-top shadow-sm px-3" id="mainTabs" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" id="tab-advisor-btn" data-bs-toggle="tab" data-bs-target="#tab-advisor" type="button">
+          <i class="bi bi-robot me-1 text-danger"></i> 1. GenAI Conversational Advisor
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-quote-btn" data-bs-toggle="tab" data-bs-target="#tab-quote" type="button">
+          <i class="bi bi-calculator me-1"></i> 2. 1-Click Quote &amp; Modular Checkout
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-kyc-btn" data-bs-toggle="tab" data-bs-target="#tab-kyc" type="button">
+          <i class="bi bi-shield-check me-1"></i> 3. Smart KYC &amp; DPDP Compliance
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-tracker-btn" data-bs-toggle="tab" data-bs-target="#tab-tracker" type="button">
+          <i class="bi bi-geo-alt me-1"></i> 4. Live Order Tracker
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-partner-btn" data-bs-toggle="tab" data-bs-target="#tab-partner" type="button">
+          <i class="bi bi-people me-1"></i> 5. Partner Co-Pilot (Assisted Mode)
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="mainTabContent">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: GENAI CONVERSATIONAL ADVISOR -->
+      <!-- ========================================== -->
+      <div class="tab-pane fade show active" id="tab-advisor" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card card-custom p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-chat-dots text-danger me-2"></i>Multilingual Needs Discovery</h5>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="small text-muted">Language:</span>
+                  <select id="langSelect" class="form-select form-select-sm" style="width: 130px;">
+                    <option value="en" selected>English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="hinglish">Hinglish</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Quick Prompt Chips -->
+              <div class="mb-3">
+                <div class="small text-muted mb-1 fw-bold">Test Scenarios (Click to test):</div>
+                <span class="prompt-chip" onclick="sendQuickPrompt('I run a small kirana store with 3 staff and UPI QR. Internet keeps dropping.')">🏪 Kirana Store (UPI/POS)</span>
+                <span class="prompt-chip" onclick="sendQuickPrompt('I have a dental clinic with 4 staff. Need secure patient records and high uptime.')">🏥 Dental Clinic</span>
+                <span class="prompt-chip" onclick="sendQuickPrompt('We have 3 retail stores needing centralized CCTV, SD-WAN failover, and one bill.')">🏬 3-Store Retail Chain</span>
+                <span class="prompt-chip" onclick="sendQuickPrompt('Auto-parts workshop needing dedicated leased line and machine IoT telemetry.')">🏭 Small Manufacturer</span>
+              </div>
+
+              <!-- Chat Window -->
+              <div id="chatWindow" class="p-3 border rounded bg-white mb-3" style="height: 330px; overflow-y: auto;">
+                <div class="chat-bubble-bot">
+                  <strong>Airtel AI Advisor:</strong><br>
+                  Namaste! I am your Accel Business Digital Advisor. Tell me about your business, number of staff, or current tools, and I will recommend the right digital bundle in one sitting!
+                </div>
+              </div>
+
+              <!-- Chat Input Form -->
+              <form id="chatForm" class="d-flex gap-2">
+                <input type="text" id="userInput" class="form-control" placeholder="E.g., I run a clinic in Delhi with 5 staff..." required>
+                <button type="submit" class="btn btn-airtel px-4"><i class="bi bi-send-fill me-1"></i> Ask</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Recommendation Result Card -->
+          <div class="col-lg-5">
+            <div class="card card-custom p-4 h-100">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-stars text-warning me-2"></i>Recommended Digital Bundle</h5>
+              <div id="recommendationPlaceholder" class="text-center py-5 text-muted">
+                <i class="bi bi-box-seam display-3 text-secondary opacity-50"></i>
+                <p class="mt-3">Ask the advisor to generate your custom business bundle.</p>
+              </div>
+
+              <div id="recommendationCard" style="display: none;">
+                <div class="badge bg-danger mb-2" id="recSegment">Micro Retail</div>
+                <h4 class="fw-bold text-dark" id="recTitle">Kirana Digital Starter</h4>
+                <div class="d-flex align-items-baseline gap-2 mb-3">
+                  <span class="display-6 fw-bold text-danger" id="recPrice">₹1,999</span>
+                  <span class="text-muted">/ month + GST</span>
+                </div>
+                
+                <div class="alert alert-light border small text-dark mb-3" id="recWhy">
+                  Why this bundle?
+                </div>
+
+                <div class="small fw-bold text-muted mb-2">INCLUDED IN BUNDLE:</div>
+                <ul class="list-group list-group-flush mb-4 small" id="recProductList">
+                  <!-- Populated dynamically -->
+                </ul>
+
+                <button class="btn btn-airtel w-100 py-2" onclick="switchToQuote()">
+                  Proceed to 1-Click Quote &amp; Add-ons <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: 1-CLICK QUOTE & MODULAR CHECKOUT -->
+      <!-- ========================================== -->
+      <div class="tab-pane fade" id="tab-quote" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card card-custom p-4">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-sliders text-danger me-2"></i>Select Base Bundle &amp; Modular Add-ons</h5>
+              
+              <!-- Base Bundle Selector -->
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-muted">SELECT BASE HERO BUNDLE:</label>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <div class="p-3 border rounded cursor-pointer bundle-option" onclick="selectBaseBundle('bundle_kirana')">
+                      <div class="fw-bold text-dark">🏪 Kirana Digital Starter</div>
+                      <div class="text-danger fw-bold">₹1,999/mo</div>
+                      <div class="text-muted small">Biz 5G AirFiber + POS Failover</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3 border rounded cursor-pointer bundle-option" onclick="selectBaseBundle('bundle_clinic')">
+                      <div class="fw-bold text-dark">🏥 Clinic / Office Suite</div>
+                      <div class="text-danger fw-bold">₹3,499/mo</div>
+                      <div class="text-muted small">Biz Fibre 300 + Cloud Backup + Workspace</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3 border rounded cursor-pointer bundle-option" onclick="selectBaseBundle('bundle_multisite')">
+                      <div class="fw-bold text-dark">🏬 Multi-Site Retail Pro</div>
+                      <div class="text-danger fw-bold">₹7,999/mo</div>
+                      <div class="text-muted small">Biz Fibre 1G + SD-WAN + 4x CCTV</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3 border rounded cursor-pointer bundle-option" onclick="selectBaseBundle('bundle_manufacturer')">
+                      <div class="fw-bold text-dark">🏭 Small Manufacturing Suite</div>
+                      <div class="text-danger fw-bold">₹14,999/mo</div>
+                      <div class="text-muted small">Leased Line 20 + Static IP + IoT</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modular Add-on Toggles -->
+              <label class="form-label small fw-bold text-muted">MODULAR ADD-ONS (Instant 1-Click Toggles):</label>
+              <div class="border rounded p-3 mb-3">
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input addon-toggle" type="checkbox" value="P15" id="addonP15" onchange="updateQuote()">
+                  <label class="form-check-label d-flex justify-content-between" for="addonP15">
+                    <span><strong>WhatsApp Business API Starter</strong> (P15) - Customer engagement</span>
+                    <span class="text-danger fw-bold">+₹999/mo</span>
+                  </label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input addon-toggle" type="checkbox" value="P23" id="addonP23" onchange="updateQuote()">
+                  <label class="form-check-label d-flex justify-content-between" for="addonP23">
+                    <span><strong>Cloud CCTV (2 Cameras)</strong> (P23) - 30-day cloud recording</span>
+                    <span class="text-danger fw-bold">+₹800/mo</span>
+                  </label>
+                </div>
+                <div class="form-check form-switch mb-2">
+                  <input class="form-check-input addon-toggle" type="checkbox" value="P11" id="addonP11" onchange="updateQuote()">
+                  <label class="form-check-label d-flex justify-content-between" for="addonP11">
+                    <span><strong>Static IP Address</strong> (P11) - For remote CCTV/server hosting</span>
+                    <span class="text-danger fw-bold">+₹300/mo</span>
+                  </label>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input addon-toggle" type="checkbox" value="P07" id="addonP07" onchange="updateQuote()">
+                  <label class="form-check-label d-flex justify-content-between" for="addonP07">
+                    <span><strong>Business Postpaid SIM (299)</strong> (P07) - 40GB Pooled data</span>
+                    <span class="text-danger fw-bold">+₹299/mo</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Price Breakdown -->
+          <div class="col-lg-5">
+            <div class="card card-custom p-4 h-100 bg-white">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-receipt text-success me-2"></i>Single Transparent Bill</h5>
+              
+              <div class="p-3 bg-light rounded mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted" id="qBaseName">Base Bundle</span>
+                  <span class="fw-bold" id="qBasePrice">₹1,999</span>
+                </div>
+                <div id="qAddonList">
+                  <!-- Populated dynamically -->
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Subtotal (Monthly)</span>
+                  <span class="fw-bold" id="qSubtotal">₹1,999</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">GST (18%)</span>
+                  <span class="fw-bold" id="qGst">₹360</span>
+                </div>
+                <div class="d-flex justify-content-between fs-5 text-dark border-top pt-2">
+                  <span class="fw-bold">Total Monthly Bill</span>
+                  <span class="fw-bold text-danger" id="qTotal">₹2,359</span>
+                </div>
+              </div>
+
+              <div class="row g-2 mb-4 text-center small">
+                <div class="col-6">
+                  <div class="p-2 border rounded bg-white">
+                    <div class="text-muted">One-time Setup Fee</div>
+                    <div class="fw-bold text-dark" id="qSetup">₹1,000</div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="p-2 border rounded bg-white">
+                    <div class="text-muted">Contract Duration</div>
+                    <div class="fw-bold text-dark" id="qContract">12 Months</div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-airtel w-100 py-2" onclick="switchToKYC()">
+                Confirm Quote &amp; Start Smart KYC <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+              <div class="small text-muted text-center mt-2">
+                <i class="bi bi-lock-fill text-success me-1"></i> Zero 5-day quote wait. 100% transparent pricing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: SMART KYC & DPDP COMPLIANCE -->
+      <!-- ========================================== -->
+      <div class="tab-pane fade" id="tab-kyc" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="card card-custom p-4 mb-4">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-shield-lock-fill text-danger me-2"></i>1. DPDP Act 2023 Consent Notice</h5>
+              <div class="alert alert-light border small text-dark mb-3">
+                <strong>Bilingual Consent Notice (Section 6 DPDP Act):</strong><br>
+                "We collect your GSTIN, Udyam registration, and identity proofs solely for statutory DoT telecommunications KYC and installation feasibility. Your sensitive identifiers (PAN, Aadhaar) are masked in our systems. Data is encrypted and raw images are purged post-verification."
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="dpdpConsentCheck" checked onchange="recordConsent()">
+                <label class="form-check-label small fw-bold" for="dpdpConsentCheck">
+                  I give explicit consent under the DPDP Act, 2023 for telecom verification.
+                </label>
+              </div>
+              <div id="consentStatus" class="small text-success fw-bold">
+                <i class="bi bi-check-circle-fill me-1"></i> Consent Token Logged (Audit Trail: SHA256)
+              </div>
+            </div>
+
+            <!-- Instant Registry Lookup -->
+            <div class="card card-custom p-4">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-search text-primary me-2"></i>2. Zero-Typing Registry Lookup</h5>
+              
+              <!-- GSTIN Lookup -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">ENTER GSTIN (Checks mock_gstin_registry.csv):</label>
+                <div class="input-group">
+                  <input type="text" id="gstinInput" class="form-control" value="19EOGXH4115Y1ZL" placeholder="15-character GSTIN">
+                  <button class="btn btn-outline-danger fw-bold" type="button" onclick="queryGSTIN()">Lookup GSTIN</button>
+                </div>
+                <div class="form-text small">Try: <code>19EOGXH4115Y1ZL</code> (Active) or <code>37IHKXV5167L1ZS</code> (Cancelled).</div>
+              </div>
+
+              <!-- GSTIN Result Box -->
+              <div id="gstinResult" class="p-3 border rounded bg-light small mb-3" style="display: none;">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Legal Name:</span>
+                  <span class="fw-bold" id="gstLegalName">-</span>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Trade Name:</span>
+                  <span class="fw-bold" id="gstTradeName">-</span>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Masked GSTIN:</span>
+                  <span class="badge bg-dark font-monospace" id="gstMasked">-</span>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Status:</span>
+                  <span class="badge" id="gstStatusBadge">Active</span>
+                </div>
+                <div class="mt-2 text-muted small" id="gstAddress">Address: -</div>
+              </div>
+
+              <!-- Udyam Lookup -->
+              <div class="mb-2">
+                <label class="form-label small fw-bold text-muted">ENTER UDYAM REGISTRATION (Checks mock_udyam_registry.csv):</label>
+                <div class="input-group">
+                  <input type="text" id="udyamInput" class="form-control" value="UDYAM-MH-00-9516696" placeholder="UDYAM-XX-00-XXXXXXX">
+                  <button class="btn btn-outline-primary fw-bold" type="button" onclick="queryUdyam()">Lookup Udyam</button>
+                </div>
+              </div>
+              <div id="udyamResult" class="p-3 border rounded bg-light small mt-2" style="display: none;">
+                <div class="d-flex justify-content-between">
+                  <span class="text-muted">Enterprise:</span>
+                  <span class="fw-bold" id="udyName">-</span>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <span class="text-muted">Classification:</span>
+                  <span class="badge bg-primary" id="udyClass">Micro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specimen Test Harness -->
+          <div class="col-lg-6">
+            <div class="card card-custom p-4 h-100">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-check-fill text-success me-2"></i>3. Specimen Document &amp; OCR Validator</h5>
+              <p class="small text-muted mb-3">
+                Test the Smart KYC OCR validator against the 12 specimen applicants (K01 to K12) with planted anomalies:
+              </p>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">SELECT SPECIMEN APPLICANT:</label>
+                <select id="specimenSelect" class="form-select" onchange="runSpecimenValidation()">
+                  <option value="K02" selected>K02: Harmony Dental Care (Valid Case - All Clear)</option>
+                  <option value="K01">K01: Vindhya Tours (Planted Anomaly: Cancelled GSTIN)</option>
+                  <option value="K03">K03: Ganesh Woodcraft (Valid Micro Enterprise)</option>
+                  <option value="K04">K04: Saffron Dental Care (Planted Anomaly: Low-Res / Blurry Scan)</option>
+                  <option value="K05">K05: Saffron Bakers (Planted Anomaly: Utility Bill >90 Days Old)</option>
+                  <option value="K06">K06: Balaji Dental Care (Valid Multi-Site Case)</option>
+                </select>
+              </div>
+
+              <!-- Automated Audit Result Card -->
+              <div id="kycAuditCard" class="p-3 border rounded bg-white mt-2">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="fw-bold text-dark" id="auditBizName">Harmony Dental Care</span>
+                  <span class="badge bg-success fs-6" id="auditVerdictBadge">VERIFIED &amp; APPROVED</span>
+                </div>
+
+                <div class="small mb-2" id="auditSignatory"><strong>Signatory:</strong> Joseph Shah</div>
+                <div class="small mb-2 font-monospace" id="auditMasked"><strong>Masked GSTIN:</strong> 19EOGXH****1ZL</div>
+                
+                <div class="p-2 border rounded bg-light small mb-3">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Utility Bill Date (Anchor: 15-Jul-2026):</span>
+                    <span class="fw-bold" id="auditBillDate">2026-05-22</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Document Recency:</span>
+                    <span class="badge bg-success" id="auditRecency">Valid (54 days old &lt; 90d)</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>GST Status Check:</span>
+                    <span class="badge bg-success" id="auditGstStatus">Active</span>
+                  </div>
+                </div>
+
+                <div class="alert alert-light border small text-dark mb-3" id="auditReasons">
+                  <strong>Verification Audit Log:</strong> All documents valid. GST Active, Bill within 54 days (&lt;90d), Signatory verified.
+                </div>
+
+                <button class="btn btn-airtel w-100" onclick="switchToTracker()">
+                  Proceed to Live Order Tracker <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: REAL-TIME LIVE ORDER TRACKER -->
+      <!-- ========================================== -->
+      <div class="tab-pane fade" id="tab-tracker" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card card-custom p-4">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h5 class="fw-bold text-dark mb-0"><i class="bi bi-truck text-danger me-2"></i>Live Fulfillment Milestone Stepper</h5>
+                  <div class="small text-muted">Order ID: <strong id="trkOrderId">ORD-2026-9812</strong></div>
+                </div>
+                <span class="badge bg-danger fs-6 px-3 py-2">SLA: 3.5 Days to Active</span>
+              </div>
+
+              <!-- Stepper Timeline -->
+              <div class="stepper">
+                <div class="stepper-item">
+                  <div class="stepper-icon completed"><i class="bi bi-check-lg"></i></div>
+                  <div>
+                    <div class="fw-bold text-dark">Step 1: Order Confirmed &amp; Bundle Selected</div>
+                    <div class="text-muted small">15-Jul-2026 · Bundle: Clinic &amp; Professional Office Suite (₹3,499/mo)</div>
+                  </div>
+                </div>
+                <div class="stepper-item">
+                  <div class="stepper-icon completed"><i class="bi bi-check-lg"></i></div>
+                  <div>
+                    <div class="fw-bold text-dark">Step 2: Digital Smart KYC &amp; Registry Cleared</div>
+                    <div class="text-muted small">15-Jul-2026 · GSTIN &amp; Udyam verified in 400ms · DPDP Consent Logged</div>
+                  </div>
+                </div>
+                <div class="stepper-item">
+                  <div class="stepper-icon completed"><i class="bi bi-check-lg"></i></div>
+                  <div>
+                    <div class="fw-bold text-dark">Step 3: GIS Feasibility Cleared</div>
+                    <div class="text-muted small">16-Jul-2026 · Optical Splitter Available (Port 4/8) · Zero line blockers</div>
+                  </div>
+                </div>
+                <div class="stepper-item">
+                  <div class="stepper-icon in-progress"><i class="bi bi-arrow-repeat"></i></div>
+                  <div>
+                    <div class="fw-bold text-danger">Step 4: Hardware Dispatched &amp; Field Engineer Assigned</div>
+                    <div class="text-muted small">17-Jul-2026 · Hardware on vehicle · Engineer: <strong>Rahul Sharma</strong> (+91 98101 23456)</div>
+                  </div>
+                </div>
+                <div class="stepper-item">
+                  <div class="stepper-icon pending">5</div>
+                  <div>
+                    <div class="fw-bold text-muted">Step 5: On-Premises Installation &amp; Service Active</div>
+                    <div class="text-muted small">Expected: 18-Jul-2026 · Symmetrical 300 Mbps + Unified Billing live</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Service Card -->
+          <div class="col-lg-5">
+            <div class="card card-custom p-4 h-100 bg-white">
+              <h5 class="fw-bold text-dark mb-3"><i class="bi bi-headset text-primary me-2"></i>Zero-Chase Guarantee</h5>
+              <div class="p-3 bg-light rounded mb-3 small">
+                <div class="fw-bold text-dark mb-1">Why Customers Chased 3+ Times Previously:</div>
+                <p class="text-muted mb-0">In the legacy flow, 98 orders cancelled due to installation delays beyond 21 days with no status visibility.</p>
+              </div>
+
+              <div class="p-3 border rounded mb-3">
+                <div class="small fw-bold text-muted mb-2">ASSIGNED AIRTEL INSTALLATION ENGINEER:</div>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="bg-danger text-white rounded-circle p-2 fs-4">
+                    <i class="bi bi-person-fill"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-dark">Rahul Sharma</div>
+                    <div class="small text-muted">Airtel Enterprise Field Engineer</div>
+                    <div class="small text-danger fw-bold"><i class="bi bi-telephone-fill me-1"></i>+91 98101 23456</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-success small mb-0">
+                <i class="bi bi-bell-fill me-1"></i> SMS &amp; WhatsApp status alerts are automatically sent at every milestone, slashing status chase calls from 3.0 to &lt; 0.2 calls per customer.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: PARTNER CO-PILOT (ASSISTED MODE) -->
+      <!-- ========================================== -->
+      <div class="tab-pane fade" id="tab-partner" role="tabpanel">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="card card-custom p-4 mb-4">
+              <h5 class="fw-bold text-dark mb-2"><i class="bi bi-qr-code text-danger me-2"></i>Partner QR &amp; Attribution</h5>
+              <p class="small text-muted mb-3">
+                Airtel channel partners and field executives use dynamic QR codes to onboard merchants in 10 minutes with instant commission attribution:
+              </p>
+              <div class="text-center p-3 border rounded bg-light mb-3">
+                <i class="bi bi-qr-code display-1 text-dark"></i>
+                <div class="small fw-bold mt-2">PARTNER ID: PARTNER-DEL-8812</div>
+                <div class="badge bg-success">Instant Commission Eligible</div>
+              </div>
+              <button class="btn btn-outline-danger w-100 btn-sm fw-bold">
+                <i class="bi bi-share me-1"></i> Share Partner Onboarding Link
+              </button>
+            </div>
+          </div>
+
+          <!-- Abandoned Lead Rescue Dashboard -->
+          <div class="col-lg-8">
+            <div class="card card-custom p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h5 class="fw-bold text-dark mb-0"><i class="bi bi-telephone-outbound text-danger me-2"></i>Abandoned Lead Rescue Engine</h5>
+                  <div class="small text-muted">Recovering leads dropped during sales consultation from <code>smb_leads.csv</code></div>
+                </div>
+                <span class="badge bg-danger">AI Propensity Prioritized</span>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-hover align-middle small">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Lead ID</th>
+                      <th>Business Name</th>
+                      <th>Drop Reason</th>
+                      <th>Propensity</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="partnerLeadsTable">
+                    <!-- Populated via API -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LLM Settings Modal -->
+  <div class="modal fade" id="llmSettingsModal" tabindex="-1" aria-labelledby="llmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="llmModalLabel"><i class="bi bi-robot text-danger me-2"></i>Configure Live LLM API Keys</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="small text-muted mb-3">
+            Plug in your live LLM API key below (Gemini, OpenAI, or Groq) to power the Advisor with a real generative model. If left blank, the app uses the built-in deterministic rule engine.
+          </p>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Active Provider</label>
+            <select id="llmProviderSelect" class="form-select form-select-sm">
+              <option value="auto" selected>Auto-Detect (Uses first available key)</option>
+              <option value="gemini">Google Gemini (Recommended)</option>
+              <option value="openai">OpenAI (GPT-4o-mini)</option>
+              <option value="groq">Groq (Llama-3.3-70b)</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Google Gemini API Key</label>
+            <input type="password" id="geminiKeyInput" class="form-control form-control-sm" placeholder="AIzaSy...">
+            <div class="form-text small" id="geminiKeyStatus">Status: Not Set</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold">OpenAI API Key</label>
+            <input type="password" id="openaiKeyInput" class="form-control form-control-sm" placeholder="sk-proj-...">
+            <div class="form-text small" id="openaiKeyStatus">Status: Not Set</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Groq API Key</label>
+            <input type="password" id="groqKeyInput" class="form-control form-control-sm" placeholder="gsk_...">
+            <div class="form-text small" id="groqKeyStatus">Status: Not Set</div>
+          </div>
+
+          <div class="alert alert-light border small text-dark mb-0">
+            <i class="bi bi-shield-check text-success me-1"></i> Keys are stored locally in your <code>prototype/.env</code> file.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-airtel btn-sm" onclick="saveLLMSettings()">Save &amp; Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let currentBundleId = "bundle_kirana";
+
+    // Load LLM Settings
+    function loadLLMSettings() {
+      fetch("/api/advisor/settings")
+      .then(r => r.json())
+      .then(data => {
+        const badge = document.getElementById("llmStatusBadge");
+        if (data.active_provider !== "Local Rule Engine") {
+          badge.className = "badge bg-danger";
+          badge.innerHTML = `<i class="bi bi-cpu-fill me-1"></i> ${data.active_provider} Live`;
+        } else {
+          badge.className = "badge bg-secondary";
+          badge.innerHTML = `<i class="bi bi-gear-wide-connected me-1"></i> Rule Engine Active`;
+        }
+
+        document.getElementById("geminiKeyStatus").innerText = "Status: " + data.gemini_masked;
+        document.getElementById("openaiKeyStatus").innerText = "Status: " + data.openai_masked;
+        document.getElementById("groqKeyStatus").innerText = "Status: " + data.groq_masked;
+        document.getElementById("llmProviderSelect").value = data.provider || "auto";
+      });
+    }
+
+    function saveLLMSettings() {
+      const gKey = document.getElementById("geminiKeyInput").value.trim();
+      const oKey = document.getElementById("openaiKeyInput").value.trim();
+      const grokKey = document.getElementById("groqKeyInput").value.trim();
+      const prov = document.getElementById("llmProviderSelect").value;
+
+      const payload = { provider: prov };
+      if (gKey) payload.gemini_api_key = gKey;
+      if (oKey) payload.openai_api_key = oKey;
+      if (grokKey) payload.groq_api_key = grokKey;
+
+      fetch("/api/advisor/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(r => r.json())
+      .then(data => {
+        alert("LLM Settings saved! Active Engine: " + data.active_provider);
+        loadLLMSettings();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('llmSettingsModal'));
+        if (modal) modal.hide();
+      });
+    }
+
+    // 1. Advisor Chat
+    document.getElementById("chatForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendChatMessage("user", text);
+      input.value = "";
+
+      const lang = document.getElementById("langSelect").value;
+      fetch("/api/advisor/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, language: lang })
+      })
+      .then(r => r.json())
+      .then(data => {
+        appendChatMessage("bot", data.reply, data.engine);
+        displayRecommendation(data.bundle);
+      });
+    });
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById("userInput").value = promptText;
+      document.getElementById("chatForm").dispatchEvent(new Event("submit"));
+    }
+
+    function appendChatMessage(sender, text, engine) {
+      const win = document.getElementById("chatWindow");
+      const div = document.createElement("div");
+      div.className = sender === "user" ? "chat-bubble-user" : "chat-bubble-bot";
+      
+      const engineTag = engine ? `<div class="small text-muted mt-1" style="font-size: 0.75rem;"><i class="bi bi-cpu me-1"></i>${engine}</div>` : "";
+      div.innerHTML = sender === "user" ? text : `<strong>Airtel AI Advisor:</strong><br>${text}${engineTag}`;
+      win.appendChild(div);
+      win.scrollTop = win.scrollHeight;
+    }
+
+    function displayRecommendation(bundle) {
+      document.getElementById("recommendationPlaceholder").style.display = "none";
+      const card = document.getElementById("recommendationCard");
+      card.style.display = "block";
+
+      document.getElementById("recSegment").innerText = bundle.segment;
+      document.getElementById("recTitle").innerText = bundle.name;
+      document.getElementById("recPrice").innerText = "₹" + bundle.monthly_inr.toLocaleString();
+      document.getElementById("recWhy").innerHTML = `<strong>Why this bundle?</strong> ${bundle.why}`;
+
+      const list = document.getElementById("recProductList");
+      list.innerHTML = "";
+      bundle.products.forEach(p => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center px-0";
+        li.innerHTML = `<span><i class="bi bi-check-circle-fill text-success me-2"></i>${p.name}</span><span class="badge bg-light text-dark border">${p.cat}</span>`;
+        list.appendChild(li);
+      });
+
+      currentBundleId = bundle.id;
+    }
+
+    function switchToQuote() {
+      const quoteTab = new bootstrap.Tab(document.getElementById('tab-quote-btn'));
+      quoteTab.show();
+      selectBaseBundle(currentBundleId);
+    }
+
+    // 2. Quote Calculation
+    function selectBaseBundle(bundleId) {
+      currentBundleId = bundleId;
+      updateQuote();
+    }
+
+    function updateQuote() {
+      const addons = [];
+      document.querySelectorAll(".addon-toggle:checked").forEach(cb => addons.push(cb.value));
+
+      fetch("/api/quote/calculate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bundle_id: currentBundleId, addons: addons })
+      })
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("qBaseName").innerText = data.base_bundle;
+        document.getElementById("qSubtotal").innerText = "₹" + data.monthly_subtotal.toLocaleString();
+        document.getElementById("qGst").innerText = "₹" + data.gst_18.toLocaleString();
+        document.getElementById("qTotal").innerText = "₹" + data.total_monthly.toLocaleString();
+        document.getElementById("qSetup").innerText = "₹" + data.setup_fee.toLocaleString();
+        document.getElementById("qContract").innerText = data.contract_months + " Months";
+
+        const aList = document.getElementById("qAddonList");
+        aList.innerHTML = "";
+        data.addons.forEach(a => {
+          const div = document.createElement("div");
+          div.className = "d-flex justify-content-between text-muted small mb-1";
+          div.innerHTML = `<span>+ ${a.name}</span><span>₹${a.price}</span>`;
+          aList.appendChild(div);
+        });
+      });
+    }
+
+    function switchToKYC() {
+      const kycTab = new bootstrap.Tab(document.getElementById('tab-kyc-btn'));
+      kycTab.show();
+    }
+
+    // 3. KYC Functions
+    function recordConsent() {
+      const checked = document.getElementById("dpdpConsentCheck").checked;
+      const st = document.getElementById("consentStatus");
+      if (checked) {
+        st.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Consent Token Logged (Audit Trail: SHA256)';
+        st.className = "small text-success fw-bold";
+      } else {
+        st.innerHTML = '<i class="bi bi-x-circle-fill me-1"></i> Consent revoked. Verification paused.';
+        st.className = "small text-danger fw-bold";
+      }
+    }
+
+    function queryGSTIN() {
+      const gstin = document.getElementById("gstinInput").value.trim();
+      fetch("/api/kyc/lookup_gstin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ gstin: gstin })
+      })
+      .then(r => r.json())
+      .then(data => {
+        const res = document.getElementById("gstinResult");
+        res.style.display = "block";
+        if (data.valid) {
+          document.getElementById("gstLegalName").innerText = data.legal_name;
+          document.getElementById("gstTradeName").innerText = data.trade_name;
+          document.getElementById("gstMasked").innerText = data.masked_gstin;
+          document.getElementById("gstAddress").innerText = "Address: " + data.address;
+          const badge = document.getElementById("gstStatusBadge");
+          badge.innerText = data.status;
+          badge.className = data.is_active ? "badge bg-success" : "badge bg-danger";
+        } else {
+          alert("GSTIN Lookup Error: " + data.message);
+        }
+      });
+    }
+
+    function queryUdyam() {
+      const udyam = document.getElementById("udyamInput").value.trim();
+      fetch("/api/kyc/lookup_udyam", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ udyam_number: udyam })
+      })
+      .then(r => r.json())
+      .then(data => {
+        const res = document.getElementById("udyamResult");
+        res.style.display = "block";
+        if (data.valid) {
+          document.getElementById("udyName").innerText = data.enterprise_name;
+          document.getElementById("udyClass").innerText = data.enterprise_type;
+        } else {
+          alert("Udyam Error: " + data.message);
+        }
+      });
+    }
+
+    function runSpecimenValidation() {
+      const app = document.getElementById("specimenSelect").value;
+      fetch("/api/kyc/validate_documents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applicant_id: app })
+      })
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("auditBizName").innerText = data.business_name;
+        document.getElementById("auditSignatory").innerHTML = `<strong>Signatory:</strong> ${data.signatory_name}`;
+        document.getElementById("auditMasked").innerHTML = `<strong>Masked GSTIN:</strong> ${data.masked_gstin}`;
+        document.getElementById("auditBillDate").innerText = data.bill_date;
+        document.getElementById("auditRecency").innerText = data.bill_age_status;
+        document.getElementById("auditRecency").className = data.passed ? "badge bg-success" : "badge bg-danger";
+        document.getElementById("auditGstStatus").innerText = data.gst_status;
+        document.getElementById("auditGstStatus").className = (data.gst_status.toLowerCase() === "active") ? "badge bg-success" : "badge bg-danger";
+
+        const vBadge = document.getElementById("auditVerdictBadge");
+        vBadge.innerText = data.verdict;
+        vBadge.className = data.passed ? "badge bg-success fs-6" : "badge bg-danger fs-6";
+
+        document.getElementById("auditReasons").innerHTML = `<strong>Verification Audit Log:</strong> ${data.reasons}`;
+      });
+    }
+
+    function switchToTracker() {
+      const trackerTab = new bootstrap.Tab(document.getElementById('tab-tracker-btn'));
+      trackerTab.show();
+    }
+
+    // 4. Load Partner Leads
+    function loadPartnerLeads() {
+      fetch("/api/partner/leads")
+      .then(r => r.json())
+      .then(data => {
+        const tbody = document.getElementById("partnerLeadsTable");
+        tbody.innerHTML = "";
+        data.leads.forEach(l => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><code>${l.lead_id}</code></td>
+            <td><strong>${l.business_name}</strong><br><span class="text-muted">${l.city}</span></td>
+            <td><span class="badge bg-light text-dark border">${l.drop_reason}</span></td>
+            <td><span class="badge bg-${l.priority_badge}">${l.propensity_score}</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="alert('Initiating WhatsApp / Call follow-up for ${l.business_name}')">
+                <i class="bi bi-telephone-fill"></i> Reach Out
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+
+    // Initial runs
+    updateQuote();
+    loadPartnerLeads();
+    runSpecimenValidation();
+    loadLLMSettings();
+  </script>
+</body>
+</html>

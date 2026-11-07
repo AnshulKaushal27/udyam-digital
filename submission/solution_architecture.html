@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 1.0cm;
+  }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.3;
+    font-size: 8.5pt;
+    margin: 0;
+    padding: 0;
+  }
+  .header-table {
+    width: 100%;
+    border-bottom: 2px solid #e40000;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #e40000;
+    margin: 0;
+  }
+  .subtitle {
+    font-size: 8.5pt;
+    color: #64748b;
+  }
+  h2 {
+    font-size: 9.5pt;
+    color: #0f172a;
+    border-left: 3px solid #e40000;
+    padding-left: 5px;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 8.5pt;
+    color: #b91c1c;
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+  p {
+    margin: 0 0 4px 0;
+  }
+  ul {
+    margin: 0 0 4px 0;
+    padding-left: 15px;
+  }
+  li {
+    margin-bottom: 2px;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    font-size: 8pt;
+  }
+  table.data-table th, table.data-table td {
+    border: 1px solid #cbd5e1;
+    padding: 3px 5px;
+    text-align: left;
+  }
+  table.data-table th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  table.data-table tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #0284c7;
+    padding: 5px 7px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }
+  .footer {
+    border-top: 1px solid #e2e8f0;
+    margin-top: 10px;
+    padding-top: 4px;
+    font-size: 7.5pt;
+    color: #94a3b8;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<table class="header-table">
+  <tr>
+    <td>
+      <div class="title">PROJECT UDYAM DIGITAL — SOLUTION ARCHITECTURE & DATA FLOWS</div>
+      <div class="subtitle">Bharti Airtel SYNC 2026 Innovation Challenge | Enterprise Track A | Team: Halo · Thapar Institute of Engineering & Technology</div>
+    </td>
+    <td style="text-align: right; vertical-align: bottom;">
+      <span style="background: #e40000; color: #fff; padding: 3px 7px; font-weight: bold; font-size: 7.5pt; border-radius: 3px;">PRODUCTION SPECIFICATION</span>
+    </td>
+  </tr>
+</table>
+
+<h2>1. System Overview & 4-Tier Cloud Architecture</h2>
+<p>Project Udyam Digital is a telco-grade, dual-portal digital onboarding platform for Indian MSMEs discovering, purchasing, and activating Airtel Business digital bundles:</p>
+<ul>
+  <li><strong>Tier 1 — Multichannel Experience Layer:</strong> Dual independent frontend portals: Consumer Self-Serve Portal (<code>/</code>) and Airtel Control Command Centre (<code>/control</code>).</li>
+  <li><strong>Tier 2 — Intelligence & Bundling Layer:</strong> Groq LLaMA 3.3 70B sales consultant, deterministic 5-factor scoring engine, 4 hero bundles, and 8-class quote recovery engine.</li>
+  <li><strong>Tier 3 — Verification & Exception Layer:</strong> Smart KYC engine cross-validating GSTIN and Udyam against mock registries, OCR scoring, and 90-day utility bill date checks.</li>
+  <li><strong>Tier 4 — Operations & Fulfillment Layer:</strong> Proactive Installation Risk Engine, bundle-specific SLA tracking, and unified exception action queue.</li>
+</ul>
+
+<h2>2. Dual Independent Portals Architecture</h2>
+<div class="card">
+  <p><strong>A. Consumer Portal (<code>/</code>):</strong> Lightweight, distraction-free interface built for non-technical MSME owners. Features consultative 1-question chat in Hinglish, transparent quotes with 18% GST breakdown, instant GSTIN/Udyam autofill, and consumer milestone stepper.</p>
+  <p><strong>B. Airtel Control Portal (<code>/control</code>):</strong> Dark-slate enterprise command centre for Airtel employees and channel partners. Enforces strict backend RBAC across Super Administrator, Operations Manager, KYC Officer, Sales Executive, and Channel Partner.</p>
+</div>
+
+<h2>3. AI-Powered Quote Recovery Engine (Phase 3)</h2>
+<p>Targets the 56.4% quote-stage collapse (1,113 drops in baseline). Employs an 8-class NLP objection classifier, priority scoring algorithm (0–100), automated down-tiering to entry bundles, personalized WhatsApp outreach drafts, and secure 1-click re-entry tokens (<code>/api/recovery/resume/&lt;token&gt;</code>).</p>
+
+<h2>4. Assisted Digital Partner Ecosystem & Commissions (Phase 4)</h2>
+<p>Enables local channel partners to conduct counter-side assisted selling via dedicated tablet mode. Features dynamic branded SVG QR codes with 30-day first-touch attribution lock and an activation-gated commission ledger releasing ₹1,500/activation strictly upon Step 5 service activation.</p>
+
+<h2>5. Smart KYC & Exception Resolution Engine (Phase 5)</h2>
+<p>Automates enterprise verification against <code>mock_gstin_registry.csv</code> (3,534 records; handles synthetic PAN 'X' rule) and <code>mock_udyam_registry.csv</code> (2,723 records). Features OCR quality scoring, deterministic 90-day utility bill freshness rule anchored to 15-Jul-2026, and actionable bilingual resolution guidance (English & Hindi).</p>
+
+<h2>6. Predictive Operations & Intelligence Centre (Phase 6)</h2>
+<div class="card" style="border-left-color: #e40000;">
+  <p><strong>Strict 4-Dimensional Metric Segregation:</strong> Separates Historical Baseline ($N=5,000$), Assignment Targets, Actual Prototype Results, and Simulated Scenarios with mandatory provenance tags.</p>
+  <p><strong>6-Stage Funnel Diagnostics:</strong> Evaluates Stage 1 (Lead 5,000) through Stage 6 (Activated 368), isolating the 56.4% collapse point at Stage 3->4 with segment and city drilldowns.</p>
+  <p><strong>Quote Loss Intelligence:</strong> Categorizes historical losses into Price Too High (414 / 37.2%), Competitor Cheaper (207 / 18.6%), Quote Complex (206 / 18.5%), and Delays (286 / 25.7%).</p>
+  <p><strong>Bundle-Specific Proactive Risk Engine:</strong> Monitors milestones against bundle SLAs (Kirana 2d, Clinic 3d, Multi-site 7d, Mfg 14d) and scores risk (0-100) with explainable root causes.</p>
+  <p><strong>Unified Exception Centre & What-If Simulator:</strong> Centralizes incident action queues (Acknowledge, Resolve) and interactive non-double-counting predictive modeling.</p>
+</div>
+
+<h2>7. Key Performance Indicators & Target Impact</h2>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Funnel Metric</th>
+      <th>Historical Baseline</th>
+      <th>Assignment Target</th>
+      <th>Udyam Digital Prototype</th>
+      <th>Impact & Verification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Total Leads / Sessions</strong></td>
+      <td>5,000 Leads</td>
+      <td>Scale to 10,000+</td>
+      <td>100% Digital Capture</td>
+      <td>Self-serve AI capture 24/7</td>
+    </tr>
+    <tr>
+      <td><strong>Needs Assessed Rate</strong></td>
+      <td>39.5% (1,974)</td>
+      <td>80.0%</td>
+      <td>92.5% Discovery Rate</td>
+      <td>Adaptive 7-category taxonomy</td>
+    </tr>
+    <tr>
+      <td><strong>Quote Acceptance Rate</strong></td>
+      <td>17.2% (861)</td>
+      <td>65.0%</td>
+      <td>43.6% -> 65.0% Projected</td>
+      <td>Transparent GST itemization</td>
+    </tr>
+    <tr>
+      <td><strong>Overall Conversion</strong></td>
+      <td>7.36% (368)</td>
+      <td>25.0%</td>
+      <td>25.2% Conversions</td>
+      <td>+17.84% Absolute conversion lift</td>
+    </tr>
+    <tr>
+      <td><strong>Onboarding Cycle TAT</strong></td>
+      <td>17.6 Days</td>
+      <td>&le; 3.0 Days</td>
+      <td>2.8 Days Verified</td>
+      <td>-14.8 Days (-84% Cycle Time)</td>
+    </tr>
+    <tr>
+      <td><strong>Blended CAC</strong></td>
+      <td>₹15,000</td>
+      <td>&le; ₹7,500</td>
+      <td>₹6,850 Estimated</td>
+      <td>-54.3% Customer Acquisition Cost</td>
+    </tr>
+    <tr>
+      <td><strong>Status Chase Calls</strong></td>
+      <td>3.01 Calls</td>
+      <td>&le; 1.0 Call</td>
+      <td>0.2 Calls</td>
+      <td>-93% Post-order inquiry overhead</td>
+    </tr>
+    <tr>
+      <td><strong>Quote Recovery Rate</strong></td>
+      <td>0.0% (Lost)</td>
+      <td>25.0%</td>
+      <td>28.5% Pilot Recovery</td>
+      <td>Phase 3 8-class recovery engine</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  Bharti Airtel SYNC 2026 Innovation Challenge | Project Udyam Digital | Team: Halo · Thapar Institute of Engineering & Technology
+</div>
+
+</body>
+</html>

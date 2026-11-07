@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airtel Business · Project Udyam Digital</title>
+  
+  <!-- Modern Google Fonts: Inter & Noto Sans Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <style>
+    :root {
+      --airtel-red: #E31E24;
+      --airtel-red-dark: #B91C22;
+      --bg-warm: #FAF9F6;
+      --surface-main: #FFFFFF;
+      --surface-sec: #F4F3EF;
+      --text-main: #20252D;
+      --text-sec: #69717D;
+      --text-muted: #9299A3;
+      --border-subtle: #E7E5E0;
+      --border-focus: #20252D;
+      --accent-saffron: #D89A43;
+      --accent-green: #42846A;
+      --accent-blue: #577A9D;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Minimalist Navigation */
+    .navbar-consumer {
+      background-color: var(--surface-main);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.4px;
+    }
+
+    .brand-logo .brand-red {
+      color: var(--airtel-red);
+    }
+
+    .brand-badge {
+      background-color: var(--surface-sec);
+      color: var(--text-sec);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    .nav-btn-track {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn-track:hover {
+      background: var(--surface-sec);
+      border-color: var(--text-sec);
+    }
+
+    .staff-link {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .staff-link:hover {
+      color: var(--text-main);
+    }
+
+    /* Hero Section */
+    .hero-container {
+      padding: 40px 0 32px 0;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+
+    .hero-heading {
+      font-size: 2.35rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .hero-subtext {
+      font-size: 1.05rem;
+      color: var(--text-sec);
+      line-height: 1.55;
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary-airtel {
+      background-color: var(--airtel-red);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary-airtel:hover {
+      background-color: var(--airtel-red-dark);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .hero-track-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-sec);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--text-muted);
+      padding-bottom: 1px;
+    }
+
+    .hero-track-link:hover {
+      color: var(--text-main);
+      border-bottom-color: var(--text-main);
+    }
+
+    .hero-illustration-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-illustration-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+
+    /* Category Cards */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .category-card {
+      background: var(--surface-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      user-select: none;
+    }
+
+    .category-card:hover {
+      border-color: #C8C5BD;
+      transform: translateY(-2px);
+    }
+
+    .category-card.selected {
+      border: 1.5px solid var(--airtel-red);
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(227, 30, 36, 0.08);
+    }
+
+    .category-card-check {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--airtel-red);
+      color: #FFFFFF;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .category-card.selected .category-card-check {
+      display: flex;
+    }
+
+    .category-icon-wrapper {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-icon-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .category-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .category-desc {
+      font-size: 0.78rem;
+      color: var(--text-sec);
+      line-height: 1.35;
+    }
+
+    /* AI Advisor Chat Container */
+    .advisor-box {
+      background: var(--surface-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .advisor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 18px;
+    }
+
+    .advisor-id {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .advisor-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--airtel-red);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: -0.5px;
+    }
+
+    .advisor-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .advisor-role {
+      font-size: 0.75rem;
+      color: var(--text-sec);
+    }
+
+    .advisor-status-pill {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      background: #F0FDF4;
+      border: 1px solid #DCFCE7;
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+    }
+
+    .advisor-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    /* Chat Messages Thread */
+    .chat-thread {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 18px;
+      min-height: 140px;
+    }
+
+    .msg-row {
+      display: flex;
+      width: 100%;
+    }
+
+    .msg-row.advisor {
+      justify-content: flex-start;
+    }
+
+    .msg-row.user {
+      justify-content: flex-end;
+    }
+
+    .msg-bubble {
+      max-width: 82%;
+      padding: 12px 16px;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .msg-bubble.advisor {
+      background: var(--surface-sec);
+      color: var(--text-main);
+      border-radius: 14px 14px 14px 3px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .msg-bubble.user {
+      background: #FAF8F5;
+      color: var(--text-main);
+      border: 1px solid #E4E0D8;
+      border-radius: 14px 14px 3px 14px;
+    }
+
+    /* Streaming Cursor */
+    .cursor-stream {
+      display: inline-block;
+      width: 6px;
+      height: 14px;
+      background: var(--airtel-red);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Contextual Quick Reply Chips */
+    .quick-replies-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quick-chip {
+      background: var(--surface-main);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-chip:hover {
+      background: var(--surface-sec);
+      border-color: var(--text-sec);
+    }
+
+    /* Chat Composer */
+    .composer-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .composer-input {
+      flex: 1;
+      background: var(--surface-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .composer-input:focus {
+      border-color: var(--border-focus);
+    }
+
+    .composer-submit {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0 18px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .composer-submit:hover {
+      background: #000000;
+    }
+
+    .composer-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Contextual Recommendation Card (Slides into view) */
+    .recommendation-panel {
+      background: var(--surface-main);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--airtel-red);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .rec-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--airtel-red);
+      margin-bottom: 6px;
+    }
+
+    .rec-heading-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .rec-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .rec-price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .rec-price-period {
+      font-size: 0.8rem;
+      color: var(--text-sec);
+      font-weight: 500;
+    }
+
+    .rec-explanation {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .rec-service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      background: var(--surface-sec);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .rec-service-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .rec-service-check {
+      color: var(--accent-green);
+      font-size: 1rem;
+    }
+
+    .rec-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Stepper Badges for Step 2, 3, 4 */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .step-pill-indicator {
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--surface-sec);
+      color: var(--text-sec);
+    }
+    .step-pill-indicator.active {
+      background: var(--text-main);
+      color: #FFFFFF;
+    }
+
+    /* Custom form elements */
+    .form-clean {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+    .form-clean:focus {
+      border-color: var(--border-focus);
+      box-shadow: none;
+    }
+
+    /* Stepper for live installation */
+    .stepper-item {
+      position: relative;
+      display: flex;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+    .stepper-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 36px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+    .stepper-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      z-index: 2;
+    }
+    .stepper-icon.completed { background-color: var(--accent-green); color: white; }
+    .stepper-icon.in-progress { background-color: var(--airtel-red); color: white; }
+    .stepper-icon.pending { background-color: var(--surface-sec); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-heading {
+        font-size: 1.95rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+      .rec-service-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-illustration-box {
+        margin-top: 14px;
+      }
+      .hero-illustration-box img {
+        max-width: 240px;
+        max-height: 170px;
+      }
+      .hero-heading {
+        font-size: 1.55rem;
+        line-height: 1.25;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+      .brand-logo {
+        font-size: 1.05rem;
+      }
+      .brand-badge {
+        display: none;
+      }
+      .nav-btn-track {
+        font-size: 0.76rem;
+        padding: 4px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header class="navbar-consumer">
+    <div class="container px-3 px-md-4 d-flex justify-content-between align-items-center">
+      <a class="brand-logo" href="/">
+        <span>Airtel <span class="brand-red">Business</span></span>
+        <span class="brand-badge">Udyam Digital</span>
+        <span id="partnerTrustBadge" class="badge bg-danger bg-opacity-10 text-danger border border-danger px-2 py-1 ms-2" style="display: none; font-size: 0.72rem;">
+          <i class="bi bi-person-check-fill me-1"></i>Assisted: <span id="partnerTrustName">PTR-DEL-042</span>
+        </span>
+      </a>
+
+      <div class="d-flex align-items-center gap-3">
+        <!-- Language Switcher -->
+        <div class="d-flex align-items-center gap-1">
+          <i class="bi bi-translate text-muted small"></i>
+          <select id="userLang" class="form-select form-select-sm border-0 bg-transparent fw-medium" style="width: 105px; font-size: 0.85rem;" onchange="onLanguageChange()">
+            <option value="en" selected>English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="hinglish">Hinglish</option>
+          </select>
+        </div>
+
+        <!-- Track My Order Pill -->
+        <button class="nav-btn-track" onclick="showTrackModal()">
+          <i class="bi bi-geo-alt me-1 text-danger"></i> Track Order
+        </button>
+
+        <!-- Subtle Staff Portal link -->
+        <a href="/control" class="staff-link border-start ps-3 d-none d-sm-inline" title="For Airtel Internal Operations & Leadership">
+          Staff Portal
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container px-3 px-md-4" style="max-width: 940px;">
+
+    <!-- ======================================================== -->
+    <!-- VIEW A: CONSUMER ONBOARDING EXPERIENCE -->
+    <!-- ======================================================== -->
+    <div id="onboardingView">
+
+      <!-- STEP 1: HERO & BUSINESS DISCOVERY -->
+      <div id="step1Container">
+        
+        <!-- Hero Section -->
+        <section class="hero-container">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <div class="hero-eyebrow">DIGITAL SERVICES FOR INDIAN BUSINESSES</div>
+              <h1 class="hero-heading">Your business deserves a better digital setup.</h1>
+              <p class="hero-subtext">
+                Internet, connectivity, communication and business tools — all tailored to your needs, in one place.
+              </p>
+              <div class="hero-cta-group">
+                <a href="#discoverySection" class="btn-primary-airtel" onclick="scrollToDiscovery(event)">
+                  Find My Business Solution <i class="bi bi-arrow-down-short fs-5"></i>
+                </a>
+                <a href="javascript:void(0)" class="hero-track-link" onclick="showTrackModal()">
+                  Already placed an order? Track it
+                </a>
+              </div>
+            </div>
+            
+            <div class="col-lg-5 hero-illustration-box">
+              <img src="/static/illustrations/hero_msme.svg" alt="Indian MSME Digital Connectivity" width="380" height="260" class="img-fluid">
+            </div>
+          </div>
+        </section>
+
+        <!-- Customer Re-entry Recovery Welcome Banner (Phase 3) -->
+        <div id="recoveryReentryBanner" class="alert alert-warning border-warning shadow-sm rounded-3 mb-4 align-items-center justify-content-between p-3" style="display: none; background: #fff8e6; border-left: 5px solid #d90429 !important;">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-danger text-white p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; min-width: 44px;">
+              <i class="bi bi-arrow-repeat fs-4"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-dark fs-6" id="reentryTitle">Welcome back! Your Airtel Business quote has been restored.</div>
+              <div class="small text-muted" id="reentrySubtitle">Your previous consultation, tailored package, and custom add-ons are ready. You can review, adjust, or activate directly.</div>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-dark" onclick="window.location.href='/'"><i class="bi bi-arrow-clockwise me-1"></i>Start Fresh</button>
+          </div>
+        </div>
+
+        <!-- Guided Discovery Section -->
+        <section id="discoverySection" class="pt-4 pb-2">
+          <div class="d-flex justify-content-between align-items-baseline flex-wrap gap-2 mb-1">
+            <div class="section-title">What kind of business do you run?</div>
+            <span class="badge bg-light text-muted border py-1 px-2 font-monospace" style="font-size: 0.72rem;">Get Digital In One Sitting</span>
+          </div>
+          <div class="section-subtitle">Select your category to help us tailor connectivity and tools for your setup.</div>
+
+          <!-- Business Category Selection Tiles (Mutually Exclusive Single-Select) -->
+          <div class="category-grid" role="radiogroup" aria-label="Business Category Selection">
+            
+            <!-- Kirana / Retail -->
+            <div class="category-card selected" id="cat-kirana" onclick="selectBusinessCategory('kirana')" role="radio" aria-checked="true" tabindex="0">
+              <div class="category-card-check"><i class="bi bi-check"></i></div>
+              <div class="category-icon-wrapper">
+                <img src="/static/illustrations/cat_kirana.svg" alt="Kirana Store">
+              </div>
+              <div class="category-title">Kirana &amp; Retail</div>
+              <div class="category-desc">Internet, UPI and POS connectivity.</div>
+            </div>
+
+            <!-- Clinic / CA Office -->
+            <div class="category-card" id="cat-clinic" onclick="selectBusinessCategory('clinic')" role="radio" aria-checked="false" tabindex="0">
+              <div class="category-card-check"><i class="bi bi-check"></i></div>
+              <div class="category-icon-wrapper">
+                <img src="/static/illustrations/cat_clinic.svg" alt="Clinic Office">
+              </div>
+              <div class="category-title">Clinic / CA Office</div>
+              <div class="category-desc">Reliable internet, email and secure records.</div>
+            </div>
+
+            <!-- Multiple Stores -->
+            <div class="category-card" id="cat-multisite" onclick="selectBusinessCategory('multisite')" role="radio" aria-checked="false" tabindex="0">
+              <div class="category-card-check"><i class="bi bi-check"></i></div>
+              <div class="category-icon-wrapper">
+                <img src="/static/illustrations/cat_multisite.svg" alt="Multiple Stores">
+              </div>
+              <div class="category-title">Multiple Stores</div>
+              <div class="category-desc">Connected locations, CCTV and centralized networking.</div>
+            </div>
+
+            <!-- Small Factory -->
+            <div class="category-card" id="cat-manufacturer" onclick="selectBusinessCategory('manufacturer')" role="radio" aria-checked="false" tabindex="0">
+              <div class="category-card-check"><i class="bi bi-check"></i></div>
+              <div class="category-icon-wrapper">
+                <img src="/static/illustrations/cat_factory.svg" alt="Small Factory">
+              </div>
+              <div class="category-title">Small Factory</div>
+              <div class="category-desc">Reliable industrial connectivity and IoT.</div>
+            </div>
+
+          </div>
+
+          <!-- Conversational AI Advisor Experience -->
+          <div class="advisor-box">
+            <div class="advisor-header">
+              <div class="advisor-id">
+                <div class="advisor-avatar">A</div>
+                <div>
+                  <div class="advisor-name">Airtel Business Consultant</div>
+                  <div class="advisor-role" id="advisorPersonaSubtitle">Advising for Kirana &amp; Retail</div>
+                </div>
+              </div>
+              <div class="advisor-status-pill">
+                <div class="advisor-status-dot"></div>
+                <span id="advisorEngineLabel">Live Advisor</span>
+              </div>
+            </div>
+
+            <!-- Intelligent Needs Detection Badges -->
+            <div id="identifiedNeedsBox" class="mb-3 d-flex flex-wrap gap-2" style="display: none;"></div>
+
+            <!-- Thread of Messages -->
+            <div class="chat-thread" id="chatThread">
+              <div class="msg-row advisor">
+                <div class="msg-bubble advisor">
+                  Namaste! How many people or staff work at your store?
+                </div>
+              </div>
+            </div>
+
+            <!-- Contextual Quick Reply Pills -->
+            <div class="quick-replies-container" id="quickRepliesBox">
+              <button type="button" class="quick-chip" onclick="sendUserMessage('Just me (1 person)')">Just me (1 person)</button>
+              <button type="button" class="quick-chip" onclick="sendUserMessage('2–3 staff')">2–3 staff</button>
+              <button type="button" class="quick-chip" onclick="sendUserMessage('4–8 staff')">4–8 staff</button>
+              <button type="button" class="quick-chip" onclick="sendUserMessage('More than 8')">More than 8</button>
+            </div>
+
+            <!-- Free Text Message Composer -->
+            <form class="composer-form mt-3" id="advisorChatForm" onsubmit="handleUserSubmit(event)">
+              <input type="text" id="composerInput" class="composer-input" placeholder="Type your answer or ask any question..." autocomplete="off">
+              <button type="submit" id="composerBtn" class="composer-submit">
+                <span>Send</span>
+                <i class="bi bi-arrow-up-right-short fs-6"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Contextual Recommendation Panel (Phase 2 Recommendation & Conversion Engine) -->
+          <div class="recommendation-panel" id="recPanel">
+            <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="rec-eyebrow mb-0">Recommended Airtel Business Package</span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2 py-1" id="recMatchBadge">
+                  <i class="bi bi-patch-check-fill me-1"></i><span id="recMatchScore">95%</span> Match
+                </span>
+              </div>
+              <span class="badge bg-light text-muted border px-2 py-1 font-monospace" id="recQuoteIdBadge">QTE-2026-PENDING</span>
+            </div>
+            
+            <div class="rec-heading-row">
+              <div>
+                <h3 class="rec-title" id="recTitle">Kirana &amp; Micro Retail Digital Starter</h3>
+                <span class="text-muted small" id="recSegmentDisplay">Micro Retail &amp; Services</span>
+              </div>
+              <div class="text-end">
+                <span class="rec-price" id="recPrice">₹1,999</span>
+                <span class="rec-price-period">/ month</span>
+                <div class="text-muted" id="recPricePeriodSub" style="font-size: 0.75rem;">+ 18% GST (₹360) · Total ₹2,359/mo</div>
+              </div>
+            </div>
+
+            <!-- Explainable Value Narrative -->
+            <p class="rec-explanation mt-2" id="recWhy">
+              Reliable internet with backup connectivity for your UPI and POS operations.
+            </p>
+
+            <!-- Unmet Requirements Callout (Surveillance, Static IP, etc.) -->
+            <div id="recUnmetBox" class="alert alert-warning border border-warning-subtle py-2 px-3 mb-3 small d-flex justify-content-between align-items-center" style="display: none; border-radius: 8px;">
+              <div>
+                <i class="bi bi-shield-exclamation text-warning me-2 fs-6"></i>
+                <span id="recUnmetText">You requested CCTV monitoring. Add Cloud CCTV for +₹800/mo.</span>
+              </div>
+              <button type="button" class="btn btn-sm btn-dark py-1 px-3 fw-semibold" id="recUnmetAddBtn" onclick="toggleUnmetAddon()">+ Add to Quote</button>
+            </div>
+
+            <!-- Budget Advisory Callout -->
+            <div id="recBudgetBox" class="alert alert-info border border-info-subtle py-2 px-3 mb-3 small" style="display: none; border-radius: 8px;">
+              <i class="bi bi-info-circle-fill text-primary me-2"></i>
+              <span id="recBudgetText"></span>
+            </div>
+
+            <!-- Included Services Grid (4 core features) -->
+            <div class="rec-service-grid" id="recServicesList">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Modular Add-Ons Quick Strip (Section 6) -->
+            <div class="p-3 bg-light border rounded mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold small text-dark"><i class="bi bi-puzzle me-1"></i> Optional Compatible Add-ons (1-Click Addition):</span>
+                <span class="text-muted small">Pre-verified for your plan</span>
+              </div>
+              <div class="d-flex flex-wrap gap-3" id="recAddonPillsContainer">
+                <div class="form-check form-check-inline m-0">
+                  <input class="form-check-input addon-quick-chk" type="checkbox" value="addon_cctv" id="quickCctv" onchange="syncQuickAddon(this)">
+                  <label class="form-check-label small" for="quickCctv">Cloud CCTV (+₹800/mo)</label>
+                </div>
+                <div class="form-check form-check-inline m-0">
+                  <input class="form-check-input addon-quick-chk" type="checkbox" value="addon_static_ip" id="quickStaticIp" onchange="syncQuickAddon(this)">
+                  <label class="form-check-label small" for="quickStaticIp">Static IP (+₹300/mo)</label>
+                </div>
+                <div class="form-check form-check-inline m-0">
+                  <input class="form-check-input addon-quick-chk" type="checkbox" value="addon_sim" id="quickSim" onchange="syncQuickAddon(this)">
+                  <label class="form-check-label small" for="quickSim">Business SIM (+₹299/mo)</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transparent Live Pricing Recap Bar (Section 5) -->
+            <div class="row g-2 text-center small mb-3 p-2 bg-white border rounded">
+              <div class="col-3 border-end">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">Base Rental</span>
+                <strong class="text-dark" id="recPricingBase">₹1,999</strong>
+              </div>
+              <div class="col-3 border-end">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">GST (18%)</span>
+                <strong class="text-dark" id="recPricingGst">₹360</strong>
+              </div>
+              <div class="col-3 border-end">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">Total Monthly</span>
+                <strong class="text-danger" id="recPricingMonthlyTotal">₹2,359</strong>
+              </div>
+              <div class="col-3">
+                <span class="text-muted d-block" style="font-size: 0.72rem;">One-time Setup</span>
+                <strong class="text-dark" id="recPricingSetup">₹1,000</strong>
+              </div>
+            </div>
+
+            <!-- CTA Row -->
+            <div class="rec-cta-row justify-content-between flex-wrap gap-2">
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn-primary-airtel py-2 px-4" onclick="acceptQuoteAndVerify()">
+                  Accept Quote &amp; Verify <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+                <button class="btn btn-outline-secondary py-2 px-3 small" onclick="goToStep(2)">
+                  Customize Package
+                </button>
+                <button class="btn btn-outline-dark py-2 px-3 small" onclick="openItemizedQuoteModal()">
+                  <i class="bi bi-file-earmark-text me-1"></i> Itemized Quote
+                </button>
+              </div>
+              <div>
+                <button class="btn btn-sm btn-link text-muted text-decoration-none" onclick="toggleRejectionBox()">
+                  Not what I need?
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick 1-Click Rejection Reasons (Phase 2 & Phase 3 Recovery Engine) -->
+            <div id="rejectionBox" class="mt-3 p-3 bg-light border rounded small" style="display: none;">
+              <span class="fw-bold text-dark d-block mb-2">Help us improve: Why doesn't this quote work for you?</span>
+              <div class="d-flex flex-wrap gap-2 mb-2">
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('price_too_high')"><i class="bi bi-currency-rupee me-1"></i>Price is too high</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('too_complex')"><i class="bi bi-lightbulb me-1"></i>Quote is too complex</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('installation_delayed')"><i class="bi bi-clock-history me-1"></i>Need it sooner</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('needs_different_features')"><i class="bi bi-puzzle me-1"></i>Need different features</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('prefers_competitor')"><i class="bi bi-shield-check me-1"></i>Comparing with Jio/others</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="submitRejectionReason('deciding_later')"><i class="bi bi-hourglass me-1"></i>Deciding later</button>
+              </div>
+              <div class="input-group input-group-sm mb-2">
+                <input type="text" id="rejectionCustomComment" class="form-control" placeholder="Optional: Tell us what you need (e.g. looking for under ₹1500, or need 4 CCTV cameras)...">
+                <button class="btn btn-danger" onclick="submitCustomRejection()"><i class="bi bi-send-fill me-1"></i>Send Feedback</button>
+              </div>
+              <div id="rejectionFeedbackMsg" class="text-success small fw-semibold" style="display: none;">
+                <i class="bi bi-check-circle-fill me-1"></i>Thank you! Your feedback has been noted. Our Airtel SME advisor will review and customize an alternative plan.
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+      <!-- STEP 2: TRANSPARENT QUOTE & MODULAR ADD-ONS -->
+      <div id="step2Container" style="display: none;" class="py-4">
+        <div class="step-indicator d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <span class="step-pill-indicator">1. Needs</span>
+            <i class="bi bi-chevron-right text-muted"></i>
+            <span class="step-pill-indicator active">2. Package &amp; Add-ons</span>
+            <i class="bi bi-chevron-right text-muted"></i>
+            <span class="step-pill-indicator">3. Verification</span>
+            <i class="bi bi-chevron-right text-muted"></i>
+            <span class="step-pill-indicator">4. Confirmation</span>
+          </div>
+          <span class="badge bg-light text-muted border px-2 py-1 font-monospace" id="step2QuoteIdBadge">Quote ID: QTE-2026-PENDING</span>
+        </div>
+
+        <h4 class="fw-bold mb-3">Customize Your Airtel Business Package</h4>
+        <p class="text-secondary small mb-4">Review included services and toggle optional add-ons as needed. Transparent pricing with zero hidden charges.</p>
+
+        <div class="row g-4 mb-4">
+          <div class="col-md-7">
+            <div class="advisor-box p-4 mb-3">
+              <div class="fw-bold text-dark mb-3 small text-uppercase" style="letter-spacing: 0.5px;">Optional Business Add-ons:</div>
+
+              <div class="form-check form-switch mb-3 p-3 border rounded bg-white">
+                <input class="form-check-input ms-0 me-3 addon-chk" type="checkbox" value="addon_cctv" id="chkCctv" onchange="syncFullAddon(this)">
+                <label class="form-check-label d-flex justify-content-between w-100" for="chkCctv">
+                  <span><strong>Cloud CCTV (2 Cameras)</strong><br><small class="text-muted">30-day mobile recording &amp; AI tamper alerts (Setup ₹1,200)</small></span>
+                  <span class="text-danger fw-bold">+₹800/mo</span>
+                </label>
+              </div>
+
+              <div class="form-check form-switch mb-3 p-3 border rounded bg-white">
+                <input class="form-check-input ms-0 me-3 addon-chk" type="checkbox" value="addon_static_ip" id="chkStaticIp" onchange="syncFullAddon(this)">
+                <label class="form-check-label d-flex justify-content-between w-100" for="chkStaticIp">
+                  <span><strong>Static Public IP Address</strong><br><small class="text-muted">For remote billing server, Tally, or CCTV NVR access</small></span>
+                  <span class="text-danger fw-bold">+₹300/mo</span>
+                </label>
+              </div>
+
+              <div class="form-check form-switch mb-3 p-3 border rounded bg-white">
+                <input class="form-check-input ms-0 me-3 addon-chk" type="checkbox" value="addon_sim" id="chkSim" onchange="syncFullAddon(this)">
+                <label class="form-check-label d-flex justify-content-between w-100" for="chkSim">
+                  <span><strong>Business Mobile Postpaid SIM (50GB)</strong><br><small class="text-muted">Unlimited national calls &amp; roaming for staff</small></span>
+                  <span class="text-danger fw-bold">+₹299/mo</span>
+                </label>
+              </div>
+
+              <div class="form-check form-switch mb-3 p-3 border rounded bg-white">
+                <input class="form-check-input ms-0 me-3 addon-chk" type="checkbox" value="addon_whatsapp" id="chkWa" onchange="syncFullAddon(this)">
+                <label class="form-check-label d-flex justify-content-between w-100" for="chkWa">
+                  <span><strong>WhatsApp Business API Starter</strong><br><small class="text-muted">1,000 monthly conversations for customer promotions</small></span>
+                  <span class="text-danger fw-bold">+₹999/mo</span>
+                </label>
+              </div>
+
+              <div class="form-check form-switch p-3 border rounded bg-white">
+                <input class="form-check-input ms-0 me-3 addon-chk" type="checkbox" value="addon_cloud_backup" id="chkBackup" onchange="syncFullAddon(this)">
+                <label class="form-check-label d-flex justify-content-between w-100" for="chkBackup">
+                  <span><strong>Additional Cloud Backup (1 TB)</strong><br><small class="text-muted">Encrypted automatic off-site PC &amp; database backup</small></span>
+                  <span class="text-danger fw-bold">+₹499/mo</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-sm" onclick="goToStep(1)">
+                <i class="bi bi-arrow-left me-1"></i> Back to Needs
+              </button>
+              <button class="btn btn-outline-dark btn-sm" onclick="openItemizedQuoteModal()">
+                <i class="bi bi-file-earmark-text me-1"></i> View Formal Quotation
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="advisor-box p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold text-dark mb-0">Transparent Bill Summary</h6>
+                <span class="badge bg-light text-muted border small font-monospace" id="billQuoteIdBadge">QTE-PENDING</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-2 small">
+                <span class="text-muted" id="billBaseName">Package Rental</span>
+                <span class="fw-bold" id="billBasePrice">₹1,999</span>
+              </div>
+              <div id="billAddonsList" class="small"></div>
+              <hr class="my-2 border-subtle">
+              <div class="d-flex justify-content-between mb-2 small">
+                <span class="text-muted">Monthly Subtotal</span>
+                <span class="fw-bold" id="billSubtotal">₹1,999</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2 small">
+                <span class="text-muted">GST (18% Statutory)</span>
+                <span class="fw-bold" id="billGst">₹360</span>
+              </div>
+              <div class="d-flex justify-content-between fs-5 fw-bold text-dark border-top pt-2 mb-2">
+                <span>Total Monthly Payable</span>
+                <span class="text-danger" id="billTotal">₹2,359</span>
+              </div>
+              <div class="text-muted small mb-3 text-end" style="font-size: 0.75rem;">Billed monthly on active service</div>
+
+              <div class="p-2 bg-light rounded small mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">One-time Setup &amp; Installation:</span>
+                  <strong class="text-dark" id="billSetup">₹1,000</strong>
+                </div>
+                <div class="d-flex justify-content-between border-top pt-1 mt-1 text-dark fw-bold">
+                  <span>First Payment Total:</span>
+                  <span class="text-dark" id="billFirstPayment">₹3,359</span>
+                </div>
+              </div>
+
+              <div class="alert alert-light border small text-muted p-2 mb-3 text-center" id="billSlaBadge">
+                <i class="bi bi-clock-history me-1 text-primary"></i> <span id="billSlaText">99.5% SLA · 2-Day Installation · 12-Month Contract</span>
+              </div>
+
+              <button class="btn-primary-airtel w-100 py-3 justify-content-center" onclick="acceptQuoteAndVerify()">
+                Proceed to Instant Verification <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: SMART KYC & DPDP CONSENT -->
+      <div id="step3Container" style="display: none;" class="py-4">
+        <div class="step-indicator">
+          <span class="step-pill-indicator">1. Needs</span>
+          <i class="bi bi-chevron-right text-muted"></i>
+          <span class="step-pill-indicator">2. Package</span>
+          <i class="bi bi-chevron-right text-muted"></i>
+          <span class="step-pill-indicator active">3. Instant Verification</span>
+          <i class="bi bi-chevron-right text-muted"></i>
+          <span class="step-pill-indicator">4. Confirmation</span>
+        </div>
+
+        <h4 class="fw-bold mb-2">Paperless Smart Verification</h4>
+        <p class="text-secondary small mb-4">Fast-track business verification with simulated registries &amp; smart exception guidance.</p>
+
+        <div class="advisor-box p-4 mb-4">
+          <!-- DPDP Consent Banner with Bilingual Toggle -->
+          <div class="alert alert-light border small text-dark mb-4 p-3 rounded">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="d-flex gap-2">
+                <i class="bi bi-shield-check text-success fs-5"></i>
+                <div>
+                  <strong>Privacy Notice (DPDP Act 2023 &amp; DoT Mandate):</strong>
+                  <div id="dpdpNoticeTextEn" class="mt-1">
+                    We only collect identity details required by the Department of Telecommunications (DoT) for service activation. Your documents are encrypted, temporary files purge within 24 hours, and sensitive identifiers are masked.
+                  </div>
+                  <div id="dpdpNoticeTextHi" class="mt-1 text-muted font-monospace" style="display:none;">
+                    Hum keval wahi dastavez lete hain jo DoT ke statutory telecom niyamon ke antargat aavashyak hain. Aapka data puri tarah surakshit aur encrypted rehta hai.
+                  </div>
+                </div>
+              </div>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary btn-sm py-0 active" id="btnLangEn" onclick="toggleConsentLang('en')">EN</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm py-0" id="btnLangHi" onclick="toggleConsentLang('hi')">हिंदी</button>
+              </div>
+            </div>
+            <div class="form-check mt-3 pt-2 border-top">
+              <input class="form-check-input" type="checkbox" id="dpdpConsent" checked>
+              <label class="form-check-label fw-bold small" for="dpdpConsent">
+                I give explicit affirmative consent under DPDP Act 2023 for telecom KYC verification.
+              </label>
+            </div>
+          </div>
+
+          <!-- Actionable Exception Resolution Card (Shown dynamically on verification anomaly) -->
+          <div id="consumerExceptionCard" class="alert alert-danger border border-danger p-3 mb-4 rounded" style="display: none;">
+            <div class="d-flex align-items-start gap-2">
+              <i class="bi bi-exclamation-triangle-fill text-danger fs-5 mt-1"></i>
+              <div class="w-100">
+                <div class="fw-bold text-danger mb-1" id="consumerExceptionTitle">Verification Exception</div>
+                <div class="small text-dark mb-1" id="consumerExceptionEn">...</div>
+                <div class="small text-muted font-monospace" id="consumerExceptionHi">...</div>
+                <div class="mt-2 pt-2 border-top border-danger border-opacity-25 small fw-bold text-danger">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Required Next Action: <span id="consumerExceptionAction" class="fw-normal text-dark">...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Entity Inputs -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Business Trade Name</label>
+              <input type="text" id="custBizName" class="form-control form-clean" value="Harmony Dental Care">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Authorized Signatory Name</label>
+              <input type="text" id="custContactName" class="form-control form-clean" value="Joseph Shah">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Mobile Number (For Tracking Updates)</label>
+              <input type="text" id="custPhone" class="form-control form-clean" value="+91 98765 43210">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Installation City</label>
+              <input type="text" id="custCity" class="form-control form-clean" value="Kolkata">
+            </div>
+          </div>
+
+          <!-- Dual Registry Verification (GSTIN & Udyam) -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-light h-100">
+                <label class="form-label small fw-bold text-dark">GSTIN Verification (15 Characters)</label>
+                <div class="input-group mb-2">
+                  <input type="text" id="custGstin" class="form-control form-clean font-monospace" value="19EOGXH4115Y1ZL" placeholder="e.g. 19EOGXH4115Y1ZL">
+                  <button class="btn btn-outline-dark btn-sm fw-bold px-3" type="button" onclick="verifyGstinInstant()">Verify</button>
+                </div>
+                <div id="gstinStatusAlert" class="small text-success fw-bold">
+                  <i class="bi bi-check-circle-fill me-1"></i> Active GSTIN Verified · Auto-fills registration
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-light h-100">
+                <label class="form-label small fw-bold text-dark">MSME Udyam Number (Optional / Alternate)</label>
+                <div class="input-group mb-2">
+                  <input type="text" id="custUdyam" class="form-control form-clean font-monospace" value="UDYAM-WB-00-5053330" placeholder="e.g. UDYAM-XX-00-XXXXXXX">
+                  <button class="btn btn-outline-dark btn-sm fw-bold px-3" type="button" onclick="verifyUdyamInstant()">Verify</button>
+                </div>
+                <div id="udyamStatusAlert" class="small text-muted">
+                  <i class="bi bi-info-circle me-1"></i> MSME micro/small enterprise certificate check
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address Proof & Freshness Verification (90-Day Rule) -->
+          <div class="p-3 border rounded bg-light mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label small fw-bold text-dark mb-0">Electricity / Utility Bill (<span class="text-danger">&le;90 Days Old</span> from 15-Jul-2026)</label>
+              <span class="badge bg-secondary font-monospace" style="font-size: 0.72rem;">Benchmark: 15-Jul-2026</span>
+            </div>
+            <div class="row g-2 align-items-center">
+              <div class="col-md-7">
+                <select id="custBillDateSelect" class="form-select form-select-sm" onchange="checkBillDateFreshness()">
+                  <option value="2026-05-22">Electricity Bill - Issued 22-May-2026 (54 days old · VALID)</option>
+                  <option value="2026-06-26">Electricity Bill - Issued 26-Jun-2026 (19 days old · VALID)</option>
+                  <option value="2026-01-10">Electricity Bill - Issued 10-Jan-2026 (186 days old · EXPIRED)</option>
+                  <option value="2025-10-31">Electricity Bill - Issued 31-Oct-2025 (257 days old · EXPIRED)</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <div id="billFreshnessAlert" class="small text-success fw-bold">
+                  <i class="bi bi-check-circle-fill me-1"></i> Bill is 54 days old (&le;90-day statutory limit)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Navigation -->
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary btn-sm" onclick="goToStep(2)">
+              <i class="bi bi-arrow-left me-1"></i> Back to Quote
+            </button>
+            <button class="btn-primary-airtel py-2 px-4" onclick="submitConsumerOrder()">
+              Submit Application &amp; Confirm Order <i class="bi bi-check-circle-fill ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: ORDER CONFIRMED -->
+      <div id="step4Container" style="display: none;" class="py-5 text-center">
+        <div class="advisor-box p-5 mx-auto" style="max-width: 620px;">
+          <div class="text-success mb-3">
+            <i class="bi bi-check-circle-fill display-3"></i>
+          </div>
+          <h3 class="fw-bold text-dark mb-2">Application Submitted Successfully!</h3>
+          <p class="text-secondary small mb-4">
+            Your digital service order has been placed. Our KYC verification officer is validating credentials against the registry.
+          </p>
+
+          <div class="p-3 bg-light rounded d-inline-block mx-auto mb-4 w-100" style="max-width: 420px;">
+            <div class="small text-muted">YOUR UNIQUE TRACKING ORDER ID</div>
+            <div class="fs-3 fw-bold text-danger font-monospace my-1" id="confirmedOrderId">ORD-2026-9812</div>
+            <div class="small text-muted">Save this Order ID to track your installation progress.</div>
+          </div>
+
+          <div>
+            <button class="btn-primary-airtel py-3 px-4 justify-content-center mx-auto" onclick="viewMyDashboard()">
+              <i class="bi bi-speedometer2 me-2"></i> Open Service &amp; Installation Tracker
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW B: CONSUMER PERSONAL DASHBOARD & LIVE TRACKER -->
+    <!-- ======================================================== -->
+    <div id="consumerDashboardView" style="display: none;" class="py-4">
+      
+      <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+          <span class="badge bg-danger mb-1">My Business Account</span>
+          <h4 class="fw-bold text-dark mb-0" id="dashBizName">Harmony Dental Care</h4>
+          <div class="small text-muted">Order ID: <strong id="dashOrderId" class="font-monospace text-dark">ORD-2026-9812</strong></div>
+        </div>
+        <button class="btn btn-outline-secondary btn-sm" onclick="returnToOnboarding()">
+          <i class="bi bi-plus-circle me-1"></i> New Service Order
+        </button>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left: Live Installation Stepper -->
+        <div class="col-lg-7">
+          <div class="advisor-box p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="fw-bold text-dark mb-0"><i class="bi bi-broadcast text-danger me-2"></i>Installation Progress</h5>
+              <span class="badge bg-light text-dark border" id="dashLiveStatusText">Hardware Dispatched</span>
+            </div>
+
+            <!-- Stepper Container -->
+            <div class="stepper" id="dashMilestones">
+              <!-- Dynamically populated from backend live state -->
+            </div>
+          </div>
+
+          <!-- Assigned Field Engineer Card -->
+          <div class="advisor-box p-3 bg-light" id="dashEngineerCard">
+            <div class="d-flex align-items-center gap-3">
+              <div class="p-2 bg-danger text-white rounded-circle fs-4" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <div>
+                <div class="small text-muted">ASSIGNED AIRTEL INSTALLATION ENGINEER:</div>
+                <div class="fw-bold text-dark" id="dashEngName">Rahul Sharma</div>
+                <div class="small text-danger fw-bold" id="dashEngPhone"><i class="bi bi-telephone-fill me-1"></i>+91 98101 23456</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: My Package & KYC Verification Status -->
+        <div class="col-lg-5">
+          <!-- Verification Status Card -->
+          <div class="advisor-box p-4 mb-4">
+            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-shield-check text-success me-2"></i>KYC Verification Status</h6>
+            <div class="d-flex justify-content-between align-items-center p-3 rounded mb-2" id="dashKycBox" style="background-color: #f0fdf4;">
+              <div>
+                <div class="small text-muted">KYC Compliance:</div>
+                <div class="fw-bold text-success fs-6" id="dashKycVerdict">VERIFIED &amp; APPROVED</div>
+              </div>
+              <span class="badge bg-success" id="dashKycBadge">APPROVED</span>
+            </div>
+            <div class="small text-muted" id="dashKycNote">
+              Verified by Airtel KYC Officer. DPDP Act compliance audit record logged.
+            </div>
+          </div>
+
+          <!-- Billing & Plan Details -->
+          <div class="advisor-box p-4">
+            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-receipt text-primary me-2"></i>Active Digital Package</h6>
+            
+            <div class="mb-3">
+              <div class="small text-muted">Plan Name:</div>
+              <div class="fw-bold text-dark fs-5" id="dashPlanName">Clinic &amp; Professional Office Suite</div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">Monthly Rental:</span>
+              <span class="fw-bold" id="dashMonthlySub">₹3,499</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">GST (18%):</span>
+              <span class="fw-bold" id="dashMonthlyGst">₹630</span>
+            </div>
+            <div class="d-flex justify-content-between fs-5 fw-bold text-dark border-top pt-2 mb-3">
+              <span>Total Monthly Bill:</span>
+              <span class="text-danger" id="dashMonthlyTotal">₹4,129</span>
+            </div>
+
+            <div class="alert alert-light border small text-muted mb-0">
+              <i class="bi bi-headset text-danger me-1"></i> <strong>24/7 Dedicated Support:</strong> Dial 1800-103-4444 or message on WhatsApp.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Modal: Track Existing Order -->
+  <div class="modal fade" id="trackOrderModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content border-0 shadow-sm" style="border-radius: var(--radius-md);">
+        <div class="modal-header border-bottom">
+          <h6 class="modal-title fw-bold">Track Your Service Application</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body py-4">
+          <label class="form-label small fw-bold text-muted">Enter Your Order ID</label>
+          <input type="text" id="modalOrderIdInput" class="form-control form-clean font-monospace" value="ORD-2026-9812" placeholder="ORD-2026-XXXX">
+          <div class="form-text small mt-2">Try existing order: <code>ORD-2026-9812</code> or any newly placed order.</div>
+        </div>
+        <div class="modal-footer border-top">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn-primary-airtel py-1 px-3 btn-sm" onclick="trackFromModal()">Track Status</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Official Itemized Quotation (Section 5 & 8) -->
+  <div class="modal fade" id="quoteDetailModal" tabindex="-1" aria-labelledby="quoteDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-dark text-white p-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-danger">Airtel Business</span>
+            <h5 class="modal-title fs-6 fw-bold mb-0">Official B2B Service Quotation</h5>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="quoteModalBody">
+          <!-- Populated dynamically -->
+        </div>
+        <div class="modal-footer p-3 bg-light d-flex justify-content-between">
+          <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i> Transparent Pricing · 18% GST Itemized</span>
+          <div>
+            <button type="button" class="btn btn-outline-secondary btn-sm me-2" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary-airtel btn-sm py-1 px-3" data-bs-dismiss="modal" onclick="acceptQuoteAndVerify()">
+              Accept Quotation &amp; Proceed to KYC <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Application Frontend Logic -->
+  <script>
+    // State & Session Management
+    let currentSessionId = localStorage.getItem("udyam_session_id");
+    if (!currentSessionId) {
+      currentSessionId = "sess_" + Math.random().toString(36).substring(2, 14);
+      localStorage.setItem("udyam_session_id", currentSessionId);
+    }
+
+    let activeCategory = "kirana";
+    let activeBundleId = "bundle_kirana";
+    let activeOrderId = "ORD-2026-9812";
+    let isStreaming = false;
+
+    // Structured User Profile Context
+    let userProfile = {
+      session_id: currentSessionId,
+      business_type: "kirana",
+      employees: null,
+      locations: 1,
+      current_connectivity: "",
+      digital_tools: [],
+      pain_points: [],
+      peak_usage: "",
+      special_requirements: [],
+      budget_min: null,
+      budget_max: null,
+      preferred_language: "en",
+      discovery_status: "in_progress"
+    };
+
+    // Message History for context
+    let conversationHistory = [];
+
+    // Static bundle details matching catalogue
+    const BUNDLES_CATALOGUE = {
+      "bundle_kirana": {
+        id: "bundle_kirana",
+        name: "Kirana & Micro Retail Digital Starter",
+        price: 1999,
+        why: "Reliable internet with backup connectivity for your UPI and POS operations.",
+        services: [
+          "Biz 5G AirFiber 100 Mbps",
+          "Automatic 4G/5G POS Failover",
+          "WhatsApp Business API Starter",
+          "Secure Wi-Fi with Guest Network"
+        ]
+      },
+      "bundle_clinic": {
+        id: "bundle_clinic",
+        name: "Clinic & Professional Office Suite",
+        price: 3499,
+        why: "High-speed symmetrical fiber with 1TB encrypted cloud backup for confidential records.",
+        services: [
+          "Biz Fibre 300 Mbps Symmetrical",
+          "1 TB Encrypted Cloud Backup",
+          "Google Workspace / Cloud Email",
+          "Secure Patient & Staff Wi-Fi"
+        ]
+      },
+      "bundle_multisite": {
+        id: "bundle_multisite",
+        name: "Multi-Site Retail & Restaurant Pro",
+        price: 7999,
+        why: "Centralized network control across multiple branches with SD-WAN and live Cloud CCTV on one bill.",
+        services: [
+          "Biz Fibre 1 Gbps High-Capacity",
+          "Managed SD-WAN Branch Interconnect",
+          "Cloud CCTV (4 Cameras, 30d Backup)",
+          "Enterprise Managed Firewall"
+        ]
+      },
+      "bundle_manufacturer": {
+        id: "bundle_manufacturer",
+        name: "Small Manufacturing & Industrial Suite",
+        price: 14999,
+        why: "Dedicated 1:1 leased line with static IP for ERP servers and machine IoT telemetry.",
+        services: [
+          "Internet Leased Line 20 Mbps 1:1",
+          "Static IP Address for ERP",
+          "Machine Monitoring IoT Telemetry",
+          "Endpoint Threat Protection"
+        ]
+      }
+    };
+
+    let currentRefPartner = null;
+
+    function checkPartnerReferral() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const refPartner = urlParams.get('ref');
+      if (refPartner) {
+        currentRefPartner = refPartner;
+        fetch("/api/partner/referral/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: currentSessionId, partner_id: refPartner, campaign_id: "field_qr" })
+        });
+        const badge = document.getElementById("partnerTrustBadge");
+        if (badge) {
+          badge.style.display = "inline-flex";
+          document.getElementById("partnerTrustName").textContent = refPartner;
+        }
+      }
+    }
+
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+      checkPartnerReferral();
+      checkRecoveryReentry();
+      initConversation(activeCategory);
+    });
+
+    function scrollToDiscovery(e) {
+      if (e) e.preventDefault();
+      document.getElementById("discoverySection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function onLanguageChange() {
+      const lang = document.getElementById("userLang").value;
+      userProfile.language = lang;
+      // Re-prime conversation in the new language
+      initConversation(activeCategory);
+    }
+
+    // Select Business Category (Single-Select Mutually Exclusive)
+    function selectBusinessCategory(category) {
+      if (isStreaming) return; // Wait until stream finishes
+
+      activeCategory = category;
+      userProfile.business_type = category;
+
+      // Update Category Cards visual state
+      ["kirana", "clinic", "multisite", "manufacturer"].forEach(cat => {
+        const card = document.getElementById("cat-" + cat);
+        if (card) {
+          if (cat === category) {
+            card.classList.add("selected");
+            card.setAttribute("aria-checked", "true");
+          } else {
+            card.classList.remove("selected");
+            card.setAttribute("aria-checked", "false");
+          }
+        }
+      });
+
+      // Update bundle ID strictly
+      const bundleMap = {
+        "kirana": "bundle_kirana",
+        "clinic": "bundle_clinic",
+        "multisite": "bundle_multisite",
+        "manufacturer": "bundle_manufacturer"
+      };
+      activeBundleId = bundleMap[category] || "bundle_kirana";
+
+      // Reset and hide recommendation panel on category switch until discovery completes
+      document.getElementById("recPanel").style.display = "none";
+
+      // Re-init conversation for this category
+      initConversation(category);
+    }
+
+    // Fetch default starter for category & language
+    function initConversation(category) {
+      const lang = document.getElementById("userLang").value;
+      conversationHistory = [];
+
+      const subtitleLabels = {
+        "kirana": "Advising for Kirana & Retail",
+        "clinic": "Advising for Clinic & CA Office",
+        "multisite": "Advising for Multiple Stores",
+        "manufacturer": "Advising for Small Factory"
+      };
+      document.getElementById("advisorPersonaSubtitle").innerText = subtitleLabels[category] || "Advising your business";
+
+      fetch(`/api/advisor/starter?category=${category}&lang=${lang}&session_id=${currentSessionId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.session_id) currentSessionId = data.session_id;
+          document.getElementById("identifiedNeedsBox").style.display = "none";
+          document.getElementById("identifiedNeedsBox").innerHTML = "";
+          renderChatThread([
+            { role: "assistant", content: data.message }
+          ]);
+          renderQuickReplies(data.quick_replies || []);
+          conversationHistory.push({ role: "assistant", content: data.message });
+        })
+        .catch(() => {
+          // Fallback starter
+          const msg = "Namaste! How many staff work at your business location?";
+          renderChatThread([{ role: "assistant", content: msg }]);
+          renderQuickReplies(["Just me", "2–4 staff", "5–10 staff", "10+ staff"]);
+          conversationHistory.push({ role: "assistant", content: msg });
+        });
+    }
+
+    function renderIdentifiedNeeds(needs) {
+      const box = document.getElementById("identifiedNeedsBox");
+      if (!needs || needs.length === 0) {
+        box.style.display = "none";
+        box.innerHTML = "";
+        return;
+      }
+      box.style.display = "flex";
+      box.innerHTML = `<span class="small text-muted fw-bold align-self-center me-1" style="font-size:0.75rem;">DETECTED NEEDS:</span>`;
+      needs.forEach(n => {
+        const badge = document.createElement("span");
+        badge.className = "badge bg-white text-dark border py-1 px-2 d-flex align-items-center gap-1 shadow-sm";
+        badge.style.fontSize = "0.75rem";
+        badge.style.fontWeight = "500";
+        const catClean = (n.category || "need").replace(/_/g, " ").toUpperCase();
+        badge.innerHTML = `<i class="bi bi-check-circle-fill text-success" style="font-size: 0.7rem;"></i> <strong>${escapeHtml(catClean)}:</strong> ${escapeHtml(n.classified_requirement)}`;
+        box.appendChild(badge);
+      });
+    }
+
+    function renderChatThread(messages) {
+      const box = document.getElementById("chatThread");
+      box.innerHTML = "";
+      messages.forEach(m => {
+        appendBubbleDOM(m.role, m.content);
+      });
+    }
+
+    function appendBubbleDOM(role, content) {
+      const box = document.getElementById("chatThread");
+      const row = document.createElement("div");
+      row.className = `msg-row ${role === 'user' ? 'user' : 'advisor'}`;
+      
+      const bubble = document.createElement("div");
+      bubble.className = `msg-bubble ${role === 'user' ? 'user' : 'advisor'}`;
+      bubble.innerHTML = escapeHtml(content);
+      
+      row.appendChild(bubble);
+      box.appendChild(row);
+      return bubble;
+    }
+
+    function renderQuickReplies(replies) {
+      const container = document.getElementById("quickRepliesBox");
+      container.innerHTML = "";
+      if (!replies || replies.length === 0) return;
+
+      replies.forEach(text => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "quick-chip";
+        btn.innerText = text;
+        btn.onclick = () => sendUserMessage(text);
+        container.appendChild(btn);
+      });
+    }
+
+    function handleUserSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById("composerInput");
+      const text = input.value.trim();
+      if (!text || isStreaming) return;
+      input.value = "";
+      sendUserMessage(text);
+    }
+
+    // Main Streaming Exchange via SSE
+    async function sendUserMessage(text) {
+      if (isStreaming) return;
+
+      // 1. Append user bubble
+      appendBubbleDOM("user", text);
+      conversationHistory.push({ role: "user", content: text });
+
+      // Clear quick replies while waiting
+      renderQuickReplies([]);
+
+      // 2. Prepare streaming assistant bubble
+      const streamBubble = appendBubbleDOM("assistant", "");
+      const cursorSpan = document.createElement("span");
+      cursorSpan.className = "cursor-stream";
+      streamBubble.appendChild(cursorSpan);
+
+      // Disable input during stream
+      isStreaming = true;
+      document.getElementById("composerBtn").disabled = true;
+      document.getElementById("composerInput").disabled = true;
+
+      const lang = document.getElementById("userLang").value;
+
+      try {
+        const response = await fetch("/api/advisor/chat/stream", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: currentSessionId,
+            category: activeCategory,
+            messages: conversationHistory,
+            profile: userProfile,
+            language: lang
+          })
+        });
+
+        if (!response.body) {
+          throw new Error("No readable stream in response");
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let accumulatedAssistantText = "";
+        let metaPayload = null;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              try {
+                const eventData = JSON.parse(line.replace("data: ", "").trim());
+                if (eventData.type === "chunk") {
+                  accumulatedAssistantText += eventData.text;
+                  // Update text node before cursor
+                  cursorSpan.remove();
+                  streamBubble.innerHTML = escapeHtml(accumulatedAssistantText);
+                  streamBubble.appendChild(cursorSpan);
+                } else if (eventData.type === "meta") {
+                  metaPayload = eventData.data;
+                } else if (eventData.type === "done") {
+                  // Done event
+                }
+              } catch (err) {
+                // Ignore partial JSON
+              }
+            }
+          }
+        }
+
+        // Remove cursor and clean up any trailing delimiter residue
+        cursorSpan.remove();
+        accumulatedAssistantText = accumulatedAssistantText.replace(/\|+META\|+[\s\S]*$/, "").trim().replace(/\|+$/, "").trim();
+        streamBubble.innerHTML = escapeHtml(accumulatedAssistantText);
+        conversationHistory.push({ role: "assistant", content: accumulatedAssistantText });
+
+        // Process Meta Payload
+        if (metaPayload) {
+          if (metaPayload.session_id) {
+            currentSessionId = metaPayload.session_id;
+            localStorage.setItem("udyam_session_id", currentSessionId);
+          }
+          if (metaPayload.quote_id) {
+            currentQuoteId = metaPayload.quote_id;
+          }
+          if (metaPayload.profile) {
+            userProfile = metaPayload.profile;
+          }
+          if (metaPayload.identified_needs) {
+            renderIdentifiedNeeds(metaPayload.identified_needs);
+          }
+          if (metaPayload.quick_replies && metaPayload.quick_replies.length > 0) {
+            renderQuickReplies(metaPayload.quick_replies);
+          }
+          if (metaPayload.discovery_status === "complete" || metaPayload.recommend_bundle) {
+            showRecommendationCard(metaPayload.recommend_bundle, metaPayload.why_brief, metaPayload.recommendation, metaPayload.quote);
+          } else {
+            document.getElementById("recPanel").style.display = "none";
+          }
+        }
+
+      } catch (err) {
+        console.error("Streaming error:", err);
+        cursorSpan.remove();
+        streamBubble.innerHTML = "Namaste! Let me check the best package for your setup.";
+        renderQuickReplies(["View Package Options", "Ask another question"]);
+      } finally {
+        isStreaming = false;
+        document.getElementById("composerBtn").disabled = false;
+        document.getElementById("composerInput").disabled = false;
+        document.getElementById("composerInput").focus();
+      }
+    }
+
+    let currentQuoteId = null;
+    let activeRecData = null;
+    let activeQuoteData = null;
+    let activePricingData = null;
+    let pendingUnmetAddonKey = null;
+
+    function showRecommendationCard(bundleId, whyText, recData, quoteData) {
+      activeBundleId = bundleId || activeBundleId;
+      activeRecData = recData || activeRecData;
+      activeQuoteData = quoteData || activeQuoteData;
+      
+      if (quoteData && quoteData.quote_id) {
+        currentQuoteId = quoteData.quote_id;
+      } else if (!currentQuoteId) {
+        currentQuoteId = "QTE-2026-" + Math.floor(1000 + Math.random() * 9000);
+      }
+
+      // Update Quote Badges
+      const qBadge = document.getElementById("recQuoteIdBadge");
+      if (qBadge) {
+        qBadge.innerText = currentQuoteId;
+        qBadge.style.display = "inline-block";
+      }
+      const s2Badge = document.getElementById("step2QuoteIdBadge");
+      if (s2Badge) s2Badge.innerText = "Quote ID: " + currentQuoteId;
+      const billQBadge = document.getElementById("billQuoteIdBadge");
+      if (billQBadge) billQBadge.innerText = currentQuoteId;
+
+      const b = BUNDLES_CATALOGUE[activeBundleId] || BUNDLES_CATALOGUE["bundle_kirana"];
+
+      document.getElementById("recTitle").innerText = (activeRecData && activeRecData.best_bundle) ? activeRecData.best_bundle.name : b.name;
+      const segEl = document.getElementById("recSegmentDisplay");
+      if (segEl) {
+        segEl.innerText = (activeRecData && activeRecData.best_bundle && activeRecData.best_bundle.segment_display) ? activeRecData.best_bundle.segment_display : "Airtel Business Enterprise";
+      }
+      document.getElementById("recWhy").innerText = whyText || b.why;
+
+      // Match Score
+      const matchScoreEl = document.getElementById("recMatchScore");
+      if (matchScoreEl) {
+        matchScoreEl.innerText = (activeRecData && activeRecData.match_score) ? activeRecData.match_score + "%" : "95%";
+      }
+
+      // Unmet Requirements Banner
+      const unmetBox = document.getElementById("recUnmetBox");
+      const unmetText = document.getElementById("recUnmetText");
+      if (activeRecData && activeRecData.unmet_requirements && activeRecData.unmet_requirements.length > 0) {
+        const u = activeRecData.unmet_requirements[0];
+        pendingUnmetAddonKey = (u.suggested_addon && u.suggested_addon.addon_key) || "addon_cctv";
+        unmetText.innerHTML = `<strong>${u.requirement}</strong>: ${u.evidence} (+₹${u.suggested_addon.monthly_inr}/mo)`;
+        unmetBox.style.display = "flex";
+      } else {
+        unmetBox.style.display = "none";
+      }
+
+      // Budget Advisory Banner
+      const budgetBox = document.getElementById("recBudgetBox");
+      const budgetText = document.getElementById("recBudgetText");
+      if (activeRecData && activeRecData.budget_analysis && !activeRecData.budget_analysis.fits_budget) {
+        budgetText.innerText = activeRecData.budget_analysis.note;
+        budgetBox.style.display = "block";
+      } else {
+        budgetBox.style.display = "none";
+      }
+
+      // Render Included Services Grid (4 items)
+      const servicesBox = document.getElementById("recServicesList");
+      servicesBox.innerHTML = "";
+      const sList = (activeRecData && activeRecData.best_bundle && activeRecData.best_bundle.products) ? 
+        activeRecData.best_bundle.products.map(p => `${p.name} (${p.desc || p.cat})`) : b.services;
+      
+      sList.slice(0, 4).forEach(s => {
+        const div = document.createElement("div");
+        div.className = "rec-service-item";
+        div.innerHTML = `<i class="bi bi-check-circle-fill rec-service-check"></i> <span>${s}</span>`;
+        servicesBox.appendChild(div);
+      });
+
+      const panel = document.getElementById("recPanel");
+      panel.style.display = "block";
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+      recalculateQuote();
+
+      // Log quote_viewed event
+      fetch("/api/quote/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "quote_viewed",
+          quote_id: currentQuoteId,
+          session_id: currentSessionId
+        })
+      }).catch(() => {});
+    }
+
+    function toggleUnmetAddon() {
+      if (!pendingUnmetAddonKey) return;
+      const chk = document.querySelector(`.addon-quick-chk[value='${pendingUnmetAddonKey}']`);
+      if (chk) {
+        chk.checked = !chk.checked;
+        syncQuickAddon(chk);
+      }
+      document.getElementById("recUnmetBox").style.display = "none";
+    }
+
+    function syncQuickAddon(el) {
+      // Sync to Step 2 full checkboxes
+      const fullChk = document.querySelector(`.addon-chk[value='${el.value}']`);
+      if (fullChk) fullChk.checked = el.checked;
+      recalculateQuote();
+    }
+
+    function syncFullAddon(el) {
+      // Sync to Step 1 quick checkboxes
+      const quickChk = document.querySelector(`.addon-quick-chk[value='${el.value}']`);
+      if (quickChk) quickChk.checked = el.checked;
+      recalculateQuote();
+    }
+
+    function recalculateQuote() {
+      const addons = [];
+      document.querySelectorAll(".addon-chk:checked").forEach(c => addons.push(c.value));
+      document.querySelectorAll(".addon-quick-chk:checked").forEach(c => {
+        if (!addons.includes(c.value)) addons.push(c.value);
+      });
+
+      fetch("/api/quote/calculate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          quote_id: currentQuoteId,
+          bundle_id: activeBundleId,
+          addons: addons
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        activePricingData = data;
+        const p = data.pricing || {};
+        const base = p.monthly_base_inr || data.monthly_subtotal;
+        const sub = p.monthly_subtotal_inr || data.monthly_subtotal;
+        const gst = p.gst_18_inr || data.gst_18;
+        const total = p.final_monthly_payable_inr || data.total_monthly;
+        const setup = p.one_time_setup_inr || data.setup_fee;
+        const firstPay = p.first_payment_inr || (total + setup);
+
+        // Update Step 2 Bill Box
+        document.getElementById("billBaseName").innerText = data.base_bundle;
+        document.getElementById("billBasePrice").innerText = "₹" + base.toLocaleString();
+        document.getElementById("billSubtotal").innerText = "₹" + sub.toLocaleString();
+        document.getElementById("billGst").innerText = "₹" + gst.toLocaleString();
+        document.getElementById("billTotal").innerText = "₹" + total.toLocaleString();
+        document.getElementById("billSetup").innerText = "₹" + setup.toLocaleString();
+        const fpEl = document.getElementById("billFirstPayment");
+        if (fpEl) fpEl.innerText = "₹" + firstPay.toLocaleString();
+
+        const slaEl = document.getElementById("billSlaText");
+        if (slaEl) {
+          slaEl.innerText = `${data.sla || '99.5% SLA'} · ${data.lead_time_days || 2}-Day Install · ${data.contract_months || 12}-Mo Contract`;
+        }
+
+        // Update Step 1 Recommendation Card Bar
+        const rBase = document.getElementById("recPricingBase");
+        if (rBase) rBase.innerText = "₹" + base.toLocaleString();
+        const rGst = document.getElementById("recPricingGst");
+        if (rGst) rGst.innerText = "₹" + gst.toLocaleString();
+        const rTot = document.getElementById("recPricingMonthlyTotal");
+        if (rTot) rTot.innerText = "₹" + total.toLocaleString();
+        const rSetup = document.getElementById("recPricingSetup");
+        if (rSetup) rSetup.innerText = "₹" + setup.toLocaleString();
+        const rPrice = document.getElementById("recPrice");
+        if (rPrice) rPrice.innerText = "₹" + base.toLocaleString();
+        const rSub = document.getElementById("recPricePeriodSub");
+        if (rSub) rSub.innerText = `+ 18% GST (₹${gst.toLocaleString()}) · Total ₹${total.toLocaleString()}/mo`;
+
+        // Render Itemized Addons in Step 2
+        const addList = document.getElementById("billAddonsList");
+        addList.innerHTML = "";
+        (data.addons || []).forEach(a => {
+          const d = document.createElement("div");
+          d.className = "d-flex justify-content-between text-muted mb-1";
+          d.innerHTML = `<span>+ ${a.short_name || a.name}</span><span>₹${(a.monthly_inr || a.price).toLocaleString()}</span>`;
+          addList.appendChild(d);
+        });
+      });
+    }
+
+    function acceptQuoteAndVerify() {
+      // Record quote_accepted event
+      fetch("/api/quote/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "quote_accepted",
+          quote_id: currentQuoteId,
+          session_id: currentSessionId
+        })
+      }).catch(() => {});
+
+      goToStep(3);
+    }
+
+    function openItemizedQuoteModal() {
+      if (!activePricingData) {
+        recalculateQuote();
+      }
+      const data = activePricingData || {};
+      const p = data.pricing || {};
+      const base = p.monthly_base_inr || 1999;
+      const sub = p.monthly_subtotal_inr || 1999;
+      const gst = p.gst_18_inr || 360;
+      const total = p.final_monthly_payable_inr || 2359;
+      const setup = p.one_time_setup_inr || 1000;
+      const firstPay = p.first_payment_inr || (total + setup);
+
+      const modalBody = document.getElementById("quoteModalBody");
+      modalBody.innerHTML = `
+        <div class="border-bottom pb-3 mb-3 d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="fw-bold text-dark mb-0">${data.base_bundle || 'Airtel Business Digital Starter'}</h6>
+            <span class="text-muted small">Quote Ref: <code class="text-danger fw-bold">${currentQuoteId}</code> · Valid for 30 Days</span>
+          </div>
+          <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+            <i class="bi bi-shield-check me-1"></i> Authoritative B2B Quote
+          </span>
+        </div>
+
+        <div class="table-responsive mb-3">
+          <table class="table table-sm table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Service Line Item</th>
+                <th>Type</th>
+                <th>Setup Fee</th>
+                <th class="text-end">Monthly Rental</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>${data.base_bundle || 'Base Package'}</strong><br><small class="text-muted">High-speed business broadband with SLA commitment</small></td>
+                <td><span class="badge bg-primary-subtle text-primary">Base Bundle</span></td>
+                <td>₹${(data.setup_fee || 1000).toLocaleString()}</td>
+                <td class="text-end fw-bold">₹${base.toLocaleString()}</td>
+              </tr>
+              ${(data.addons || []).map(a => `
+                <tr>
+                  <td><strong>+ ${a.name}</strong></td>
+                  <td><span class="badge bg-secondary-subtle text-secondary">Optional Add-on</span></td>
+                  <td>₹${(a.setup_inr || 0).toLocaleString()}</td>
+                  <td class="text-end fw-bold">₹${(a.monthly_inr || a.price).toLocaleString()}</td>
+                </tr>
+              `).join('')}
+              <tr class="table-light">
+                <td colspan="3" class="text-end fw-bold">Monthly Subtotal (Excl. Tax):</td>
+                <td class="text-end fw-bold">₹${sub.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end text-muted">Statutory GST (18% Applicable):</td>
+                <td class="text-end text-muted">₹${gst.toLocaleString()}</td>
+              </tr>
+              <tr class="table-active">
+                <td colspan="3" class="text-end fs-6 fw-bold text-dark">Recurring Monthly Payable:</td>
+                <td class="text-end fs-6 fw-bold text-danger">₹${total.toLocaleString()}/mo</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end text-muted">One-time Setup &amp; Installation:</td>
+                <td class="text-end fw-bold text-dark">₹${setup.toLocaleString()}</td>
+              </tr>
+              <tr class="table-warning">
+                <td colspan="3" class="text-end fw-bold">First Payment Total (Month 1 + Setup):</td>
+                <td class="text-end fw-bold text-dark">₹${firstPay.toLocaleString()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-2 text-muted small p-2 bg-light rounded">
+          <div class="col-md-6">
+            <i class="bi bi-clock-history text-primary me-1"></i> <strong>Installation SLA:</strong> ${data.lead_time_days || 2} Business Days
+          </div>
+          <div class="col-md-6">
+            <i class="bi bi-calendar-check text-primary me-1"></i> <strong>Contract Duration:</strong> ${data.contract_months || 12} Months Commitment
+          </div>
+          <div class="col-12 mt-1">
+            <i class="bi bi-check2-all text-success me-1"></i> <strong>Service SLA:</strong> ${data.sla || '99.5% Uptime SLA with 4hr MTTR'}
+          </div>
+        </div>
+      `;
+
+      const qModal = new bootstrap.Modal(document.getElementById('quoteDetailModal'));
+      qModal.show();
+    }
+
+    function toggleRejectionBox() {
+      const b = document.getElementById("rejectionBox");
+      b.style.display = (b.style.display === "none") ? "block" : "none";
+    }
+
+    function submitRejectionReason(reason) {
+      fetch("/api/quote/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "quote_rejected",
+          quote_id: currentQuoteId,
+          session_id: currentSessionId,
+          rejection_reason: reason
+        })
+      }).then(() => {
+        document.getElementById("rejectionFeedbackMsg").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("rejectionBox").style.display = "none";
+        }, 3000);
+      });
+    }
+
+    function submitCustomRejection() {
+      const comment = (document.getElementById("rejectionCustomComment").value || "").trim();
+      if (!comment) return;
+      fetch("/api/quote/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_type: "quote_rejected",
+          quote_id: currentQuoteId,
+          session_id: currentSessionId,
+          rejection_reason: "custom_feedback",
+          metadata: {
+            customer_statement: comment
+          }
+        })
+      }).then(() => {
+        document.getElementById("rejectionFeedbackMsg").style.display = "block";
+        document.getElementById("rejectionCustomComment").value = "";
+        setTimeout(() => {
+          document.getElementById("rejectionBox").style.display = "none";
+        }, 3000);
+      });
+    }
+
+    function checkRecoveryReentry() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const resumeToken = urlParams.get('resume');
+      if (!resumeToken) return;
+
+      fetch(`/api/recovery/resume/${resumeToken}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            const quote = data.quote;
+            const profile = data.profile || {};
+            currentSessionId = (data.token_meta && data.token_meta.session_id) || currentSessionId;
+            currentQuoteId = quote.quote_id;
+
+            currentBundle = {
+              id: quote.bundle_id,
+              name: quote.bundle_name,
+              monthly_inr: quote.monthly_base_inr,
+              setup_inr: quote.pricing ? quote.pricing.setup_fee_inr : 1000,
+              sla: quote.sla || "99.5% Uptime SLA",
+              lead_time_days: quote.lead_time_days || 2,
+              products: quote.included_products || []
+            };
+
+            // Display re-entry alert
+            const banner = document.getElementById("recoveryReentryBanner");
+            if (banner) {
+              banner.style.display = "flex";
+              document.getElementById("reentryTitle").textContent = data.welcome_back_message || `Welcome back! Quote ${quote.quote_id} restored.`;
+            }
+
+            // Scroll to discoverySection and render restored recommendation card
+            document.getElementById("discoverySection").scrollIntoView({ behavior: "smooth" });
+            showRecommendationCard(currentBundle, {
+              match_score: 95,
+              explanation: [
+                "Restored from your previous consultation session.",
+                "Tailored specifically for your business operations.",
+                "Guaranteed 30-day locked commercial pricing with 99.9% uptime SLA."
+              ],
+              quote: quote,
+              target_bundle: currentBundle,
+              unmet_needs: []
+            });
+          }
+        })
+        .catch(err => console.error("Error resuming quote:", err));
+    }
+
+    function exploreOtherOptions() {
+      sendUserMessage("What other plans are available for my business size?");
+    }
+
+    // Step Transition
+    function goToStep(step) {
+      [1, 2, 3, 4].forEach(s => {
+        const el = document.getElementById("step" + s + "Container");
+        if (el) el.style.display = (s === step) ? "block" : "none";
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleConsentLang(lang) {
+      if (lang === 'hi') {
+        document.getElementById('dpdpNoticeTextEn').style.display = 'none';
+        document.getElementById('dpdpNoticeTextHi').style.display = 'block';
+        document.getElementById('btnLangHi').classList.add('active');
+        document.getElementById('btnLangEn').classList.remove('active');
+      } else {
+        document.getElementById('dpdpNoticeTextEn').style.display = 'block';
+        document.getElementById('dpdpNoticeTextHi').style.display = 'none';
+        document.getElementById('btnLangEn').classList.add('active');
+        document.getElementById('btnLangHi').classList.remove('active');
+      }
+    }
+
+    function verifyGstinInstant() {
+      const g = document.getElementById("custGstin").value.trim();
+      const exCard = document.getElementById("consumerExceptionCard");
+      
+      fetch("/api/kyc/lookup_gstin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ gstin: g })
+      })
+      .then(r => r.json())
+      .then(data => {
+        const al = document.getElementById("gstinStatusAlert");
+        if (data.valid && data.is_active) {
+          al.className = "small text-success fw-bold";
+          al.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ${data.legal_name} (ACTIVE) · Address verified`;
+          document.getElementById("custBizName").value = data.trade_name || data.legal_name;
+          exCard.style.display = "none";
+        } else if (data.status === "CANCELLED" || data.status === "SUSPENDED") {
+          al.className = "small text-danger fw-bold";
+          al.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> GST Registration ${data.status}!`;
+          
+          document.getElementById("consumerExceptionTitle").innerText = `GST Registration ${data.status}`;
+          document.getElementById("consumerExceptionEn").innerText = data.actionable_advice || data.message;
+          document.getElementById("consumerExceptionHi").innerText = data.actionable_advice_hi || "";
+          document.getElementById("consumerExceptionAction").innerText = "Please review your registration certificate or contact the GST authority. You may also proceed using your MSME Udyam certificate.";
+          exCard.style.display = "block";
+        } else {
+          al.className = "small text-danger fw-bold";
+          al.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> ${data.message || 'GSTIN not found in registry'}`;
+          exCard.style.display = "none";
+        }
+      });
+    }
+
+    function verifyUdyamInstant() {
+      const u = document.getElementById("custUdyam").value.trim();
+      fetch("/api/kyc/lookup_udyam", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ udyam_number: u })
+      })
+      .then(r => r.json())
+      .then(data => {
+        const al = document.getElementById("udyamStatusAlert");
+        if (data.valid) {
+          al.className = "small text-success fw-bold";
+          al.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ${data.enterprise_name} (${data.enterprise_type} Enterprise) · Verified`;
+          if (!document.getElementById("custBizName").value) {
+            document.getElementById("custBizName").value = data.enterprise_name;
+          }
+        } else {
+          al.className = "small text-danger fw-bold";
+          al.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> ${data.message}`;
+        }
+      });
+    }
+
+    function checkBillDateFreshness() {
+      const bDate = document.getElementById("custBillDateSelect").value;
+      const refDate = new Date("2026-07-15");
+      const chosen = new Date(bDate);
+      const diffDays = Math.round((refDate - chosen) / (1000 * 60 * 60 * 24));
+      
+      const al = document.getElementById("billFreshnessAlert");
+      const exCard = document.getElementById("consumerExceptionCard");
+      
+      if (diffDays <= 90 && diffDays >= 0) {
+        al.className = "small text-success fw-bold";
+        al.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Bill is ${diffDays} days old (&le;90-day statutory limit)`;
+        if (exCard.style.display === "block" && document.getElementById("consumerExceptionTitle").innerText.includes("Utility Bill")) {
+          exCard.style.display = "none";
+        }
+      } else {
+        al.className = "small text-danger fw-bold";
+        al.innerHTML = `<i class="bi bi-x-circle-fill me-1"></i> Bill is ${diffDays} days old (EXPIRED > 90d)`;
+        
+        document.getElementById("consumerExceptionTitle").innerText = "Utility Bill Older than 90 Days";
+        document.getElementById("consumerExceptionEn").innerText = `This electricity bill is ${diffDays} days old (exceeds permitted 90-day period relative to 15-Jul-2026). Please upload a more recent bill.`;
+        document.getElementById("consumerExceptionHi").innerText = `Yeh bijli ka bill ${diffDays} din purana hai. Kripya 16-Apr-2026 ke baad ka taaza bill upload karein.`;
+        document.getElementById("consumerExceptionAction").innerText = "Upload an electricity, water or landline bill issued after 16-Apr-2026.";
+        exCard.style.display = "block";
+      }
+    }
+
+    function submitConsumerOrder() {
+      if (!document.getElementById("dpdpConsent").checked) {
+        alert("Please confirm the DPDP Act consent checkbox to proceed with telecom verification.");
+        return;
+      }
+
+      const payload = {
+        quote_id: currentQuoteId,
+        bundle_id: activeBundleId,
+        ref_partner: currentRefPartner || null,
+        business_name: document.getElementById("custBizName").value.trim(),
+        contact_name: document.getElementById("custContactName").value.trim(),
+        phone: document.getElementById("custPhone").value.trim(),
+        city: document.getElementById("custCity").value.trim(),
+        gstin: document.getElementById("custGstin").value.trim(),
+        addons: []
+      };
+      document.querySelectorAll(".addon-chk:checked").forEach(c => payload.addons.push(c.value));
+
+      fetch("/api/consumer/order/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.status === "success") {
+          activeOrderId = res.order.order_id;
+          document.getElementById("confirmedOrderId").innerText = activeOrderId;
+          goToStep(4);
+        }
+      });
+    }
+
+    function viewMyDashboard() {
+      loadConsumerDashboard(activeOrderId);
+      document.getElementById("onboardingView").style.display = "none";
+      document.getElementById("consumerDashboardView").style.display = "block";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function returnToOnboarding() {
+      document.getElementById("onboardingView").style.display = "block";
+      document.getElementById("consumerDashboardView").style.display = "none";
+      goToStep(1);
+    }
+
+    function showTrackModal() {
+      const modal = new bootstrap.Modal(document.getElementById('trackOrderModal'));
+      modal.show();
+    }
+
+    function trackFromModal() {
+      const oId = document.getElementById("modalOrderIdInput").value.trim();
+      if (!oId) return;
+      activeOrderId = oId;
+      viewMyDashboard();
+      bootstrap.Modal.getInstance(document.getElementById('trackOrderModal')).hide();
+    }
+
+    function loadConsumerDashboard(orderId) {
+      fetch("/api/consumer/order/" + orderId)
+      .then(r => r.json())
+      .then(data => {
+        if (!data.found) {
+          alert("Order ID not found: " + orderId);
+          return;
+        }
+
+        document.getElementById("dashOrderId").innerText = data.order_id;
+        document.getElementById("dashBizName").innerText = data.business_name;
+        document.getElementById("dashPlanName").innerText = data.bundle_name;
+        document.getElementById("dashMonthlySub").innerText = "₹" + data.monthly_subtotal.toLocaleString();
+        document.getElementById("dashMonthlyGst").innerText = "₹" + data.gst_18.toLocaleString();
+        document.getElementById("dashMonthlyTotal").innerText = "₹" + data.total_monthly.toLocaleString();
+        document.getElementById("dashLiveStatusText").innerText = data.installation_status_text;
+
+        // KYC status badge
+        const kBadge = document.getElementById("dashKycBadge");
+        const kBox = document.getElementById("dashKycBox");
+        const kVerdict = document.getElementById("dashKycVerdict");
+        const kNote = document.getElementById("dashKycNote");
+
+        kVerdict.innerText = data.kyc_verdict;
+        kBadge.innerText = data.kyc_status;
+
+        if (data.kyc_status === "APPROVED") {
+          kBox.style.backgroundColor = "#f0fdf4";
+          kBadge.className = "badge bg-success";
+          kVerdict.className = "fw-bold text-success fs-6";
+          kNote.innerText = "Verified by Airtel KYC Officer. DoT compliance cleared.";
+        } else if (data.kyc_status === "PENDING_REVIEW") {
+          kBox.style.backgroundColor = "#fffbeb";
+          kBadge.className = "badge bg-warning text-dark";
+          kVerdict.className = "fw-bold text-warning fs-6";
+          kNote.innerText = "Under review by our KYC verification desk. You will receive an SMS update shortly.";
+        } else {
+          kBox.style.backgroundColor = "#fef2f2";
+          kBadge.className = "badge bg-danger";
+          kVerdict.className = "fw-bold text-danger fs-6";
+          kNote.innerText = "Action required: Document resubmission requested. Check remarks.";
+        }
+
+        // Assigned engineer
+        if (data.assigned_engineer && data.assigned_engineer.name !== "Pending Assignment") {
+          document.getElementById("dashEngName").innerText = data.assigned_engineer.name;
+          document.getElementById("dashEngPhone").innerText = data.assigned_engineer.phone;
+          document.getElementById("dashEngineerCard").style.display = "block";
+        } else {
+          document.getElementById("dashEngName").innerText = "Field Team will be assigned upon feasibility check.";
+          document.getElementById("dashEngPhone").innerText = "--";
+        }
+
+        // Stepper milestones
+        const stBox = document.getElementById("dashMilestones");
+        stBox.innerHTML = "";
+        data.milestones.forEach((m, idx) => {
+          const item = document.createElement("div");
+          item.className = "stepper-item";
+          
+          let iconClass = "pending";
+          let iconContent = idx + 1;
+          if (m.status === "COMPLETED") {
+            iconClass = "completed";
+            iconContent = '<i class="bi bi-check-lg"></i>';
+          } else if (m.status === "IN_PROGRESS") {
+            iconClass = "in-progress";
+            iconContent = '<i class="bi bi-arrow-repeat"></i>';
+          }
+
+          item.innerHTML = `
+            <div class="stepper-icon ${iconClass}">${iconContent}</div>
+            <div>
+              <div class="fw-bold ${m.status === 'IN_PROGRESS' ? 'text-danger' : 'text-dark'}">${m.title}</div>
+              <div class="small text-muted">${m.date} · ${m.note}</div>
+            </div>
+          `;
+          stBox.appendChild(item);
+        });
+      });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return "";
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+        .replace(/\n/g, "<br>");
+    }
+
+    // Auto-refresh consumer dashboard if open
+    setInterval(() => {
+      if (document.getElementById("consumerDashboardView").style.display === "block") {
+        loadConsumerDashboard(activeOrderId);
+      }
+    }, 4000);
+  </script>
+</body>
+</html>

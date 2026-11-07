@@ -1,0 +1,548 @@
+<USER_REQUEST>
+# PHASE 6: BUILD PREDICTIVE OPERATIONS AND BUSINESS INTELLIGENCE
+## Project Udyam Digital — Airtel Operations Intelligence Centre
+
+Act as a senior data engineer, business intelligence architect, operations research specialist and enterprise dashboard developer.
+
+This is the final intelligence layer of Project Udyam Digital.
+
+Build on all five previous phases.
+
+Do not rebuild the Airtel Control Portal.
+
+Do not create a dashboard containing random charts simply to make it look impressive.
+
+I want a genuinely useful operational intelligence system that helps Airtel leadership understand what is happening, why it is happening and what action should be taken.
+
+## 1. CORE OBJECTIVE
+
+The Airtel Control Portal must evolve into an operational command centre.
+
+It must answer three questions:
+
+1. What is happening in the MSME acquisition funnel?
+2. Where are the bottlenecks?
+3. What should Airtel do about them?
+
+The system should combine:
+- Historical lead dataset.
+- Consumer onboarding sessions.
+- Quotes.
+- Recovery records.
+- KYC applications.
+- Customer orders.
+- Installation milestones.
+- Partner performance.
+
+Use actual records from the shared backend.
+
+Do not fabricate analytics.
+
+## 2. EXECUTIVE INTELLIGENCE DASHBOARD
+
+Create a professional executive overview.
+
+Display these metrics:
+
+- Total leads.
+- Contacted leads.
+- Needs assessed.
+- Quotes accepted.
+- KYC completed.
+- Activated customers.
+- Overall conversion rate.
+- Average onboarding TAT.
+- Blended CAC.
+- Status follow-up calls.
+- Quote recovery rate.
+- KYC rejection rate.
+- Installation SLA compliance.
+
+For each metric show:
+
+- Current value.
+- Historical comparison where available.
+- Change.
+- Trend.
+- Explanation.
+- Data source.
+
+Do not display a comparison when the required data is unavailable.
+
+## 3. HISTORICAL BASELINE VS PROTOTYPE PERFORMANCE
+
+This is critical.
+
+The assignment provides a historical baseline of 5,000 leads.
+
+Use the following baseline:
+
+| Metric | Historical baseline |
+|---|---:|
+| Leads | 5,000 |
+| Contacted | 3,406 |
+| Needs assessed | 1,974 |
+| Quotes accepted | 861 |
+| KYC completed | 588 |
+| Activated | 368 |
+| Conversion | 7.36% |
+| CAC | ₹15,000 |
+| TAT | 17.6 days |
+| Chase calls | 3.01 |
+
+Clearly label these as historical assignment data.
+
+Create a separate section for live prototype activity.
+
+Do not mix historical records and new prototype transactions.
+
+When displaying target values, clearly distinguish:
+- Historical baseline.
+- Assignment target.
+- Actual prototype results.
+- Simulated scenario.
+
+Never present assignment targets as achieved results.
+
+## 4. FUNNEL INTELLIGENCE
+
+Create a detailed acquisition funnel.
+
+Stages:
+
+1. Lead generated.
+2. Contacted.
+3. Needs assessed.
+4. Quote accepted.
+5. KYC completed.
+6. Activated.
+
+Display:
+
+- Absolute counts.
+- Stage-to-stage conversion.
+- Drop-off percentage.
+- Drop-off count.
+- Overall conversion.
+
+Allow clicking a funnel stage to inspect the relevant lead records.
+
+Add segment-wise analysis:
+
+- Kirana and retail.
+- Professional offices.
+- Multi-site businesses.
+- Manufacturing.
+
+Add location-wise analysis using available dataset fields.
+
+## 5. QUOTE LOSS INTELLIGENCE
+
+Build a dedicated quote bottleneck analysis section.
+
+Display rejection reasons:
+
+- Price too high / opaque.
+- Competitor cheaper / faster.
+- Quote too complex.
+- Other.
+
+Show:
+
+- Total rejected quotations.
+- Percentage distribution.
+- Segment distribution.
+- City distribution where data supports it.
+- Recovery status.
+- Recovery outcomes.
+
+Connect this dashboard to Phase 3.
+
+The employee should be able to move from a chart to the underlying recovery records.
+
+Do not stop at visualizing the problem.
+
+Provide a recommended operational action.
+
+Example:
+
+"Price-related objections account for the largest recorded quote-stage loss category. Review bundle pricing communication and prioritize price-sensitive customer segments."
+
+Make recommendations evidence-based.
+
+## 6. KYC INTELLIGENCE
+
+Create a KYC analytics module.
+
+Display:
+
+- Total applications.
+- Pending verification.
+- Automatically verified.
+- Manual review.
+- Rejected.
+- Resubmission requested.
+
+Analyze:
+
+- Common verification failures.
+- OCR failure rate.
+- GSTIN registry mismatch.
+- Address mismatch.
+- Expired documents.
+- Average verification time.
+
+Connect charts to Phase 5 records.
+
+Allow officers to inspect the actual underlying cases.
+
+## 7. INSTALLATION OPERATIONS INTELLIGENCE
+
+Create an installation operations workspace.
+
+Display:
+
+- Total orders.
+- Orders awaiting feasibility.
+- Orders awaiting dispatch.
+- Engineer assignments.
+- Scheduled installations.
+- Delayed installations.
+- Activated orders.
+
+Show an order-level timeline.
+
+Identify orders approaching or exceeding their applicable SLA.
+
+Respect different SLA commitments for different bundles.
+
+## 8. PROACTIVE INSTALLATION RISK ENGINE
+
+Build an explainable rules-based risk engine initially.
+
+Do not train a machine-learning model without sufficient labelled historical installation data.
+
+Suggested risk factors:
+
+- Feasibility not completed.
+- KYC pending.
+- Dispatch not assigned.
+- Engineer not assigned.
+- Installation date approaching.
+- Existing SLA breach.
+- Missing customer information.
+
+Classify orders:
+
+- Low risk.
+- Medium risk.
+- High risk.
+- SLA breached.
+
+Every risk assessment must explain why the order received that classification.
+
+Example:
+
+"High risk: Installation is approaching its four-day SLA, but network feasibility is still pending."
+
+Recommended action:
+
+"Escalate the feasibility request to the local operations manager."
+
+The risk engine should run whenever relevant order milestones change.
+
+## 9. EXCEPTION MANAGEMENT CENTRE
+
+Create a unified operational action queue.
+
+Combine:
+
+- Abandoned high-priority quotes.
+- KYC exceptions.
+- Pending manual reviews.
+- Installation risks.
+- SLA breaches.
+- Unassigned orders.
+- Unresolved customer requests.
+
+Each exception must contain:
+
+- Priority.
+- Type.
+- Customer/order reference.
+- Reason.
+- Time outstanding.
+- Assigned owner.
+- Recommended action.
+- Current status.
+
+Allow authorized users to assign, acknowledge and resolve exceptions.
+
+The objective is to turn analytics into actual operational actions.
+
+## 10. PARTNER PERFORMANCE INTELLIGENCE
+
+Connect Phase 4.
+
+Display:
+
+- Leads generated per partner.
+- Leads contacted.
+- Quotes accepted.
+- KYC completed.
+- Activated customers.
+- Conversion rate.
+- Quote recovery contribution.
+- Commission earned.
+- Pending commissions.
+
+Allow filtering by:
+- Date.
+- City.
+- Partner.
+- Customer segment.
+
+Avoid ranking partners using raw activation counts alone.
+
+Include conversion rates and lead volumes to provide fairer comparisons.
+
+## 11. AI-GENERATED BUSINESS INSIGHTS
+
+Introduce an AI-powered executive insight service.
+
+The AI should analyze aggregated, verified data and generate short explanations.
+
+Example:
+
+"Micro-retail customers account for the largest share of leads, but quote-stage rejection is disproportionately driven by price concerns."
+
+Another example:
+
+"Three orders are approaching their installation SLA because feasibility assessments remain incomplete."
+
+Each insight must contain:
+
+1. Observation.
+2. Supporting data.
+3. Business implication.
+4. Recommended action.
+
+For example:
+
+Observation:
+Price-related objections are the largest identified quote rejection category.
+
+Supporting data:
+414 recorded losses.
+
+Implication:
+Customers may not understand the value or affordability of the offered bundles.
+
+Recommended action:
+Review transparent pricing communication and test appropriate lower-cost eligible alternatives.
+
+Do not allow the LLM to invent figures.
+
+Prepare aggregated data on the backend and pass that data to the LLM.
+
+The LLM should explain the data, not generate it.
+
+Every insight should have traceable supporting metrics.
+
+Clearly label hypotheses as hypotheses.
+
+## 12. INTERACTIVE SCENARIO SIMULATOR
+
+Create a business scenario simulator.
+
+Allow leadership to adjust:
+
+- Target quote acceptance.
+- KYC completion.
+- Activation conversion.
+- Lead recovery assumptions.
+- CAC assumptions.
+
+Show the projected effect on:
+- Activations.
+- Revenue, if reliable pricing and billing assumptions are available.
+- Acquisition costs.
+- Potentially recovered leads.
+
+Use transparent formulas.
+
+Do not double-count recovered customers.
+
+Clearly distinguish simulation results from actual results.
+
+## 13. ADVANCED ANALYTICS
+
+Where data permits, add:
+
+- Conversion trends.
+- Cohort analysis.
+- Customer segment comparison.
+- City-wise funnel performance.
+- Partner conversion comparison.
+- Quote rejection distribution.
+- KYC turnaround analysis.
+- Installation SLA performance.
+
+Avoid adding a chart without a business question it answers.
+
+Use suitable visualizations:
+- Funnel charts for acquisition.
+- Line charts for trends.
+- Horizontal bar charts for rejection reasons.
+- Stacked charts for operational statuses.
+- Tables for detailed records.
+
+Every chart must have:
+- Meaningful title.
+- Clear units.
+- Useful date range.
+- Accurate labels.
+- Appropriate empty state.
+
+## 14. DATA ARCHITECTURE
+
+Create a centralized analytics service.
+
+Separate:
+- Historical assignment dataset.
+- Live prototype transactions.
+- Configured business targets.
+- Simulated scenario outputs.
+
+Do not calculate important business metrics independently in multiple frontend components.
+
+Centralize metric calculations in the backend.
+
+Maintain consistent definitions.
+
+Examples:
+
+Overall conversion = Activated / Total Leads × 100.
+
+Stage conversion = Next Stage Count / Previous Stage Count × 100.
+
+Quote rejection rate = Rejected Quotes / Assessed Leads × 100, where the dataset definition supports that denominator.
+
+CAC = Acquisition Spend / Acquired Customers.
+
+Only calculate CAC when the corresponding expenditure data is available.
+
+Do not estimate missing financial data without explicitly labelling assumptions.
+
+## 15. CONTROL PORTAL UI
+
+The Airtel Control Portal should look like a premium enterprise operations product.
+
+Use:
+
+- Dark slate sidebar.
+- Clean light content surface.
+- Professional typography.
+- Compact KPI cards.
+- Data-rich tables.
+- Search and filtering.
+- Drill-down navigation.
+- Clear status indicators.
+- Consistent chart styling.
+
+Do not make every section a separate large card.
+
+Prioritize information density without sacrificing readability.
+
+The executive overview should answer the most important questions immediately.
+
+The deeper operational modules should contain detailed records.
+
+## 16. ROLE-BASED ACCESS
+
+Respect existing permissions.
+
+Administrator:
+Full visibility.
+
+Operations Manager:
+Orders, installations, exceptions and operational analytics.
+
+Sales Executive:
+Assigned leads, customer information and quote recovery.
+
+Channel Partner:
+Own referrals, assigned leads and commission records.
+
+KYC Officer:
+Verification queues and KYC-related analytics.
+
+Enforce permissions in the backend.
+
+Do not rely solely on hidden frontend navigation.
+
+## 17. PERFORMANCE AND RELIABILITY
+
+Do not load all records unnecessarily for every dashboard request.
+
+Use appropriate aggregation queries.
+
+Avoid expensive repeated calculations.
+
+Implement pagination.
+
+Ensure filters work against actual backend data.
+
+Handle:
+- Empty datasets.
+- Missing values.
+- Date filters.
+- Invalid filters.
+- Backend failures.
+- Unauthorized access.
+
+## 18. ACCEPTANCE TESTS
+
+Verify the following end-to-end workflows:
+
+1. New customer creates a session.
+2. Customer receives a recommendation.
+3. Customer generates a quote.
+4. Quote is abandoned.
+5. Recovery record appears.
+6. Partner contacts the customer.
+7. Customer returns and accepts the quote.
+8. Customer completes KYC.
+9. Order appears in operations.
+10. Installation is assigned.
+11. Risk status updates when milestones change.
+12. Customer gets installation updates.
+13. Order activates.
+14. Executive dashboard reflects the new prototype transaction.
+15. Historical baseline remains unchanged.
+
+Also verify that the analytics dashboard never mixes historical and prototype data without explicitly identifying the source.
+
+## 19. FINAL ACCEPTANCE CRITERIA
+
+The Airtel Control Portal must now answer:
+
+- How is acquisition performing?
+- Where are we losing customers?
+- Why are customers rejecting quotes?
+- Which customers can be recovered?
+- Where are KYC bottlenecks?
+- Which installations are at risk?
+- Which partners are performing well?
+- What should the operations team do next?
+- Which business interventions could improve conversion?
+
+The application must turn data into actionable decisions.
+
+FINAL OBJECTIVE:
+
+Transform the Airtel Control Portal from a reporting dashboard into an intelligent operational command centre for MSME acquisition and activation.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-07T19:01:24+05:30.
+</ADDITIONAL_METADATA>

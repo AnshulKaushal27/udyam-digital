@@ -1,0 +1,29 @@
+# MASTER SPECIFICATION & PROMPT: Project Udyam Digital
+# Airtel SYNC 2026 - Digital Track (YTL Hackathon Enterprise Track A)
+
+## Context & Objectives
+You are building an end-to-end B2B acquisition and onboarding platform for Accel Telecom (proxy for Bharti Airtel) to serve India's 6.3 Crore MSMEs. The current enterprise sales model suffers from 17.6-day onboarding TAT, ₹15,000 CAC, 3+ chase calls per lead, and a 56% conversion collapse at the quote stage (7.36% overall conversion).
+
+Project Udyam Digital delivers:
+1. Multilingual GenAI Advisor: Conversational discovery (Hindi, Hinglish, English, Regional) mapping needs to `product_catalogue.csv`.
+2. Transparent 1-Click Quote & Modular Checkout: Real-time dynamic pricing with toggleable add-ons, eliminating opaque PDF quotes.
+3. Smart KYC & DPDP Compliance: Instant lookups via `mock_gstin_registry.csv` and `mock_udyam_registry.csv`, OCR document extraction, validation rules (<90 days old from 2026-07-15), bilingual DPDP Act 2023 consent, and PII masking.
+4. Visual Self-Serve Order Tracker: Live milestone tracking to eliminate status chase calls.
+5. Channel Partner Co-Pilot: Assisted mode, QR attribution, and lead rescue.
+
+## Core Evaluation Questions & Solutions
+1. Prioritized Segments & Bundles:
+   - Micro Retail & Services (55% base): Kirana Digital Starter @ ₹1,999/mo (Biz 5G AirFiber 100, POS 4G Backup, WhatsApp API, Secure Wi-Fi).
+   - Professional Offices (25% base): Clinic & CA Suite @ ₹3,499/mo (Biz Fibre 300, 1TB Cloud Backup, Google Workspace, Secure Wi-Fi).
+   - Multi-Site Retail (15% base): Retail Pro @ ₹7,999/mo (Biz Fibre 1G, SD-WAN, 4x Cloud CCTV, Managed Firewall).
+2. Conversational Needs Discovery: 3-question natural language assessment in Hindi/English/Hinglish with plain value explanation.
+3. Smart KYC & DPDP Act 2023: Sub-second GSTIN & Udyam lookups, OCR cross-field address and validity (<90 days from 15-Jul-2026) checks, RegEx PII masking, and bilingual consent.
+4. Partner & Field Sales Synergy: Assisted Tablet Mode for 10k+ local partners, QR code attribution, and abandoned lead rescue with AI propensity scoring.
+5. Quantified Impact: Lead conversion (7.36% -> 22%), TAT (17.6d -> 3.5d), CAC (₹15,000 -> ₹3,800), Chase calls (3.0 -> <0.2).
+
+## Required Deliverables
+1. Professional 7-slide Presentation Deck in PPTX and PDF format (`TeamName_CampusName.pptx` & `.pdf`) following the Airtel SYNC template.
+2. Full Working Prototype Application with interactive Web UI for Advisor, Quote Builder, Smart KYC, and Order Tracker.
+3. 1-Page DPDP Act 2023 Privacy & Security Architecture Note.
+4. Comprehensive Architecture & Data Flow Diagram.
+5. Detailed execution log (`execution_log.txt`) with step-by-step progress, timings, and self-evaluations.

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Ground Line -->
+  <line x1="6" y1="54" x2="58" y2="54" stroke="#20252D" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Left Store Branch -->
+  <rect x="8" y="32" width="20" height="22" rx="2" fill="#FFFFFF" stroke="#20252D" stroke-width="1.8"/>
+  <path d="M6 32 L30 32 L28 26 L8 26 Z" fill="#20252D"/>
+  <rect x="13" y="38" width="10" height="16" fill="#F4F3EF" stroke="#20252D" stroke-width="1.2"/>
+  <line x1="18" y1="45" x2="18" y2="47" stroke="#20252D" stroke-width="1.5"/>
+
+  <!-- Right Store Branch -->
+  <rect x="36" y="32" width="20" height="22" rx="2" fill="#FFFFFF" stroke="#20252D" stroke-width="1.8"/>
+  <path d="M34 32 L58 32 L56 26 L36 26 Z" fill="#20252D"/>
+  <rect x="41" y="38" width="10" height="16" fill="#F4F3EF" stroke="#20252D" stroke-width="1.2"/>
+  <line x1="46" y1="45" x2="46" y2="47" stroke="#20252D" stroke-width="1.5"/>
+
+  <!-- Central Network Cloud Hub (SD-WAN) -->
+  <g transform="translate(22, 8)">
+    <rect x="0" y="0" width="20" height="14" rx="4" fill="#FFFFFF" stroke="#E31E24" stroke-width="1.8"/>
+    <!-- Router LED status -->
+    <circle cx="6" cy="7" r="1.5" fill="#42846A"/>
+    <circle cx="10" cy="7" r="1.5" fill="#E31E24"/>
+    <circle cx="14" cy="7" r="1.5" fill="#577A9D"/>
+  </g>
+
+  <!-- Network Interconnect Bridge -->
+  <path d="M18 26 L18 15 L22 15" stroke="#E31E24" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+  <path d="M46 26 L46 15 L42 15" stroke="#E31E24" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+
+  <!-- CCTV Camera Element -->
+  <g transform="translate(48, 18)">
+    <path d="M0 6 L8 2 L8 10 Z" fill="#20252D"/>
+    <rect x="7" y="3" width="7" height="6" rx="1" fill="#42846A"/>
+    <circle cx="14" cy="6" r="1" fill="#E31E24"/>
+  </g>
+</svg>

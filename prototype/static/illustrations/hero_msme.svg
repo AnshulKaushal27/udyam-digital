@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" fill="none">
+  <!-- Subtle Ambient Background -->
+  <rect x="0" y="0" width="560" height="380" rx="16" fill="#FAF9F6"/>
+  <circle cx="440" cy="90" r="110" fill="#F4F3EF" />
+  <circle cx="110" cy="270" r="90" fill="#F4F3EF" />
+
+  <!-- Ground Line -->
+  <line x1="40" y1="330" x2="520" y2="330" stroke="#E7E5E0" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Store Facade Architecture -->
+  <rect x="70" y="110" width="280" height="220" rx="6" fill="#FFFFFF" stroke="#20252D" stroke-width="2"/>
+  
+  <!-- Modern Clean Awning -->
+  <path d="M60 110 L360 110 L346 142 L74 142 Z" fill="#20252D"/>
+  <path d="M96 110 L132 110 L126 142 L90 142 Z" fill="#E31E24"/>
+  <path d="M168 110 L204 110 L198 142 L162 142 Z" fill="#E31E24"/>
+  <path d="M240 110 L276 110 L270 142 L234 142 Z" fill="#E31E24"/>
+  <path d="M312 110 L348 110 L342 142 L306 142 Z" fill="#E31E24"/>
+
+  <!-- Signboard -->
+  <rect x="110" y="74" width="200" height="28" rx="4" fill="#20252D"/>
+  <rect x="122" y="82" width="12" height="12" rx="2" fill="#E31E24"/>
+  <text x="144" y="93" fill="#FAF9F6" font-family="'Inter', sans-serif" font-size="11" font-weight="700" letter-spacing="1">UDYAM ENTERPRISE</text>
+
+  <!-- Store Window & Shelves -->
+  <rect x="90" y="160" width="100" height="110" rx="4" fill="#F4F3EF" stroke="#E7E5E0" stroke-width="1.5"/>
+  <line x1="90" y1="195" x2="190" y2="195" stroke="#E7E5E0" stroke-width="1.5"/>
+  <line x1="90" y1="235" x2="190" y2="235" stroke="#E7E5E0" stroke-width="1.5"/>
+  
+  <!-- Shelf Items (Minimalist jars/boxes) -->
+  <rect x="100" y="178" width="14" height="17" rx="2" fill="#42846A"/>
+  <rect x="120" y="174" width="16" height="21" rx="2" fill="#D89A43"/>
+  <rect x="142" y="180" width="14" height="15" rx="2" fill="#20252D"/>
+  <rect x="162" y="176" width="18" height="19" rx="2" fill="#577A9D"/>
+
+  <rect x="102" y="216" width="20" height="19" rx="2" fill="#D89A43"/>
+  <rect x="128" y="212" width="14" height="23" rx="2" fill="#42846A"/>
+  <rect x="148" y="218" width="28" height="17" rx="2" fill="#FAF9F6" stroke="#20252D" stroke-width="1"/>
+
+  <!-- Shop Counter -->
+  <rect x="210" y="220" width="124" height="110" rx="3" fill="#FFFFFF" stroke="#20252D" stroke-width="2"/>
+  <rect x="206" y="214" width="132" height="8" rx="2" fill="#20252D"/>
+
+  <!-- Shopkeeper (Editorial Minimalist) -->
+  <circle cx="265" cy="172" r="14" fill="#20252D"/>
+  <path d="M246 214 C246 194 284 194 284 214 Z" fill="#42846A"/>
+  <line x1="265" y1="188" x2="265" y2="214" stroke="#FAF9F6" stroke-width="2"/>
+
+  <!-- UPI QR Stand (Prominent Indian Commerce Detail) -->
+  <g transform="translate(220, 192)">
+    <!-- Stand base and pole -->
+    <rect x="0" y="20" width="22" height="2" fill="#20252D"/>
+    <line x1="11" y1="14" x2="11" y2="20" stroke="#20252D" stroke-width="1.5"/>
+    <!-- QR Board with Airtel Red Accent -->
+    <rect x="1" y="0" width="20" height="20" rx="3" fill="#FFFFFF" stroke="#20252D" stroke-width="1.5"/>
+    <rect x="3" y="2" width="16" height="4" rx="1" fill="#E31E24"/>
+    <!-- QR Grid Pattern -->
+    <rect x="5" y="8" width="4" height="4" fill="#20252D"/>
+    <rect x="11" y="8" width="4" height="4" fill="#20252D"/>
+    <rect x="5" y="14" width="4" height="4" fill="#20252D"/>
+    <rect x="11" y="14" width="2" height="2" fill="#20252D"/>
+  </g>
+
+  <!-- POS Smart Terminal -->
+  <rect x="290" y="202" width="24" height="14" rx="2" fill="#20252D"/>
+  <rect x="292" y="204" width="12" height="10" rx="1" fill="#42846A"/>
+  <line x1="308" y1="208" x2="311" y2="208" stroke="#FFFFFF" stroke-width="1"/>
+
+  <!-- Digital Connectivity Node / 5G Broadband Hub (Airtel Router) -->
+  <g transform="translate(370, 170)">
+    <!-- AirFiber Hub Device -->
+    <rect x="10" y="70" width="36" height="58" rx="6" fill="#20252D"/>
+    <line x1="28" y1="56" x2="28" y2="70" stroke="#20252D" stroke-width="2"/>
+    <circle cx="28" cy="54" r="3" fill="#E31E24"/>
+    
+    <!-- LED status indicators -->
+    <circle cx="28" cy="85" r="2.5" fill="#42846A"/>
+    <circle cx="28" cy="95" r="2" fill="#FAF9F6"/>
+    <circle cx="28" cy="104" r="2" fill="#FAF9F6"/>
+
+    <!-- Connectivity Waves (Subtle Wi-Fi / 5G signal) -->
+    <path d="M16 46 A16 16 0 0 1 40 46" stroke="#E31E24" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M10 38 A24 24 0 0 1 46 38" stroke="#E31E24" stroke-width="1.8" stroke-dasharray="3 3" fill="none"/>
+    <path d="M4 30 A32 32 0 0 1 52 30" stroke="#D89A43" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Floating Smartphone with Udyam Digital UI -->
+  <g transform="translate(425, 140)">
+    <rect x="0" y="0" width="76" height="144" rx="14" fill="#FFFFFF" stroke="#20252D" stroke-width="2" filter="drop-shadow(0 6px 12px rgba(32,37,45,0.06))"/>
+    <!-- Phone Screen Header -->
+    <rect x="8" y="10" width="60" height="16" rx="3" fill="#FAF9F6"/>
+    <rect x="12" y="15" width="22" height="6" rx="2" fill="#E31E24"/>
+    <circle cx="60" cy="18" r="2" fill="#42846A"/>
+    <!-- Screen Cards -->
+    <rect x="8" y="32" width="60" height="30" rx="4" fill="#F4F3EF"/>
+    <rect x="14" y="38" width="30" height="4" rx="1" fill="#20252D"/>
+    <rect x="14" y="46" width="46" height="3" rx="1" fill="#69717D"/>
+    <rect x="14" y="52" width="20" height="5" rx="2" fill="#42846A"/>
+
+    <rect x="8" y="68" width="60" height="26" rx="4" fill="#FAF9F6" stroke="#E7E5E0" stroke-width="1"/>
+    <line x1="14" y1="78" x2="40" y2="78" stroke="#20252D" stroke-width="2"/>
+    <line x1="14" y1="84" x2="54" y2="84" stroke="#9299A3" stroke-width="1.5"/>
+
+    <!-- Bottom Action Button -->
+    <rect x="8" y="102" width="60" height="18" rx="4" fill="#20252D"/>
+    <text x="21" y="114" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="7" font-weight="700">ACTIVATE</text>
+
+    <!-- Home Indicator -->
+    <line x1="28" y1="135" x2="48" y2="135" stroke="#9299A3" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Network Connectivity Line connecting Store & Mobile -->
+  <path d="M336 218 C370 218 380 200 425 200" stroke="#577A9D" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <circle cx="336" cy="218" r="3" fill="#577A9D"/>
+  <circle cx="425" cy="200" r="3" fill="#577A9D"/>
+
+  <!-- Subtle Badge: 100% Reliable -->
+  <g transform="translate(380, 290)">
+    <rect x="0" y="0" width="130" height="28" rx="6" fill="#FFFFFF" stroke="#E7E5E0" stroke-width="1.5"/>
+    <circle cx="16" cy="14" r="6" fill="#42846A" fill-opacity="0.15"/>
+    <circle cx="16" cy="14" r="3" fill="#42846A"/>
+    <text x="28" y="18" fill="#20252D" font-family="'Inter', sans-serif" font-size="9.5" font-weight="600">Airtel Digital Mesh</text>
+  </g>
+</svg>

@@ -1,0 +1,261 @@
+[
+  {
+    "category": "Startup",
+    "test_name": "Consumer Portal Accessibility (/)",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "Startup",
+    "test_name": "Airtel Control Portal Accessibility (/control)",
+    "expected": "HTTP 200",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "Environment",
+    "test_name": "Registry/Data File: smb_leads.csv",
+    "expected": "File exists & non-empty",
+    "actual": "Exists: True",
+    "status": "PASS"
+  },
+  {
+    "category": "Environment",
+    "test_name": "Registry/Data File: mock_gstin_registry.csv",
+    "expected": "File exists & non-empty",
+    "actual": "Exists: True",
+    "status": "PASS"
+  },
+  {
+    "category": "Environment",
+    "test_name": "Registry/Data File: mock_udyam_registry.csv",
+    "expected": "File exists & non-empty",
+    "actual": "Exists: True",
+    "status": "PASS"
+  },
+  {
+    "category": "Environment",
+    "test_name": "Registry/Data File: product_catalogue.csv",
+    "expected": "File exists & non-empty",
+    "actual": "Exists: True",
+    "status": "PASS"
+  },
+  {
+    "category": "Environment",
+    "test_name": "Registry/Data File: .env",
+    "expected": "File exists & non-empty",
+    "actual": "Exists: True",
+    "status": "PASS"
+  },
+  {
+    "category": "Browser UI",
+    "test_name": "Desktop Viewport Rendering (1440,900)",
+    "expected": "Valid non-empty screenshot",
+    "actual": "Captured (113388 bytes)",
+    "status": "PASS"
+  },
+  {
+    "category": "Browser UI",
+    "test_name": "Tablet Viewport Rendering (768,1024)",
+    "expected": "Valid non-empty screenshot",
+    "actual": "Captured (93315 bytes)",
+    "status": "PASS"
+  },
+  {
+    "category": "Browser UI",
+    "test_name": "Mobile Viewport Rendering (375,812)",
+    "expected": "Valid non-empty screenshot",
+    "actual": "Captured (51026 bytes)",
+    "status": "PASS"
+  },
+  {
+    "category": "Browser UI",
+    "test_name": "Control Portal Desktop Rendering (1440,900)",
+    "expected": "Valid non-empty screenshot",
+    "actual": "Captured (178403 bytes)",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "POST /api/advisor/chat (Valid Query)",
+    "expected": "HTTP 200 with bundle/reply",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "POST /api/advisor/chat (Empty Payload)",
+    "expected": "HTTP 200 graceful fallback",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "POST /api/quote/calculate (Valid Clinic + CCTV)",
+    "expected": "HTTP 200 with 18% GST",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "POST /api/consumer/order/create (Valid Registration)",
+    "expected": "HTTP 200 pending verification",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "POST /api/consumer/order/create (Expired Bill >90d)",
+    "expected": "Flagged EXCEPTION_FAILED",
+    "actual": "Status: EXCEPTION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "GET /api/consumer/order/<valid_id>",
+    "expected": "HTTP 200 with order details",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "API",
+    "test_name": "GET /api/consumer/order/<invalid_id>",
+    "expected": "HTTP 404 Not Found",
+    "actual": "HTTP 404",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST update_kyc as kyc_officer",
+    "expected": "HTTP 200 Success",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST update_kyc as sales_partner",
+    "expected": "HTTP 403 Forbidden",
+    "actual": "HTTP 403",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST update_milestone as ops_manager",
+    "expected": "HTTP 200 Success",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST update_milestone as kyc_officer",
+    "expected": "HTTP 403 Forbidden",
+    "actual": "HTTP 403",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "GET analytics/installations as ops_manager",
+    "expected": "HTTP 200 Success",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "GET analytics/installations as sales_partner",
+    "expected": "HTTP 403 Forbidden",
+    "actual": "HTTP 403",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST analytics/simulate as super_admin",
+    "expected": "HTTP 200 Success",
+    "actual": "HTTP 200",
+    "status": "PASS"
+  },
+  {
+    "category": "RBAC",
+    "test_name": "POST analytics/simulate as sales_executive",
+    "expected": "HTTP 403 Forbidden",
+    "actual": "HTTP 403",
+    "status": "PASS"
+  },
+  {
+    "category": "State Persistence",
+    "test_name": "Consumer Order ORD-2026-5653 synced to Control Portal",
+    "expected": "Instantly visible in shared state",
+    "actual": "Found: True",
+    "status": "PASS"
+  },
+  {
+    "category": "State Persistence",
+    "test_name": "Consumer Order ORD-2026-5653 receives real-time milestone & engineer update",
+    "expected": "Step 4 & Sunil Varma",
+    "actual": "Step: 4, Eng: Sunil Varma",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 1 Discovery",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 2 Recommendation",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 3 Quote Recovery",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 4 Partner Ecosystem",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 5 Smart KYC",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Dual Independent Portals",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Regression",
+    "test_name": "Suite: Phase 6 Predictive Operations",
+    "expected": "Exit code 0 (All tests pass)",
+    "actual": "Exit code 0",
+    "status": "PASS"
+  },
+  {
+    "category": "Security/DPDP",
+    "test_name": "Consumer Portal strips internal operational risk telemetry",
+    "expected": "No internal risk score leaked",
+    "actual": "risk_assessment present: False",
+    "status": "PASS"
+  },
+  {
+    "category": "Security/DPDP",
+    "test_name": "Lead drilldown enforces masked PII (DPDP Act 2023)",
+    "expected": "GSTIN masked with asterisks",
+    "actual": "Sample: 32T******1ZW",
+    "status": "PASS"
+  }
+]
