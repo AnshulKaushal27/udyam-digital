@@ -12,8 +12,8 @@
 | **Live Consumer Portal** | [udyam-digital-c126.onrender.com](https://udyam-digital-c126.onrender.com/) | Interactive customer journey with multilingual AI advisor & dynamic quote |
 | **Airtel Control & Partner Portal** | [udyam-digital-c126.onrender.com/control](https://udyam-digital-c126.onrender.com/control) | Operations intelligence, KYC officer review queue & partner desk |
 | **Demo Video Walkthrough** | [Halo_TIET.mp4](./Halo_TIET.mp4) | High-definition 1080p demo video walkthrough |
-| **Business Case Deck (PDF)** | [final_airtel.pdf](./final_airtel.pdf) | Official 8-slide presentation deck |
-| **Business Case Deck (PPTX)** | [final_airtel.pptx](./final_airtel.pptx) | Editable PowerPoint presentation |
+| **Business Case Deck (PDF)** | [Halo_TIET.pdf](./Halo_TIET.pdf) | Official presentation deck |
+| **Business Case Deck (PPTX)** | [Halo_TIET.pptx](./Halo_TIET.pptx) | Editable PowerPoint presentation |
 | **Architecture Specification** | [Solution Architecture PDF](./submission/Solution_Architecture_and_Data_Flows.pdf) | End-to-end data flows and component specifications |
 | **DPDP Compliance Note** | [DPDP Act 2023 Note PDF](./submission/DPDP_Act_2023_Privacy_and_Security_Note.pdf) | Statutory data privacy and security architecture note |
 
