@@ -5,5 +5,7 @@ __pycache__/
 *.log
 flask_log.txt
 .env
+prototype/.env
+*.env
 .venv/
 env/
