@@ -9,3 +9,6 @@ prototype/.env
 *.env
 .venv/
 env/
+scratch/
+*_original.*
+*.original.*
