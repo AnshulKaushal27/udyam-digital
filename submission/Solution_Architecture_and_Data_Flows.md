@@ -12,7 +12,7 @@ flowchart TD
     subgraph L1["Layer 1: Multichannel Client & Partner Experience"]
         PWA["Mobile PWA (Consumer Portal /)<br/>Self-Serve Merchant Experience"]
         Control["Airtel Control Portal (/control)<br/>Operations, KYC & Partner Hub"]
-        WA["WhatsApp Conversational Bot<br/>(Regional Chat/Voice API)"]
+        WA["WhatsApp Integration Blueprint<br/>(Simulated Push & Webhook Specs)"]
         Tablet["Partner Co-Pilot Mode<br/>(Assisted Mode + QR Attribution)"]
     end
 
@@ -53,7 +53,7 @@ flowchart TD
     GIS --> SharedDB
     SharedDB --> Tracker
     SharedDB <--> Control
-    Tracker -.->|Magic Link SMS/WhatsApp| PWA
+    Tracker -.->|Simulated Status Push| PWA
 ```
 
 ---
@@ -63,11 +63,12 @@ flowchart TD
 ### Layer 1: Multichannel Experience Layer
 * **Consumer Portal (`/`):** Clean, warm off-white, mobile-first web interface designed for non-technical Indian business owners (Kirana shops, medical clinics, CA offices, multi-location retailers, small manufacturing units). Zero internal operational metrics displayed (privacy shielded).
 * **Airtel Control Portal (`/control`):** Enterprise slate-themed administrative console for Airtel leadership, operations managers, KYC compliance officers, and channel partners. Provides live funnel analytics, real-time order dispatch, KYC verification queues, and abandoned lead recovery.
-* **WhatsApp Conversational Bot:** Connects to WhatsApp Cloud API via webhooks. Enables text and audio-message interactions in Hindi, English, Tamil, Telugu, and Hinglish.
-* **Partner Co-Pilot (Assisted Mode):** Dedicated tablet dashboard for Airtel's 10,000+ local channel partners and field sales representatives with QR code attribution and AI propensity scores for lead rescue.
+* **WhatsApp & Multi-Channel Blueprint:** Architectural integration specification for WhatsApp Business Cloud API webhooks. In this prototype deployment, WhatsApp/SMS interactions are modeled as honest simulated notification streams and human-in-the-loop recovery drafts without requiring external third-party API credentials.
+* **Voice Front End (Browser Speech Recognition):** Native browser speech recognition (`hi-IN`, `en-IN`, `pa-IN`) integrated into the Advisor chat bar with typed-input fallback and permission error handling.
+* **Partner Co-Pilot (Assisted Mode):** Dedicated tablet dashboard for Airtel's 10,000+ local channel partners and field sales representatives with dynamic SVG QR code attribution and AI propensity scores for lead rescue.
 
 ### Layer 2: Intelligence & Product Bundling Engine
-* **Multilingual GenAI Advisor:** Natural language understanding service powered by Groq Cloud API (`openai/gpt-oss-120b` / `llama-3.3-70b-versatile`). Adheres strictly to the consultative sales discipline: 1 question at a time, 5–25 words per reply, conversational acknowledgments in Hindi, English, and Hinglish.
+* **Multilingual GenAI Advisor:** Dual-mode conversational intelligence service powered by Groq Cloud API (`llama-3.3-70b-versatile`) with an offline-resilient deterministic rules engine fallback ensuring 100% test scenario pass rates without external API dependencies. Adheres strictly to consultative sales discipline: 1 question at a time, 5–25 words per reply, and native Hindi, Punjabi, Hinglish, and English fluency.
 * **7-Category Needs Classification Taxonomy:**
   1. *Connectivity:* Business 5G AirFiber / Fiber Broadband (`P04`, `P02`).
   2. *Business Continuity:* 4G/5G Wireless POS Failover (`P09`).
@@ -80,9 +81,13 @@ flowchart TD
 * **Dynamic Quote Engine:** Computes upfront setup fees and unified monthly charges with live recalculation upon toggling optional add-ons, computing standard 18% GST.
 
 ### Layer 3: Smart KYC, Registry & DPDP Security Engine
-* **DPDP Consent Gateway:** Presents unbundled bilingual consent notices (English & Hindi) and records immutable audit signatures. Implements automated regex redaction to permanently mask sensitive identifiers (`PAN`, `Aadhaar`, `GSTIN`).
+* **DPDP Consent Gateway:** Presents standalone, unbundled affirmative statutory consent notices under Section 6 of the DPDP Act 2023. The consent checkbox is unchecked by default to require conscious, unambiguous affirmative action before any document bytes are analyzed or transmitted. Implements automated masking of sensitive identifiers (`PAN`, `Aadhaar`, `GSTIN`).
+* **Dual KYC Verification Paths:**
+  1. *Automated KYC Verification:* Executes multimodal vision extraction and cross-checks with official GSTIN and Udyam registries in real time. If confidence is low, unreadable, or services are unavailable, routes gracefully to manual review without falsely claiming verified status.
+  2. *Manual KYC Review:* Enables the customer to submit proof directly to authorized Airtel KYC compliance officers. The application is enqueued in the Airtel Control Portal with safe metadata (no persistent raw image bytes).
 * **Mock Registry Connectors:** High-speed query adapters for `mock_gstin_registry.csv` and `mock_udyam_registry.csv`. Returns legal entity names, registered addresses, and active tax compliance flags in under 500ms.
 * **OCR & Cross-Field Validator:** Extracts text from uploaded signatory IDs and utility bills. Cross-references address string similarity ($\ge 85\%$) and checks utility bill issue dates against the 90-day validity window (relative to reference date `2026-07-15`).
+* **Bidirectional Portal State Synchronizer:** Synchronizes KYC decisions between the Consumer and Control Portals. Officer approvals unlock the customer fulfillment gate; resubmission requests immediately notify the merchant with actionable guidance.
 * **Ephemeral Buffer:** Temporary in-memory working cache holding uploaded document pixels during validation, purging unencrypted artifacts within 24 hours.
 
 ### Layer 4: Telecom Fulfillment & Self-Serve Tracker
@@ -175,7 +180,7 @@ sequenceDiagram
 ```
 
 ### Key Partner Ecosystem Components:
-1. **Strict Role-Based Access Control (RBAC):** Five system roles (`super_admin`, `ops_manager`, `sales_executive`, `channel_partner`, `kyc_officer`). Partners are strictly sandboxed to their own referred customers, commission records, and assigned territory leads. Cross-partner data access returns `403 Forbidden`.
+1. **Strict Role-Based Access Control (RBAC):** Five system roles (`super_admin`, `ops_manager`, `sales_executive`, `channel_partner`, `kyc_officer`). Lead recovery decision desks enforce server-side authorization: only authorized management and sales roles view unmasked customer telephone/contact details and trigger outreach, while partners and read-only viewers receive masked PII. Every recovery record carries explicit provenance tags (`is_seeded: true/false`, `record_origin`) to clearly segregate seeded benchmark examples from live prototype sessions.
 2. **Dynamic Branded SVG QR Engine:** Generates lightweight, offline-resilient SVG QR codes (`/api/partner/<id>/qr`) and referral URLs. Implements a 30-day first-touch attribution lock to eliminate partner commission hijacking.
 3. **Activation-Gated Commission State Machine:** Standard demonstration parameter: ₹1,500 per activation. Commissions are stamped `pending` at order placement, strictly transitioning to `eligible` only upon Step 5 ("Installation & Service Activated"). Admin authorization is required for `approved` $\rightarrow$ `paid` or `reversed` states.
 4. **Dual-Aspect Assisted Mode for Tablets (`#assistedModeModal`):**

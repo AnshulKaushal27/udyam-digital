@@ -1,0 +1,308 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9" />
+      <stop offset="100%" stop-color="#F7F1E7" />
+    </linearGradient>
+
+    <linearGradient id="airtelRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E40000" />
+      <stop offset="100%" stop-color="#BA0000" />
+    </linearGradient>
+
+    <linearGradient id="saffronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <linearGradient id="terracottaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C2410C" />
+      <stop offset="100%" stop-color="#9A3412" />
+    </linearGradient>
+
+    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Traditional Indian Arch / Jharokha Pattern -->
+    <pattern id="jaliPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M20 0 L40 20 L20 40 L0 20 Z" fill="none" stroke="#E2D9CC" stroke-width="1.2" opacity="0.6" />
+      <circle cx="20" cy="20" r="4" fill="none" stroke="#D4A373" stroke-width="1" opacity="0.7" />
+      <circle cx="20" cy="20" r="1.5" fill="#E40000" opacity="0.5" />
+    </pattern>
+
+    <!-- Soft Drop Shadows -->
+    <filter id="softShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.08" />
+    </filter>
+
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#E40000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Base Canvas -->
+  <rect width="800" height="600" fill="url(#bgWarm)" rx="24" />
+
+  <!-- Traditional Decorative Jali Lattice Background -->
+  <rect x="40" y="40" width="720" height="520" fill="url(#jaliPattern)" rx="16" opacity="0.45" />
+
+  <!-- Architectural Gateway / Traditional Indian Toran Arch Archway -->
+  <g id="architecturalGateway" opacity="0.95">
+    <path d="M120 540 L120 220 C120 120 240 60 400 60 C560 60 680 120 680 220 L680 540" 
+          fill="none" stroke="#D7C9B5" stroke-width="3" stroke-linecap="round" />
+    <path d="M140 540 L140 230 C140 145 250 85 400 85 C550 85 660 145 660 230 L660 540" 
+          fill="none" stroke="#E40000" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.7" />
+    <!-- Keystone Motif -->
+    <circle cx="400" cy="85" r="14" fill="#FFF" stroke="#E40000" stroke-width="2.5" />
+    <path d="M400 75 L404 85 L414 85 L406 91 L409 101 L400 95 L391 101 L394 91 L386 85 L396 85 Z" fill="#E40000" />
+  </g>
+
+  <!-- Ground / Courtyard Platform -->
+  <path d="M80 520 C240 510 560 510 720 520 L740 550 C580 565 220 565 60 550 Z" fill="#EAE2D5" />
+
+  <!-- MODERN KIRANA STOREFRONT (Digital Bharat Shop) -->
+  <g id="modernKiranaShop" filter="url(#softShadow)">
+    <!-- Base Shop Wall -->
+    <rect x="180" y="210" width="440" height="310" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+    
+    <!-- Indian Saffron & Red Fabric Awning (Chhatri / Canopy) -->
+    <g id="awning">
+      <path d="M165 210 L635 210 L625 170 L175 170 Z" fill="#B91C1C" />
+      <!-- Alternating Scallops -->
+      <path d="M165 210 C180 230 195 230 210 210 C225 230 240 230 255 210 C270 230 285 230 300 210 C315 230 330 230 345 210 C360 230 375 230 390 210 C405 230 420 230 435 210 C450 230 465 230 480 210 C495 230 510 230 525 210 C540 230 555 230 570 210 C585 230 600 230 615 210 C625 220 630 215 635 210" 
+            fill="#E40000" stroke="#FFF" stroke-width="1.5" />
+      <!-- Saffron Stripe Insets -->
+      <polygon points="210,170 255,170 255,210 210,210" fill="#F59E0B" opacity="0.9" />
+      <polygon points="300,170 345,170 345,210 300,210" fill="#F59E0B" opacity="0.9" />
+      <polygon points="390,170 435,170 435,210 390,210" fill="#F59E0B" opacity="0.9" />
+      <polygon points="480,170 525,170 525,210 480,210" fill="#F59E0B" opacity="0.9" />
+      <polygon points="570,170 615,170 615,210 570,210" fill="#F59E0B" opacity="0.9" />
+    </g>
+
+    <!-- Signboard: Project Udyam Digital / Apna Kirana -->
+    <g id="signboard">
+      <rect x="230" y="125" width="340" height="42" rx="6" fill="url(#indigoGrad)" stroke="#E40000" stroke-width="2" />
+      <circle cx="255" cy="146" r="10" fill="#E40000" />
+      <text x="255" y="150" font-family="'Inter', sans-serif" font-weight="900" font-size="11" fill="#FFF" text-anchor="middle">A</text>
+      <text x="275" y="151" font-family="'Inter', sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" letter-spacing="0.5">AIRTEL BUSINESS</text>
+      <rect x="425" y="136" width="130" height="20" rx="10" fill="#E40000" opacity="0.25" />
+      <text x="490" y="150" font-family="'Inter', sans-serif" font-weight="700" font-size="10" fill="#FCA5A5" text-anchor="middle">UDYAM DIGITAL</text>
+    </g>
+
+    <!-- Store Shelves & Products Inside (Neat, Stylized) -->
+    <g id="storeShelves" opacity="0.85">
+      <rect x="205" y="240" width="140" height="180" rx="6" fill="#F8FAFC" stroke="#E2E8F0" />
+      <!-- Shelves lines -->
+      <line x1="205" y1="285" x2="345" y2="285" stroke="#CBD5E1" stroke-width="3" />
+      <line x1="205" y1="335" x2="345" y2="335" stroke="#CBD5E1" stroke-width="3" />
+      <line x1="205" y1="385" x2="345" y2="385" stroke="#CBD5E1" stroke-width="3" />
+      <!-- Colorful jars & grocery packs -->
+      <rect x="215" y="260" width="16" height="25" rx="3" fill="#D97706" />
+      <rect x="236" y="258" width="18" height="27" rx="3" fill="#10B981" />
+      <rect x="260" y="262" width="20" height="23" rx="3" fill="#3B82F6" />
+      <rect x="286" y="257" width="18" height="28" rx="3" fill="#EF4444" />
+      <rect x="310" y="260" width="22" height="25" rx="3" fill="#8B5CF6" />
+
+      <rect x="215" y="310" width="24" height="25" rx="2" fill="#E2E8F0" />
+      <rect x="245" y="308" width="20" height="27" rx="2" fill="#FDE68A" />
+      <rect x="272" y="312" width="28" height="23" rx="2" fill="#BAE6FD" />
+      <rect x="306" y="309" width="26" height="26" rx="2" fill="#BBF7D0" />
+
+      <circle cx="230" cy="365" r="10" fill="#FB923C" />
+      <circle cx="260" cy="365" r="10" fill="#F472B6" />
+      <circle cx="290" cy="365" r="10" fill="#38BDF8" />
+      <circle cx="320" cy="365" r="10" fill="#4ADE80" />
+    </g>
+
+    <!-- Glass Counter Top -->
+    <rect x="360" y="330" width="240" height="180" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2" />
+    <!-- Polished Counter Front Panel -->
+    <rect x="375" y="350" width="210" height="145" rx="6" fill="#FFFFFF" stroke="#E2E8F0" />
+    
+    <!-- UPI QR Soundbox & Payment Display Stand -->
+    <g id="upiQrSoundbox" transform="translate(385, 305)">
+      <!-- QR Stand -->
+      <rect x="0" y="0" width="46" height="55" rx="5" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.8" filter="url(#softShadow)" />
+      <!-- Mini QR Pattern -->
+      <rect x="6" y="6" width="34" height="34" rx="3" fill="#F8FAFC" />
+      <rect x="10" y="10" width="10" height="10" fill="#0F172A" />
+      <rect x="12" y="12" width="6" height="6" fill="#FFF" />
+      <rect x="14" y="14" width="2" height="2" fill="#0F172A" />
+      <rect x="26" y="10" width="10" height="10" fill="#0F172A" />
+      <rect x="28" y="12" width="6" height="6" fill="#FFF" />
+      <rect x="30" y="14" width="2" height="2" fill="#0F172A" />
+      <rect x="10" y="26" width="10" height="10" fill="#0F172A" />
+      <rect x="12" y="28" width="6" height="6" fill="#FFF" />
+      <rect x="14" y="30" width="2" height="2" fill="#0F172A" />
+      <!-- Payment Accent Strip -->
+      <rect x="0" y="46" width="46" height="9" rx="0 0 5 5" fill="#10B981" />
+      <text x="23" y="53" font-family="'Inter', sans-serif" font-size="5" font-weight="800" fill="#FFF" text-anchor="middle">BHARAT QR · UPI</text>
+      <!-- Soundbox Speaker Unit -->
+      <rect x="52" y="15" width="30" height="40" rx="6" fill="#0F172A" stroke="#E40000" stroke-width="1.2" />
+      <circle cx="67" cy="30" r="7" fill="#1E293B" stroke="#64748B" stroke-width="1" />
+      <circle cx="67" cy="30" r="3" fill="#E40000" />
+      <path d="M60 47 Q67 44 74 47" stroke="#10B981" stroke-width="1.5" fill="none" />
+    </g>
+
+    <!-- Airtel Biz 5G AirFiber / Wireless Hub on Counter -->
+    <g id="airtelRouter" transform="translate(525, 290)">
+      <rect x="0" y="15" width="55" height="30" rx="6" fill="#0F172A" stroke="#E40000" stroke-width="1.5" filter="url(#glowRed)" />
+      <!-- Status Lights -->
+      <circle cx="12" cy="30" r="2.5" fill="#10B981" />
+      <circle cx="22" cy="30" r="2.5" fill="#10B981" />
+      <circle cx="32" cy="30" r="2.5" fill="#3B82F6" />
+      <circle cx="42" cy="30" r="2.5" fill="#E40000" />
+      <!-- 5G Label -->
+      <text x="27" y="23" font-family="'Inter', sans-serif" font-weight="900" font-size="6" fill="#FFFFFF" text-anchor="middle">airtel 5G</text>
+      <!-- Dual Antennas -->
+      <line x1="12" y1="15" x2="6" y2="-5" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" />
+      <line x1="43" y1="15" x2="49" y2="-5" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" />
+      <!-- Pulsing Radio Signal Waves -->
+      <path d="M-4 -10 A 15 15 0 0 1 14 -18" fill="none" stroke="#E40000" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+      <path d="M-8 -15 A 22 22 0 0 1 18 -26" fill="none" stroke="#E40000" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+      <path d="M41 -18 A 15 15 0 0 1 59 -10" fill="none" stroke="#E40000" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+      <path d="M37 -26 A 22 22 0 0 1 63 -15" fill="none" stroke="#E40000" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+    </g>
+  </g>
+
+  <!-- INDIAN ENTREPRENEUR / SHOP OWNER (Confident, Professional, Contemporary) -->
+  <g id="entrepreneurFigure" transform="translate(310, 180)" filter="url(#softShadow)">
+    <!-- Shadow beneath character -->
+    <ellipse cx="65" cy="345" rx="55" ry="12" fill="#0F172A" opacity="0.15" />
+
+    <!-- Traditional Kurta with Modern Jacket / Waistcoat (Nehru Jacket) -->
+    <!-- Legs / Churidars -->
+    <path d="M42 320 L40 345 L54 345 L58 320 Z" fill="#E2E8F0" />
+    <path d="M72 320 L76 345 L90 345 L88 320 Z" fill="#E2E8F0" />
+    <!-- Formal Indian Mojari / Shoes -->
+    <path d="M36 345 C45 342 55 344 58 348 L36 348 Z" fill="#78350F" />
+    <path d="M74 345 C83 342 93 344 96 348 L74 348 Z" fill="#78350F" />
+
+    <!-- White Crisp Kurta -->
+    <path d="M32 170 L28 325 L102 325 L98 170 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+
+    <!-- Indian Bandhgala / Khadi Silk Waistcoat (Rich Terracotta/Rust) -->
+    <path d="M35 150 L26 265 L65 272 L104 265 L95 150 C85 142 45 142 35 150 Z" fill="url(#terracottaGrad)" />
+    <!-- Mandarin Collar -->
+    <path d="M48 144 C55 140 75 140 82 144 L82 154 C75 150 55 150 48 154 Z" fill="#9A3412" />
+    <!-- Buttons -->
+    <circle cx="65" cy="168" r="2" fill="#FDE68A" />
+    <circle cx="65" cy="188" r="2" fill="#FDE68A" />
+    <circle cx="65" cy="208" r="2" fill="#FDE68A" />
+    <circle cx="65" cy="228" r="2" fill="#FDE68A" />
+    <circle cx="65" cy="248" r="2" fill="#FDE68A" />
+
+    <!-- Pocket Square: Airtel Red silk accent -->
+    <polygon points="42,185 50,185 46,177" fill="#E40000" />
+    <line x1="40" y1="185" x2="52" y2="185" stroke="#7C2D12" stroke-width="1.5" />
+
+    <!-- Neck & Face -->
+    <rect x="56" y="125" width="18" height="24" fill="#D4A373" rx="4" />
+    <ellipse cx="65" cy="108" rx="20" ry="24" fill="#D4A373" />
+    <!-- Contemporary Well-Groomed Hair -->
+    <path d="M45 102 C43 85 55 78 72 78 C86 78 90 88 87 100 C83 88 74 85 58 88 Z" fill="#1E293B" />
+    <!-- Ears -->
+    <circle cx="45" cy="108" r="4.5" fill="#C59363" />
+    <circle cx="85" cy="108" r="4.5" fill="#C59363" />
+    <!-- Spectacles (Smart, Modern Entrepreneur) -->
+    <rect x="49" y="100" width="13" height="10" rx="3" fill="none" stroke="#0F172A" stroke-width="1.5" />
+    <rect x="68" y="100" width="13" height="10" rx="3" fill="none" stroke="#0F172A" stroke-width="1.5" />
+    <line x1="62" y1="105" x2="68" y2="105" stroke="#0F172A" stroke-width="1.5" />
+    <!-- Warm Welcoming Smile & Neat Mustache/Beard -->
+    <path d="M57 118 Q65 125 73 118" fill="none" stroke="#7C2D12" stroke-width="1.8" stroke-linecap="round" />
+    <!-- Red Tilak / Auspicious Mark on Forehead -->
+    <line x1="65" y1="92" x2="65" y2="98" stroke="#E40000" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Arms & Hands Holding Digital Tablet (Biz Management App) -->
+    <!-- Left Arm -->
+    <path d="M30 160 L12 215 L32 230 L45 185 Z" fill="#C2410C" />
+    <!-- Right Arm holding tablet -->
+    <path d="M100 160 L118 215 L98 230 L85 185 Z" fill="#C2410C" />
+
+    <!-- Digital Tablet held in hands with Airtel Analytics Screen -->
+    <g id="heldTablet" transform="translate(32, 195)">
+      <rect x="0" y="0" width="66" height="44" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" filter="url(#softShadow)" />
+      <!-- Screen -->
+      <rect x="3" y="3" width="60" height="38" rx="2" fill="#FFFFFF" />
+      <!-- Mini Dashboard on Screen -->
+      <rect x="6" y="6" width="54" height="6" rx="2" fill="#E40000" />
+      <text x="33" y="11" font-family="'Inter', sans-serif" font-weight="900" font-size="4.5" fill="#FFF" text-anchor="middle">AIRTEL SYNC LIVE</text>
+      <!-- Sparkline chart on tablet -->
+      <path d="M8 26 L18 22 L28 24 L38 18 L48 20 L56 14" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" />
+      <circle cx="56" cy="14" r="2" fill="#E40000" />
+      <!-- Metric pills -->
+      <rect x="8" y="30" width="22" height="7" rx="2" fill="#EFF6FF" />
+      <text x="19" y="35" font-family="'Inter', sans-serif" font-weight="700" font-size="3.5" fill="#1D4ED8" text-anchor="middle">₹32,450</text>
+      <rect x="34" y="30" width="22" height="7" rx="2" fill="#ECFDF5" />
+      <text x="45" y="35" font-family="'Inter', sans-serif" font-weight="700" font-size="3.5" fill="#047857" text-anchor="middle">100% UP</text>
+      <!-- Hands holding tablet -->
+      <circle cx="2" cy="22" r="5" fill="#D4A373" />
+      <circle cx="64" cy="22" r="5" fill="#D4A373" />
+    </g>
+  </g>
+
+  <!-- FLOATING DIGITAL CONNECTIVITY NODES & TRADITIONAL MOTIFS -->
+  <!-- Top Left: High-Speed Fiber Cloud -->
+  <g id="nodeCloud" transform="translate(130, 110)" filter="url(#softShadow)">
+    <circle cx="24" cy="24" r="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+    <path d="M16 28 C13 28 11 26 11 23 C11 20 13 18 15 18 C16 15 19 13 23 13 C27 13 30 15 31 18 C33 18 35 20 35 22 C35 25 33 28 30 28 Z" fill="#3B82F6" opacity="0.9" />
+    <circle cx="36" cy="12" r="4" fill="#10B981" />
+  </g>
+
+  <!-- Top Right: Secure Digital Payments (UPI / RuPay) -->
+  <g id="nodePayments" transform="translate(630, 120)" filter="url(#softShadow)">
+    <circle cx="24" cy="24" r="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+    <path d="M14 24 L21 16 L34 16 L27 24 L34 32 L21 32 Z" fill="#F59E0B" />
+    <circle cx="24" cy="24" r="3" fill="#E40000" />
+    <!-- Floating Checkmark Pill -->
+    <rect x="-10" y="40" width="68" height="18" rx="9" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+    <text x="24" y="52" font-family="'Inter', sans-serif" font-weight="700" font-size="8.5" fill="#065F46" text-anchor="middle">✓ Instant UPI</text>
+  </g>
+
+  <!-- Bottom Left: Smart CCTV Surveillance Badge -->
+  <g id="nodeCCTV" transform="translate(90, 360)" filter="url(#softShadow)">
+    <circle cx="22" cy="22" r="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+    <!-- CCTV Camera Icon -->
+    <path d="M12 18 L24 14 L28 22 L16 26 Z" fill="#0F172A" />
+    <rect x="26" y="16" width="6" height="5" fill="#E40000" rx="1" />
+    <circle cx="15" cy="23" r="2" fill="#10B981" />
+    <!-- Stand -->
+    <line x1="22" y1="23" x2="22" y2="30" stroke="#64748B" stroke-width="2" />
+    <line x1="17" y1="30" x2="27" y2="30" stroke="#64748B" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Bottom Right: DPDP Act 2023 Statutory Privacy Shield -->
+  <g id="nodeDPDP" transform="translate(670, 350)" filter="url(#softShadow)">
+    <circle cx="24" cy="24" r="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+    <path d="M24 10 L35 15 L35 23 C35 30 24 36 24 36 C24 36 13 30 13 23 L13 15 Z" fill="#059669" />
+    <path d="M20 22 L23 25 L29 19" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="-12" y="44" width="72" height="16" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1" />
+    <text x="24" y="55" font-family="'Inter', sans-serif" font-weight="700" font-size="7" fill="#334155" text-anchor="middle">DPDP 2023 SECURE</text>
+  </g>
+
+  <!-- Traditional Decorative Rangoli / Mandala Corner Accents -->
+  <g id="cornerRangoliLeft" transform="translate(60, 500)" opacity="0.35">
+    <circle cx="20" cy="20" r="16" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="20" cy="20" r="8" fill="none" stroke="#E40000" stroke-width="1.5" />
+    <circle cx="20" cy="20" r="3" fill="#D97706" />
+  </g>
+  <g id="cornerRangoliRight" transform="translate(700, 500)" opacity="0.35">
+    <circle cx="20" cy="20" r="16" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="20" cy="20" r="8" fill="none" stroke="#E40000" stroke-width="1.5" />
+    <circle cx="20" cy="20" r="3" fill="#D97706" />
+  </g>
+
+  <!-- Subtle Connectivity Lines connecting store to digital world -->
+  <path d="M154 134 Q200 180 250 146" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" />
+  <path d="M575 295 Q620 250 630 168" fill="none" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" />
+  <path d="M580 320 Q640 330 670 360" fill="none" stroke="#E40000" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.5" />
+
+</svg>

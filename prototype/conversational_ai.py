@@ -363,10 +363,13 @@ def detect_billing_and_invoicing_intent(text: str, session: Dict[str, Any]) -> D
     # 2. Current Method Extraction
     if any(k in text_low for k in ["paper", "manual", "kacha bill", "haath se", "khata", "diary"]):
         b_intent["current_method"] = "paper"
+        b_intent["active"] = True
     elif any(k in text_low for k in ["software", "tally", "busy", "computerized"]):
         b_intent["current_method"] = "software"
+        b_intent["active"] = True
     elif any(k in text_low for k in ["excel", "spreadsheet", "sheet"]):
         b_intent["current_method"] = "spreadsheet"
+        b_intent["active"] = True
 
     # 3. GST Requirement
     if any(k in text_low for k in ["gst invoice", "gst bill", "proper gst", "yes", "haan", "zaroor", "proper invoicing"]) and b_intent["active"]:
@@ -513,16 +516,20 @@ def build_proactive_sales_prompt(session: Dict[str, Any], lang: str) -> str:
             "Maintain the tone of a friendly, knowledgeable Airtel Business sales consultant."
         )
 
-    # Indecision Instructions
+    # Strict Turn & Indecision Directives
     indecision_directive = (
-        "CRITICAL INDECISION & DELEGATION POLICY:\n"
-        "1. If customer says 'Whatever is fine', 'You decide', 'I don't know', 'Jo marzi', 'Tusi hi dass do', or 'Kuch bhi chalega':\n"
+        "CRITICAL CONVERSATIONAL RULES (ABSOLUTE NON-NEGOTIABLE):\n"
+        "1. You are speaking in REAL-TIME with an MSME customer. Output ONLY YOUR NEXT SINGLE MESSAGE (15 to 30 words maximum).\n"
+        "2. NEVER simulate the customer's responses. NEVER generate both sides of the conversation. Output ONLY what YOU say next!\n"
+        "3. ASK AT MOST ONE SINGLE QUESTION AT A TIME. Never ask multiple questions. Never concatenate questions.\n"
+        "4. DO NOT loop or repeat questions. Do not jump ahead into future steps.\n"
+        "5. If customer is on paper billing: acknowledge and ask ONLY whether they need GST-compliant invoices. Stop!\n"
+        "6. If customer already confirmed GST: ask ONLY approximately how many invoices they generate monthly. Stop!\n"
+        "7. If customer volume is known (~300-500 bills): recommend Cloud POS & Billing (P19) at ₹599/month (setup ₹2,500).\n"
+        "8. If customer expresses indecision ('Whatever is fine', 'You decide', 'Jo marzi', 'Tusi hi dass do'):\n"
         "   - DO NOT ASK THE SAME PREFERENCE QUESTION AGAIN.\n"
-        "   - TAKE OWNERSHIP: Make a sensible, recommended business decision on their behalf (e.g. choose Cloud POS billing because it allows mobile/anywhere access).\n"
-        "   - Briefly state why, and move the conversation forward.\n"
-        "2. When customer needs digital billing/invoicing: Confirm manual vs software -> GST needs -> approximate monthly volume. "
-        "   Once volume (~300-400 bills) is established, RECOMMEND Cloud-based billing immediately. DO NOT interrogate about cloud vs desktop.\n"
-        "3. NEVER ask the same question more than once if customer delegates or indicates indifference."
+        "   - TAKE OWNERSHIP: Make a sensible recommendation on their behalf and advance.\n"
+        "9. NEVER ask the same question twice. NEVER repeat sentences."
     )
 
     # Catalogue & Pricing Directive
@@ -649,7 +656,7 @@ def generate_deterministic_consultant_reply(
             "confidence": 0.98
         })
 
-        target_bundle = "bundle_kirana"
+        target_bundle = "prod_p19_pos"
         if lang == "hi":
             reply = (
                 "अच्छा! आपके लिए क्लाउड-बेस्ड बिलिंग सिस्टम सबसे सही रहेगा। इसमें आप टैबलेट या फोन से कहीं भी इनवॉइस बना सकते हैं "
@@ -751,6 +758,50 @@ def generate_deterministic_consultant_reply(
             return reply, quick, target_bundle, True, "Dedicated 1:1 CIR leased line with static IP ensures 99.95% ERP uptime."
 
     else: # Kirana / Micro
+        # 1. Check if user asked about connectivity speed or fast internet
+        is_speed_need = any(k in text_low for k in ["tez internet", "fast internet", "faster internet", "faster wifi", "faster wi-fi", "internet slow", "slow internet", "high speed", "speed", "bandwidth", "fiber", "fibre", "symmetrical", "buffering", "speed chahiye", "तेज इंटरनेट", "इंटरनेट", "हाई स्पीड", "स्पीड", "वाईफाई", "फास्ट इंटरनेट", "ਤੇਜ਼ ਇੰਟਰਨੈੱਟ", "ਇੰਟਰਨੈੱਟ", "ਹਾਈ ਸਪੀਡ", "ਸਪੀਡ", "ਵਾਈ-ਫਾਈ"])
+        if is_speed_need:
+            if lang == "hi":
+                reply = "समझ गया! मैंने आपके लिए High-Speed Symmetrical Fiber विकल्प चुन लिया है ताकि आपको हाई-स्पीड और बफरिंग-फ्री इंटरनेट मिले। इसके अलावा क्या आपको CCTV या Static IP की आवश्यकता है?"
+                quick = ["24/7 Cloud CCTV जोड़ें", "Static IP जोड़ें", "डिजिटल बंडल तैयार करें"]
+            elif lang == "pa":
+                reply = "ਸਮਝ ਗਿਆ! ਮੈਂ ਤੁਹਾਡੇ ਲਈ High-Speed Symmetrical Fiber ਚੁਣ ਲਿਆ ਹੈ ਤਾਂ ਜੋ ਤੁਹਾਨੂੰ ਤੇਜ਼ ਅਤੇ ਬਿਨਾਂ ਰੁਕਾਵਟ ਇੰਟਰਨੈੱਟ ਮਿਲੇ। ਕੀ ਤੁਹਾਨੂੰ CCTV ਜਾਂ Static IP ਦੀ ਲੋੜ ਹੈ?"
+                quick = ["Cloud CCTV ਸ਼ਾਮਲ ਕਰੋ", "Static IP ਸ਼ਾਮਲ ਕਰੋ", "ਪੈਕੇਜ ਤਿਆਰ ਕਰੋ"]
+            elif lang == "hinglish":
+                reply = "Samajh gaya! Maine aapke liye High-Speed Symmetrical Fiber select kar diya hai taaki aapko high speed aur zero buffering connectivity mile. Iske alawa kya aapko CCTV surveillance ya Static IP ki zaroorat hai?"
+                quick = ["View Available Add-ons", "Generate Digital Bundle", "Add 24/7 Cloud CCTV"]
+            else:
+                reply = "Understood! I have selected High-Speed Symmetrical Fiber for your setup to ensure consistent high-speed bandwidth with zero buffering. Would you also like to explore Cloud CCTV or Static IP?"
+                quick = ["View Available Add-ons", "Generate Digital Bundle", "Add 24/7 Cloud CCTV"]
+            return reply, quick, "bundle_kirana", False, "High-speed symmetrical broadband selected for zero-buffering operations."
+
+        # 2. Check if user asked what additions or options are available
+        is_additions_query = any(k in text_low for k in ["aur kya", "what else", "additions", "available options", "kya kya add", "other options", "kya kya options", "what additions", "available additions", "add-ons available", "add ons available", "kya add kar sakte"])
+        if is_additions_query:
+            if lang == "hi":
+                reply = "आपके सेटअप के लिए ये अतिरिक्त विकल्प उपलब्ध हैं:\n1. 24/7 Cloud CCTV (2 कैमरे, 30 दिन रिकॉर्डिंग) - ₹800/माह\n2. Fixed Static IP Address (सर्वर या NVR के लिए) - ₹300/माह\n3. Instant UPI & POS Failover (4G बैकअप सिम) - ₹499/माह\n4. WhatsApp Business API (कस्टमर मैसेजिंग) - ₹999/माह\nक्या आप इनमें से कोई जोड़ना चाहते हैं?"
+                quick = ["Cloud CCTV जोड़ें (+₹800)", "Static IP जोड़ें (+₹300)", "डिजिटल बंडल तैयार करें"]
+            elif lang == "pa":
+                reply = "ਤੁਹਾਡੇ ਸੈੱਟਅੱਪ ਲਈ ਇਹ ਹੋਰ ਵਿਕਲਪ ਉਪਲਬਧ ਹਨ:\n1. 24/7 Cloud CCTV (2 ਕੈਮਰੇ) - ₹800/ਮਹੀਨਾ\n2. Fixed Static IP Address - ₹300/ਮਹੀਨਾ\n3. Instant UPI Failover (4G ਬੈਕਅੱਪ) - ₹499/ਮਹੀਨਾ\n4. WhatsApp Business API - ₹999/ਮਹੀਨਾ"
+                quick = ["Cloud CCTV ਸ਼ਾਮਲ ਕਰੋ (+₹800)", "Static IP ਸ਼ਾਮਲ ਕਰੋ (+₹300)", "ਪੈਕੇਜ ਤਿਆਰ ਕਰੋ"]
+            elif lang == "hinglish":
+                reply = "Aapke setup ke liye ye catalogue-backed additions available hain:\n1. 24/7 Cloud CCTV (2 HD Cameras with 30-day cloud recording) - ₹800/mo\n2. Fixed Static IP Address (for servers or local NVR) - ₹300/mo\n3. Instant UPI & POS Failover (automatic 4G backup SIM) - ₹499/mo\n4. WhatsApp Business API (automated customer updates) - ₹999/mo\nAap inme se kaunsa option add karna chahte hain?"
+                quick = ["Add Cloud CCTV (+₹800)", "Add Static IP (+₹300)", "Add WhatsApp API (+₹999)", "Generate Digital Bundle"]
+            else:
+                reply = "Here are the eligible catalogue-backed additions available for your business:\n1. 24/7 Cloud CCTV (2 HD Cameras, 30-day cloud recording) - ₹800/mo\n2. Fixed Static IP Address - ₹300/mo\n3. Instant UPI & POS Failover (automatic 4G backup SIM) - ₹499/mo\n4. WhatsApp Business API - ₹999/mo\nWould you like to add any of these to your setup?"
+                quick = ["Add Cloud CCTV (+₹800)", "Add Static IP (+₹300)", "Add WhatsApp API (+₹999)", "Generate Digital Bundle"]
+            return reply, quick, None, False, "Listing catalogue-backed eligible additions."
+
+        # 3. Check for specific payment mentions
+        has_payment_mentioned = any(k in text_low for k in ["upi", "pos", "qr", "cash", "payment", "card", "swipe", "scanner", "gpay", "phonepe", "paytm"])
+        if has_payment_mentioned or msg_count > 2:
+            target_bundle = "prod_p19_pos"
+            if "cash" in text_low and not any(k in text_low for k in ["upi", "pos", "qr"]):
+                reply = "Understood! For cash-centric retail, our high-speed Fiber ensures your store accounting and billing stay uninterrupted."
+            else:
+                reply = "Understood! AirFiber with automatic 4G failover ensures your shop's UPI QR and card machines never drop during evening rush."
+            quick = ["View Package Details", "Check Installation SLA", "Request Callback"]
+            return reply, quick, target_bundle, True, "Plug-and-play wireless AirFiber with auto 4G failover guarantees zero UPI/POS transaction drops."
         if msg_count <= 2:
             if lang == "hi":
                 reply = "नमस्ते! आपकी दुकान पर UPI पेमेंट्स और POS मशीन का उपयोग होता है?"
@@ -766,7 +817,697 @@ def generate_deterministic_consultant_reply(
                 quick = ["Yes, both UPI & POS", "Only QR payments", "Cash mainly"]
             return reply, quick, None, False, ""
         else:
-            target_bundle = "bundle_kirana"
+            target_bundle = "prod_p19_pos"
             reply = "Understood! AirFiber with automatic 4G failover ensures your shop's UPI and card machines never drop during evening rush."
             quick = ["View Package Details", "Check Installation SLA", "Request Callback"]
             return reply, quick, target_bundle, True, "Plug-and-play wireless AirFiber with auto 4G failover guarantees zero UPI/POS transaction drops."
+
+
+# -------------------------------------------------------------------------
+# 10. BIDIRECTIONAL QUOTE ACTION & CUSTOMIZATION RECOGNITION
+# -------------------------------------------------------------------------
+def parse_quote_action_intent(
+    text: str,
+    session: Dict[str, Any],
+    current_quote: Optional[Dict[str, Any]] = None,
+    lang: str = "en"
+) -> Optional[Dict[str, Any]]:
+    """
+    Recognizes customer intent to inspect prices or modify the active quote via natural conversation:
+    1. Inquire price without modifying quote ("How much is CCTV?")
+    2. Add add-on ("Add CCTV", "Include static IP", "Yes add it")
+    3. Remove add-on ("Remove CCTV", "Don't need cameras")
+    4. Make it cheaper / Budget objections ("Make it cheaper", "Too expensive")
+    5. Switch package ("Switch to ₹599 POS plan", "Switch to Kirana starter")
+    """
+    text_clean = text.strip()
+    text_low = text_clean.lower()
+
+    # 1. Price Inquiries (Must NOT modify quote)
+    is_inquiry = any(k in text_low for k in ["how much", "kitna", "kitne", "price of", "cost of", "rate of", "kya charge"])
+    
+    if is_inquiry:
+        if any(k in text_low for k in ["cctv", "camera", "surveillance"]):
+            if lang == "hi":
+                reply = "एयरटेल क्लाउड CCTV (2 HD कैमरे, 30-दिन का क्लाउड बैकअप) ₹800/महीना है और एक बार का इंस्टॉलेशन ₹1,200 है। क्या आप इसे अपने कोटेशन में जोड़ना चाहते हैं?"
+            elif lang == "pa":
+                reply = "ਏਅਰਟੈਲ ਕਲਾਊਡ CCTV (2 ਕੈਮਰੇ, 30 ਦਿਨ ਰਿਕਾਰਡਿੰਗ) ₹800/ਮਹੀਨਾ ਹੈ (+ ₹1,200 ਸੈੱਟਅੱਪ)। ਕੀ ਤੁਸੀਂ ਇਸਨੂੰ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+            elif lang == "hinglish":
+                reply = "Cloud CCTV (2 HD Cameras, 30-day cloud recording) ₹800/month hai with ₹1,200 one-time setup. Kya aap ise apne quote me add karna chahte hain?"
+            else:
+                reply = "Cloud CCTV (2 HD Cameras with 30-day cloud recording & mobile live view) costs ₹800/month with a one-time setup of ₹1,200. Would you like me to add it to your quote?"
+            return {
+                "action": "inquire_price",
+                "target_key": "addon_cctv",
+                "reply_text": reply,
+                "quick_replies": ["Yes, add CCTV to quote", "No, keep current quote"],
+                "requires_quote_update": False
+            }
+
+        if any(k in text_low for k in ["static ip", "fixed ip", "public ip"]):
+            if lang == "hi":
+                reply = "फिक्स्ड स्टैटिक IP एड्रेस ₹300/महीना है (जीरो सेटअप चार्ज)। क्या मैं इसे आपके प्लान में जोड़ दूँ?"
+            elif lang == "pa":
+                reply = "ਸਟੈਟਿਕ ਪਬਲਿਕ IP ₹300/ਮਹੀਨਾ ਹੈ (ਜ਼ੀਰੋ ਸੈੱਟਅੱਪ ਫੀਸ)। ਕੀ ਤੁਸੀਂ ਇਸਨੂੰ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+            elif lang == "hinglish":
+                reply = "Static Public IP address ₹300/month hai with ₹0 setup fee. Tally ya server ke liye use hota hai. Add kar doon?"
+            else:
+                reply = "A Fixed Static Public IP address is ₹300/month with zero setup fee. It provides a permanent IP for on-premise servers. Would you like to add it?"
+            return {
+                "action": "inquire_price",
+                "target_key": "addon_static_ip",
+                "reply_text": reply,
+                "quick_replies": ["Yes, add Static IP", "No, keep current quote"],
+                "requires_quote_update": False
+            }
+
+        if any(k in text_low for k in ["sim", "postpaid", "calling line"]):
+            reply = "Airtel Business Postpaid SIM with unlimited national calling and 50 GB data is ₹299/month (zero setup fee). Would you like to add it to your quote?"
+            return {
+                "action": "inquire_price",
+                "target_key": "addon_sim",
+                "reply_text": reply,
+                "quick_replies": ["Yes, add Business SIM", "No, keep current quote"],
+                "requires_quote_update": False
+            }
+
+    # 2. Add Add-on Intent
+    is_add = any(k in text_low for k in ["add ", "include ", "add kar", "daal do", "yes, add", "yes add", "please add"]) or any(k in text_low for k in ["cctv chahiye", "static ip chahiye", "sim chahiye"])
+    if is_add or text_low in ["add cctv", "add static ip", "add sim", "add airfiber", "cctv chahiye", "static ip chahiye"]:
+        if any(k in text_low for k in ["cctv", "camera"]):
+            if lang == "hi":
+                reply = "मैंने आपके कोटेशन में क्लाउड CCTV (+₹800/माह, ₹1,200 सेटअप) जोड़ दिया है। आपका पैकेज कार्ड अपडेट हो गया है।"
+            elif lang == "pa":
+                reply = "ਮੈਂ ਤੁਹਾਡੇ ਕੋਟੇਸ਼ਨ ਵਿੱਚ ਕਲਾਊਡ CCTV (+₹800/ਮਹੀਨਾ) ਜੋੜ ਦਿੱਤਾ ਹੈ। ਤੁਹਾਡਾ ਪੈਕੇਜ ਕਾਰਡ ਅਪਡੇਟ ਹੋ ਗਿਆ ਹੈ।"
+            elif lang == "hinglish":
+                reply = "Cloud CCTV (+₹800/mo, ₹1,200 setup) aapke quote mein add ho gaya hai. Package card update kar diya gaya hai."
+            else:
+                reply = "I have added Cloud CCTV (2 Cameras, +₹800/mo, ₹1,200 setup) to your quote. Your package card and pricing summary have been updated in real-time."
+            return {
+                "action": "add_addon",
+                "target_key": "addon_cctv",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+        if any(k in text_low for k in ["static ip", "fixed ip"]):
+            reply = "I have added a Fixed Static Public IP (+₹300/mo) to your quote. Your package card and pricing have been updated."
+            return {
+                "action": "add_addon",
+                "target_key": "addon_static_ip",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+        if any(k in text_low for k in ["sim", "postpaid"]):
+            reply = "I have added a Business Postpaid SIM (+₹299/mo) to your quote. Your package card has been updated."
+            return {
+                "action": "add_addon",
+                "target_key": "addon_sim",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+        if any(k in text_low for k in ["airfiber", "air fiber", "add airfiber", "include airfiber"]):
+            reply = "I have added Biz 5G AirFiber 100 (+₹899/mo) to your quote. Your package card has been updated."
+            return {
+                "action": "add_addon",
+                "target_key": "addon_airfiber",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+    # 3. Remove Add-on Intent
+    is_remove = any(k in text_low for k in ["remove", "hata", "cancel", "don't need", "dont need", "nahi chahiye", "drop", "delete"])
+    if is_remove:
+        active_addons_in_quote = []
+        if current_quote:
+            for a in current_quote.get("addons", []):
+                if isinstance(a, dict):
+                    active_addons_in_quote.append(a.get("addon_key") or a.get("id"))
+                elif isinstance(a, str):
+                    active_addons_in_quote.append(a)
+            for sa in current_quote.get("selected_addons", []):
+                if isinstance(sa, dict):
+                    active_addons_in_quote.append(sa.get("addon_key") or sa.get("id"))
+                elif isinstance(sa, str):
+                    active_addons_in_quote.append(sa)
+        if any(k in text_low for k in ["cctv", "camera"]):
+            if not ("addon_cctv" in active_addons_in_quote or "P23" in active_addons_in_quote):
+                return {
+                    "action": "remove_addon",
+                    "target_key": "addon_cctv",
+                    "reply_text": "Cloud CCTV is not currently selected in your configuration. Your current quotation remains unchanged.",
+                    "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                    "requires_quote_update": False
+                }
+            if lang == "hi":
+                reply = "मैंने आपके कोटेशन से क्लाउड CCTV हटा दिया है। आपका मासिक किराया और पैकेज कार्ड अपडेट हो गया है।"
+            elif lang == "pa":
+                reply = "ਮੈਂ ਤੁਹਾਡੇ ਕੋਟੇਸ਼ਨ ਤੋਂ ਕਲਾਊਡ CCTV ਹਟਾ ਦਿੱਤਾ ਹੈ। ਤੁਹਾਡਾ ਪੈਕੇਜ ਕਾਰਡ ਅਪਡੇਟ ਹੋ ਗਿਆ ਹੈ।"
+            elif lang == "hinglish":
+                reply = "Cloud CCTV quote se remove kar diya gaya hai. Aapka monthly total update ho gaya hai."
+            else:
+                reply = "I have removed Cloud CCTV from your quote. Your package card and monthly total have been updated in real-time."
+            return {
+                "action": "remove_addon",
+                "target_key": "addon_cctv",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+        if any(k in text_low for k in ["static ip", "fixed ip"]):
+            if not ("addon_static_ip" in active_addons_in_quote or "P11" in active_addons_in_quote):
+                return {
+                    "action": "remove_addon",
+                    "target_key": "addon_static_ip",
+                    "reply_text": "Fixed Static IP Address is not currently selected in your configuration. Your current quotation remains unchanged.",
+                    "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                    "requires_quote_update": False
+                }
+            reply = "I have removed Static Public IP from your quote. Your pricing has been updated."
+            return {
+                "action": "remove_addon",
+                "target_key": "addon_static_ip",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+        if any(k in text_low for k in ["sim", "postpaid"]):
+            reply = "I have removed the Business Postpaid SIM from your quote."
+            return {
+                "action": "remove_addon",
+                "target_key": "addon_sim",
+                "reply_text": reply,
+                "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+                "requires_quote_update": True
+            }
+
+    # 4. Budget Objections / Make It Cheaper
+    is_cheaper = any(k in text_low for k in ["cheaper", "sasta", "expensive", "costly", "kam budget", "less budget", "lower cost", "reduce price", "make it cheaper"])
+    if is_cheaper:
+        current_bundle_id = current_quote.get("bundle_id") if current_quote else None
+        current_addons = current_quote.get("addons", []) if current_quote else []
+        
+        if current_addons:
+            reply = "We can reduce your monthly bill by removing optional add-ons like Cloud CCTV (+₹800/mo) or switching to standalone Cloud POS Billing at ₹599/mo. Would you like to remove add-ons or switch to the ₹599 plan?"
+            quick = ["Remove All Add-ons", "Switch to ₹599 POS Plan", "Keep Current Quote"]
+        elif current_bundle_id == "bundle_kirana":
+            reply = "If you don't need the bundled AirFiber 5G broadband right now, you can start with standalone Cloud POS & GST Billing for just ₹599/month (+ ₹2,500 setup). Would you like me to switch your quote to the ₹599 plan?"
+            quick = ["Switch to ₹599 POS Plan", "Keep Kirana Starter Plan", "Customize Package"]
+        else:
+            reply = "At ₹599/month, Cloud POS & Billing (P19) is our most affordable GST billing counter tier with inventory sync and UPI receipts. Would you like to review its itemized breakdown?"
+            quick = ["Itemized Quote", "Accept Quote & Verify", "Customize Package"]
+        
+        return {
+            "action": "make_cheaper",
+            "target_key": None,
+            "reply_text": reply,
+            "quick_replies": quick,
+            "requires_quote_update": False
+        }
+
+    # 5. Switch Base Package
+    if any(k in text_low for k in ["switch to pos", "switch to 599", "switch to ₹599", "give me only billing", "only pos", "only billing"]):
+        reply = "I have switched your package to Cloud POS & Billing (P19) at ₹599/month (+ ₹2,500 setup). Your package card and quote have been updated in real-time."
+        return {
+            "action": "switch_package",
+            "target_key": "prod_p19_pos",
+            "reply_text": reply,
+            "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+            "requires_quote_update": True
+        }
+
+    if any(k in text_low for k in ["switch to kirana", "switch to starter", "switch to 1999", "full bundle"]):
+        reply = "I have switched your package to Kirana & Micro Retail Digital Starter at ₹1,999/month (AirFiber 100 + 4G backup failover + WhatsApp API). Your package card has been updated."
+        return {
+            "action": "switch_package",
+            "target_key": "bundle_kirana",
+            "reply_text": reply,
+            "quick_replies": ["Accept Quote & Verify", "Customize Package", "Itemized Quote"],
+            "requires_quote_update": True
+        }
+
+    return None
+
+
+# -------------------------------------------------------------------------
+# 11. UNIFIED CONTEXTUAL PROMPT & STRUCTURED INTERPRETATION ENGINE
+# -------------------------------------------------------------------------
+_GLOBAL_TEST_MOCK_LLM = None
+
+def set_test_mock_llm(mock_fn):
+    """Test hook to register a mock LLM function for deterministic integration testing."""
+    global _GLOBAL_TEST_MOCK_LLM
+    _GLOBAL_TEST_MOCK_LLM = mock_fn
+
+def build_unified_advisor_prompt(
+    workflow: Dict[str, Any],
+    session: Dict[str, Any],
+    user_message: str,
+    language: str,
+    visible_options: List[Dict[str, Any]],
+    eligible_catalogue: List[Dict[str, Any]]
+) -> str:
+    """
+    Constructs a comprehensive system prompt grounding the model in:
+    - Current workflow stage
+    - Profile and identified needs
+    - Numbered GUI options currently visible to the customer
+    - Eligible catalogue products & add-ons with pricing
+    - Conversation history
+    - Structured JSON output format
+    """
+    stage = workflow.get("stage", "REQUIREMENTS_COLLECTION")
+    profile = session.get("profile", {})
+    btype = workflow.get("discovery", {}).get("business_type", profile.get("business_type", "kirana"))
+    reqs = workflow.get("discovery", {}).get("requirements", [])
+    rec = workflow.get("recommendation", {})
+    cur_bundle = rec.get("bundle_id", "bundle_kirana")
+    active_addons = rec.get("active_addons", [])
+    
+    # Format visible options for the prompt with clear 1-based indices
+    options_summary = []
+    for opt in visible_options:
+        idx = opt.get("index")
+        name = opt.get("name")
+        oid = opt.get("id")
+        desc = opt.get("description", "")
+        sel = "[SELECTED]" if opt.get("selected") else "[UNSELECTED]"
+        price = f" ({opt.get('price_inr')}/mo)" if "price_inr" in opt else ""
+        options_summary.append(f"  Option {idx}: ID='{oid}' | Name='{name}'{price} | Status={sel} | Desc: {desc}")
+    visible_str = "\n".join(options_summary) if options_summary else "  (None currently displayed)"
+
+    # Format catalogue options
+    cat_summary = []
+    for item in eligible_catalogue:
+        cid = item.get("id")
+        cname = item.get("name")
+        cprice = item.get("price")
+        cdesc = item.get("description")
+        cat_summary.append(f"  Item {cid}: '{cname}' | Price={cprice} | {cdesc}")
+    catalogue_str = "\n".join(cat_summary)
+
+    prompt = (
+        "You are the Airtel Business GenAI Digital Advisor for 'Project Udyam Digital' (Bharti Airtel SYNC 2026 Innovation Challenge).\n"
+        "Your role is to understand MSME business owners' needs and recommend appropriate Airtel Business solutions.\n\n"
+        f"CURRENT WORKFLOW STAGE: {stage}\n"
+        f"CUSTOMER PROFILE: Business Type='{btype}', Known Info={json.dumps(profile, ensure_ascii=False)}\n"
+        f"CURRENT SELECTIONS: Requirements={json.dumps(reqs)}, Bundle='{cur_bundle}', Active Add-ons={json.dumps(active_addons)}\n\n"
+        "CURRENTLY VISIBLE GUI OPTIONS ON CUSTOMER SCREEN (Ordered 1 to N):\n"
+        f"{visible_str}\n\n"
+        "ELIGIBLE AIRTEL PRODUCT CATALOGUE (Official items & pricing):\n"
+        f"{catalogue_str}\n\n"
+        f"PREFERRED LANGUAGE: {language} (Respond in English, Hindi Devanagari, Punjabi Gurmukhi, or conversational Hinglish based on user input).\n\n"
+        "INTERPRETATION & CONVERSATIONAL RULES:\n"
+        "1. INTERPRET MEANING over literal phrase matching. Do not rely on brittle word matches.\n"
+        "   - 'mujhe tez internet chahiye', 'need faster Wi-Fi', 'internet slow hai', 'high speed connection chahiye' -> interpret as a connectivity speed need.\n"
+        "     In REQUIREMENTS_COLLECTION, map this to visible Option 'broadband_speed' (High-Speed Symmetrical Fiber) and mark it for selection.\n"
+        "   - 'aur kya kya additions available hain', 'what else is available', 'what add-ons can I get' -> interpret as 'list_available_options'.\n"
+        "     Explain the visible/eligible catalogue additions (e.g. Cloud CCTV, Static IP, WhatsApp API, Cloud POS Billing, UPI failover) with names and pricing.\n"
+        "     DO NOT continue asking unrelated payment/POS questions when the customer asked what is available!\n"
+        "   - References like 'the second option', 'option 2', 'dusra option' MUST be resolved against the currently visible numbered options list above.\n"
+        "2. GROUNDED REPLIES: Never invent non-existent products, fake discounts, or unverified prices. Keep pricing strictly grounded in the catalogue.\n"
+        "3. SINGLE CONVERSATIONAL FOCUS: Do not repeat questions already answered. If the customer just expressed a need or asked a question, address it directly.\n"
+        "4. OUTPUT FORMAT: You MUST return ONLY a valid JSON object matching the exact schema below:\n"
+        "{\n"
+        '  "intent": "select_product | add_need | list_available_options | ask_question | provide_information | change_profile | confirm | other",\n'
+        '  "interpreted_need": "short plain-language description of customer need",\n'
+        '  "target_product_ids": ["catalogue or GUI option ID, e.g. broadband_speed, P23, etc."],\n'
+        '  "target_addon_ids": ["catalogue-backed addon ID if applicable, e.g. P23, P11"],\n'
+        '  "state_changes": {\n'
+        '    "selected_requirements": ["broadband_speed"],\n'
+        '    "bundle_id": null,\n'
+        '    "selected_addons": []\n'
+        '  },\n'
+        '  "needs_clarification": false,\n'
+        '  "clarification_question": null,\n'
+        '  "reply": "<friendly, professional natural language response in requested language>",\n'
+        '  "quick_replies": ["option 1", "option 2"]\n'
+        "}\n"
+        "Output ONLY the JSON object. Do not wrap in extra markdown or commentary."
+    )
+    return prompt
+
+def interpret_user_intent_fallback(
+    workflow: Dict[str, Any],
+    session: Dict[str, Any],
+    user_message: str,
+    language: str,
+    visible_options: List[Dict[str, Any]],
+    eligible_catalogue: List[Dict[str, Any]]
+) -> Dict[str, Any]:
+    """
+    Deterministic contextual fallback when live LLM is unreachable or returns invalid format.
+    Grounded strictly in visible GUI options and catalogue.
+    """
+    text_clean = user_message.strip()
+    text_low = text_clean.lower()
+    stage = workflow.get("stage", "REQUIREMENTS_COLLECTION")
+    reqs = list(workflow.get("discovery", {}).get("requirements", []))
+    
+        # 0A. Check for Removal Intent ("remove cctv", "cctv nahi chahiye", "dont need static ip", "fiber hata do")
+    is_remove = any(k in text_low for k in ["remove", "hata", "hatao", "hata do", "cancel", "don't need", "dont need", "nahi chahiye", "drop", "delete", "unselect"])
+    if is_remove:
+        active_addons = list(workflow.get("recommendation", {}).get("active_addons", []))
+        rec = workflow.get("recommendation", {})
+        
+        target_r = None
+        target_a = None
+        disp_name = None
+        
+        if any(k in text_low for k in ["cctv", "camera"]):
+            target_r = "cctv_security"
+            target_a = "P23"
+            disp_name = "24/7 Cloud CCTV Surveillance"
+        elif any(k in text_low for k in ["static ip", "fixed ip"]):
+            target_r = "static_ip"
+            target_a = "P11"
+            disp_name = "Fixed Static Public IP Address"
+        elif any(k in text_low for k in ["speed", "fiber", "fibre", "broadband"]):
+            target_r = "broadband_speed"
+            target_a = "P01"
+            disp_name = "High-Speed Symmetrical Fiber"
+        elif any(k in text_low for k in ["upi", "failover", "backup"]):
+            target_r = "upi_failover"
+            target_a = "P09"
+            disp_name = "Instant UPI & POS Failover"
+        elif any(k in text_low for k in ["whatsapp"]):
+            target_r = "whatsapp_api"
+            target_a = "P15"
+            disp_name = "WhatsApp Business API"
+        elif any(k in text_low for k in ["pos", "billing"]):
+            target_r = "pos_billing"
+            target_a = "P19"
+            disp_name = "Cloud POS & Billing Counter"
+
+        if target_r or target_a:
+            is_present = (target_r and target_r in reqs) or (target_a and target_a in active_addons)
+            if is_present:
+                remove_reqs = [target_r] if (target_r and target_r in reqs) else []
+                remove_aids = [target_a] if (target_a and target_a in active_addons) else []
+                reply = f"Removed {disp_name} from your configuration. Your quotation has been recalculated."
+                return {
+                    "intent": "remove_product",
+                    "interpreted_need": f"Removed requirement: {disp_name}",
+                    "target_product_ids": [],
+                    "target_addon_ids": [],
+                    "state_changes": {
+                        "remove_requirements": remove_reqs,
+                        "remove_addons": remove_aids
+                    },
+                    "needs_clarification": False,
+                    "clarification_question": None,
+                    "reply": reply,
+                    "quick_replies": ["View Available Add-ons", "Generate Digital Bundle", "Confirm Quote"]
+                }
+            else:
+                reply = f"{disp_name} is not currently selected in your configuration. Your quotation remains unchanged."
+                return {
+                    "intent": "remove_product",
+                    "interpreted_need": f"{disp_name} was not selected",
+                    "target_product_ids": [],
+                    "target_addon_ids": [],
+                    "state_changes": {},
+                    "needs_clarification": False,
+                    "clarification_question": None,
+                    "reply": reply,
+                    "quick_replies": ["View Available Add-ons", "Generate Digital Bundle", "Confirm Quote"]
+                }
+
+    # 0. Check for delegation / recommendation request (e.g. "you decide", "what is best", "what do you recommend", "aap decide karo")
+    is_delegation = any(k in text_low for k in ["you decide", "what is best", "best for my", "recommend", "aap batao", "tum batao", "suggest", "which plan", "confused", "dont know", "don't know", "what should i choose"])
+    if is_delegation:
+        reply = "I recommend our Kirana Digital Starter with plug-and-play AirFiber and automatic 4G backup SIM. It is our most popular option engineered to ensure zero payment dropouts."
+        return {
+            "intent": "select_product",
+            "interpreted_need": "Customer delegated package selection to advisor",
+            "target_product_ids": ["broadband_speed", "upi_failover"],
+            "target_addon_ids": [],
+            "state_changes": {"selected_requirements": ["broadband_speed", "upi_failover"]},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": reply,
+            "quick_replies": ["View Package Details", "View Available Add-ons", "Confirm Quote"]
+        }
+
+    # 1. Check for inquiries about available additions / options
+    is_additions_query = any(k in text_low for k in [
+        "aur kya", "what else", "additions", "available options", "kya kya add",
+        "other options", "kya kya options", "what additions", "available additions",
+        "add-ons available", "add ons available", "kya add kar sakte", "available items"
+    ])
+    if is_additions_query:
+        if language == "hi":
+            reply = "आपके सेटअप के लिए ये अतिरिक्त विकल्प उपलब्ध हैं:\n1. 24/7 Cloud CCTV (2 कैमरे, 30 दिन रिकॉर्डिंग) - ₹800/माह\n2. Fixed Static IP Address (सर्वर या NVR के लिए) - ₹300/माह\n3. Instant UPI & POS Failover (4G बैकअप सिम) - ₹499/माह\n4. WhatsApp Business API (कस्टमर मैसेजिंग) - ₹999/माह\nक्या आप इनमें से कोई जोड़ना चाहते हैं?"
+            quick = ["Cloud CCTV जोड़ें (+₹800)", "Static IP जोड़ें (+₹300)", "डिजिटल बंडल तैयार करें"]
+        elif language == "pa":
+            reply = "ਤੁਹਾਡੇ ਸੈੱਟਅੱਪ ਲਈ ਇਹ ਹੋਰ ਵਿਕਲਪ ਉਪਲਬਧ ਹਨ:\n1. 24/7 Cloud CCTV (2 ਕੈਮਰੇ) - ₹800/ਮਹੀਨਾ\n2. Fixed Static IP Address - ₹300/ਮਹੀਨਾ\n3. Instant UPI Failover (4G ਬੈਕਅੱਪ) - ₹499/ਮਹੀਨਾ\n4. WhatsApp Business API - ₹999/ਮਹੀਨਾ"
+            quick = ["Cloud CCTV ਸ਼ਾਮਲ ਕਰੋ (+₹800)", "Static IP ਸ਼ਾਮਲ ਕਰੋ (+₹300)", "ਪੈਕੇਜ ਤਿਆਰ ਕਰੋ"]
+        elif language == "hinglish":
+            reply = "Aapke setup ke liye ye catalogue-backed additions available hain:\n1. 24/7 Cloud CCTV (2 HD Cameras with 30-day cloud recording) - ₹800/mo\n2. Fixed Static IP Address (for servers or local NVR) - ₹300/mo\n3. Instant UPI & POS Failover (automatic 4G backup SIM) - ₹499/mo\n4. WhatsApp Business API (automated customer updates) - ₹999/mo\nAap inme se kaunsa option add karna chahte hain?"
+            quick = ["Add Cloud CCTV (+₹800)", "Add Static IP (+₹300)", "Add WhatsApp API (+₹999)", "Generate Digital Bundle"]
+        else:
+            reply = "Here are the eligible catalogue-backed additions available for your business:\n1. 24/7 Cloud CCTV (2 HD Cameras, 30-day cloud recording) - ₹800/mo\n2. Fixed Static IP Address - ₹300/mo\n3. Instant UPI & POS Failover (automatic 4G backup SIM) - ₹499/mo\n4. WhatsApp Business API - ₹999/mo\nWould you like to add any of these to your setup?"
+            quick = ["Add Cloud CCTV (+₹800)", "Add Static IP (+₹300)", "Add WhatsApp API (+₹999)", "Generate Digital Bundle"]
+            
+        return {
+            "intent": "list_available_options",
+            "interpreted_need": "Customer inquired about available additions and add-ons",
+            "target_product_ids": [],
+            "target_addon_ids": [],
+            "state_changes": {},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": reply,
+            "quick_replies": quick
+        }
+
+    # 1B. Check for Quote / Bill / Pricing request
+    is_quote_query = (
+        any(k in text_low for k in ["quote", "bill", "monthly bill", "pricing", "charges"])
+        and not any(k in text_low for k in ["how much is", "cctv", "camera", "static ip", "whatsapp", "soundbox", "pos", "billing machine", "billing software", "billing system"])
+    )
+    if is_quote_query:
+        total_m = workflow.get("recommendation", {}).get("total_monthly", 1999)
+        return {
+            "intent": "view_quote",
+            "interpreted_need": "Review quotation and transparent monthly bill",
+            "target_product_ids": [],
+            "target_addon_ids": [],
+            "state_changes": {"stage": "QUOTE_REVIEW"},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": f"Here is your transparent itemized quotation: ₹{total_m}/month (inclusive of 18% GST). Zero hidden fees.",
+            "quick_replies": ["Confirm Quote & Start Smart KYC", "Add Cloud CCTV (+₹800)", "Add Static IP (+₹300)"]
+        }
+
+    # 2. Check for Ordinal Reference (e.g. 'the second option', 'option 2', 'dusra option')
+    ordinal_map = {
+        "first": 1, "1st": 1, "pehla": 1, "option 1": 1,
+        "second": 2, "2nd": 2, "dusra": 2, "option 2": 2,
+        "third": 3, "3rd": 3, "teesra": 3, "option 3": 3,
+        "fourth": 4, "4th": 4, "chautha": 4, "option 4": 4
+    }
+    target_idx = None
+    for k, idx in ordinal_map.items():
+        if k in text_low:
+            target_idx = idx
+            break
+            
+    if target_idx and visible_options and target_idx <= len(visible_options):
+        selected_opt = visible_options[target_idx - 1]
+        opt_id = selected_opt.get("id")
+        opt_name = selected_opt.get("name")
+        opt_type = selected_opt.get("type")
+        
+        reply = f"I have selected {opt_name} for you based on option {target_idx} from the screen."
+        state_changes = {}
+        target_pids = [opt_id]
+        target_aids = []
+        
+        if opt_type == "requirement":
+            state_changes["selected_requirements"] = [opt_id]
+        elif opt_type == "addon":
+            state_changes["selected_addons"] = [opt_id]
+            target_aids = [opt_id]
+        elif opt_type == "base_plan":
+            state_changes["bundle_id"] = opt_id
+            
+        return {
+            "intent": "select_product",
+            "interpreted_need": f"Selected option {target_idx}: {opt_name}",
+            "target_product_ids": target_pids,
+            "target_addon_ids": target_aids,
+            "state_changes": state_changes,
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": reply,
+            "quick_replies": ["View Available Add-ons", "Generate Digital Bundle", "Confirm Quote"]
+        }
+
+    # 3. Check for Fast Internet / Broadband Speed / Fiber Need
+    is_speed_need = any(k in text_low for k in [
+        "tez internet", "fast internet", "faster internet", "faster wifi", "faster wi-fi",
+        "internet slow", "slow internet", "high speed", "speed", "bandwidth", "fiber",
+        "fibre", "symmetrical", "buffering", "speed chahiye",
+        "तेज इंटरनेट", "इंटरनेट", "हाई स्पीड", "स्पीड", "वाईफाई", "फास्ट इंटरनेट",
+        "ਤੇਜ਼ ਇੰਟਰਨੈੱਟ", "ਇੰਟਰਨੈੱਟ", "ਹਾਈ ਸਪੀਡ", "ਸਪੀਡ", "ਵਾਈ-ਫਾਈ"
+    ])
+    if is_speed_need:
+        if language == "hi":
+            reply = "समझ गया! मैंने आपके लिए High-Speed Symmetrical Fiber विकल्प चुन लिया है ताकि आपको हाई-स्पीड और बफरिंग-फ्री इंटरनेट मिले। इसके अलावा क्या आपको CCTV या Static IP की आवश्यकता है?"
+            quick = ["24/7 Cloud CCTV जोड़ें", "Static IP जोड़ें", "डिजिटल बंडल तैयार करें"]
+        elif language == "pa":
+            reply = "ਸਮਝ ਗਿਆ! ਮੈਂ ਤੁਹਾਡੇ ਲਈ High-Speed Symmetrical Fiber ਚੁਣ ਲਿਆ ਹੈ ਤਾਂ ਜੋ ਤੁਹਾਨੂੰ ਤੇਜ਼ ਅਤੇ ਬਿਨਾਂ ਰੁਕਾਵਟ ਇੰਟਰਨੈੱਟ ਮਿਲੇ। ਕੀ ਤੁਹਾਨੂੰ CCTV ਜਾਂ Static IP ਦੀ ਲੋੜ ਹੈ?"
+            quick = ["Cloud CCTV ਸ਼ਾਮਲ ਕਰੋ", "Static IP ਸ਼ਾਮਲ ਕਰੋ", "ਪੈਕੇਜ ਤਿਆਰ ਕਰੋ"]
+        elif language == "hinglish":
+            reply = "Samajh gaya! Maine aapke liye High-Speed Symmetrical Fiber select kar diya hai taaki aapko high speed aur zero buffering connectivity mile. Iske alawa kya aapko CCTV surveillance ya Static IP ki zaroorat hai?"
+            quick = ["View Available Add-ons", "Generate Digital Bundle", "Add 24/7 Cloud CCTV"]
+        else:
+            reply = "Understood! I have selected High-Speed Symmetrical Fiber for your setup to ensure consistent high-speed bandwidth with zero buffering. Would you also like to explore Cloud CCTV or Static IP?"
+            quick = ["View Available Add-ons", "Generate Digital Bundle", "Add 24/7 Cloud CCTV"]
+            
+        return {
+            "intent": "add_need",
+            "interpreted_need": "High-speed symmetrical internet connectivity",
+            "target_product_ids": ["broadband_speed"],
+            "target_addon_ids": [],
+            "state_changes": {"selected_requirements": ["broadband_speed"]},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": reply,
+            "quick_replies": quick
+        }
+
+    # 4. Check for CCTV / Cloud Surveillance
+    is_cctv_need = any(k in text_low for k in ["cctv", "camera", "cameras", "surveillance", "security camera"])
+    if is_cctv_need:
+        return {
+            "intent": "add_need",
+            "interpreted_need": "24/7 Cloud CCTV camera security",
+            "target_product_ids": ["cctv_security"],
+            "target_addon_ids": ["P23"],
+            "state_changes": {"selected_requirements": ["cctv_security"], "selected_addons": ["P23"]},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": "Added 24/7 Cloud CCTV Surveillance (+₹800/mo) with 2 HD cameras and 30-day cloud recording.",
+            "quick_replies": ["View Available Add-ons", "Generate Digital Bundle", "Confirm Quote"]
+        }
+
+    # 5. Check for Static IP
+    is_static_ip = any(k in text_low for k in ["static ip", "fixed ip", "public ip", "server", "nvr"])
+    if is_static_ip:
+        return {
+            "intent": "add_need",
+            "interpreted_need": "Fixed static public IP address",
+            "target_product_ids": ["static_ip"],
+            "target_addon_ids": ["P11"],
+            "state_changes": {"selected_requirements": ["static_ip"], "selected_addons": ["P11"]},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": "Added Fixed Static IP Address (+₹300/mo) for your dedicated servers and secure remote access.",
+            "quick_replies": ["View Available Add-ons", "Generate Digital Bundle", "Confirm Quote"]
+        }
+
+    # 6. Check for UPI / POS failover
+    is_upi_need = any(k in text_low for k in ["upi", "pos failover", "payment fail", "qr code", "card swipe", "soundbox"])
+    if is_upi_need:
+        return {
+            "intent": "add_need",
+            "interpreted_need": "Instant UPI & POS failover connectivity",
+            "target_product_ids": ["upi_failover"],
+            "target_addon_ids": ["P09"],
+            "state_changes": {"selected_requirements": ["upi_failover"]},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": "Selected Instant UPI & POS Failover to guarantee zero transaction dropouts during peak rush.",
+            "quick_replies": ["High-Speed Symmetrical Fiber", "24/7 Cloud CCTV", "Generate Digital Bundle"]
+        }
+
+    # 7. Check for Confirm / Progression
+    is_confirm = any(k in text_low for k in ["proceed", "move on", "continue", "next", "confirm", "generate", "start kyc", "looks good", "theek hai", "chalo", "done", "okay"])
+    if is_confirm:
+        next_stage = "PLAN_EXPLORATION" if stage == "REQUIREMENTS_COLLECTION" else "KYC_VERIFICATION"
+        return {
+            "intent": "confirm",
+            "interpreted_need": f"Proceed to next stage ({next_stage})",
+            "target_product_ids": [],
+            "target_addon_ids": [],
+            "state_changes": {"stage": next_stage},
+            "needs_clarification": False,
+            "clarification_question": None,
+            "reply": f"Proceeding to {next_stage.replace('_', ' ').title()}. Your selections have been saved.",
+            "quick_replies": ["Continue", "Review Selections"]
+        }
+
+    # Default fallback: helpful, stage-aware, non-hijacking
+    if stage == "REQUIREMENTS_COLLECTION":
+        default_reply = "Could you tell me more about your setup? You can select any of the visible options on the left (High-Speed Fiber, CCTV, Static IP, UPI failover) or describe your needs here."
+        default_qr = ["High-Speed Fiber", "24/7 Cloud CCTV", "Fixed Static IP", "Instant UPI Failover"]
+    else:
+        default_reply = "I am here to help you configure the right Airtel Business plan. You can ask about available add-ons, customize your quote, or proceed to Smart KYC."
+        default_qr = ["View Available Add-ons", "Confirm Quote & KYC", "Compare Other Plans"]
+        
+    return {
+        "intent": "ask_question",
+        "interpreted_need": "General customer inquiry",
+        "target_product_ids": [],
+        "target_addon_ids": [],
+        "state_changes": {},
+        "needs_clarification": False,
+        "clarification_question": None,
+        "reply": default_reply,
+        "quick_replies": default_qr
+    }
+
+def interpret_user_intent_with_context(
+    workflow: Dict[str, Any],
+    session: Dict[str, Any],
+    user_message: str,
+    language: str,
+    visible_options: List[Dict[str, Any]],
+    eligible_catalogue: List[Dict[str, Any]],
+    mock_fn=None,
+    live_caller=None
+) -> Dict[str, Any]:
+    """
+    Interprets customer turn using the configured LLM path (or mock), grounded dynamically in visible options and catalogue.
+    Falls back gracefully to deterministic contextual fallback if LLM is unavailable or fails.
+    """
+    global _GLOBAL_TEST_MOCK_LLM
+    active_mock = mock_fn or _GLOBAL_TEST_MOCK_LLM
+    prompt = build_unified_advisor_prompt(workflow, session, user_message, language, visible_options, eligible_catalogue)
+    
+    # 1. If test mock is active, call mock function
+    if active_mock:
+        try:
+            mock_res = active_mock(prompt, user_message)
+            if isinstance(mock_res, dict):
+                return mock_res
+            if isinstance(mock_res, str):
+                clean_json = mock_res.strip().replace("```json", "").replace("```", "")
+                return json.loads(clean_json)
+        except Exception:
+            pass
+
+    # 2. Try live LLM caller if provided or available
+    if live_caller:
+        try:
+            raw_text, bundle_id, engine = live_caller(prompt, user_message)
+            if raw_text:
+                clean_json = raw_text.strip().replace("```json", "").replace("```", "")
+                parsed = json.loads(clean_json)
+                if isinstance(parsed, dict) and "reply" in parsed:
+                    return parsed
+        except Exception:
+            pass
+
+    # 3. Deterministic Contextual Fallback
+    return interpret_user_intent_fallback(workflow, session, user_message, language, visible_options, eligible_catalogue)

@@ -13,6 +13,8 @@ Project Udyam Digital re-engineers MSME onboarding for Accel Telecom / Airtel Bu
 
 #### Principle 1: Notice & Granular, Unbundled Consent (Section 6)
 * **Pre-Capture Multilingual Notice:** Before requesting any document upload or registry query, the user is presented with a standalone, clear notice in their chosen language (English, Hindi, or regional languages).
+* **Unchecked-by-Default Affirmative Consent:** In strict adherence to Section 6 of the DPDP Act 2023, the consent checkbox is unchecked by default, prohibiting pre-ticked opt-ins. Explicit affirmative opt-in is validated both client-side and server-side before any document analysis occurs.
+* **Dual Choice of Verification Modes:** Customers are provided transparent, explicit choices between (a) Automated AI verification with statutory registry cross-referencing, and (b) Requesting manual KYC review by an authorized Airtel KYC compliance desk.
 * **Unbundled Consent:** Telecommunications service activation consent is strictly segregated from marketing or third-party communications consent. Customers can opt out of promotional communications without blocking their service application.
 * **Consent Artifact Logging:** Every consent event generates an immutable digital audit record containing: `Lead_ID`, `Timestamp_UTC`, `Language_Selected`, `Consent_Version`, and `IP_Hash`.
 
@@ -36,7 +38,7 @@ Project Udyam Digital re-engineers MSME onboarding for Accel Telecom / Airtel Bu
 | **Encryption in Transit** | All client-server, LLM API, and registry integrations use TLS 1.3 with HSTS enabled. Plaintext HTTP is permanently disabled. | TLS 1.3 / Perfect Forward Secrecy |
 | **Encryption at Rest** | Document repositories and databases are encrypted using FIPS 140-3 validated AES-256 keys managed via enterprise HSM/KMS. | AES-256-GCM / Cloud KMS |
 | **PII & Identifier Masking** | Permanent runtime masking in application logs, customer support views, and partner portals: <br>• Aadhaar: `XXXX-XXXX-1234` (Strict UIDAI masking compliance) <br>• PAN: `XXXXX1234X` <br>• GSTIN: `27AAAAA****1ZX` | Automated RegEx Redaction Filter |
-| **Data Retention & Ephemeral Cache** | Uploaded document images are held in a secure ephemeral buffer solely during OCR processing. Once verified against registries and archived in DoT-compliant long-term cold storage, temporary working copies are hard-purged within 24 hours. | Auto-Expiry Lifecycle Policy |
+| **Data Retention & Ephemeral Cache** | Uploaded document images are processed purely in ephemeral in-memory RAM buffers during the request lifecycle. No raw image bytes or unmasked identity proofs are written to persistent disk storage, session states, or audit logs. Temporary memory buffers are immediately released upon completion of verification. | Zero-Disk Ephemeral Memory Buffer |
 | **Access Control (RBAC)** | Strict principle of least privilege. Field partners and sales executives only view lead status and bundle details; they cannot view or download raw KYC identity proofs. | OAuth 2.0 / Fine-Grained RBAC |
 
 ---

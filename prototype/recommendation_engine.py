@@ -128,8 +128,51 @@ HERO_BUNDLES_MASTER = {
     }
 }
 
+# Standalone Hero Products (Specifically for Targeted MSME Requirements e.g. Cloud POS & Billing)
+STANDALONE_PRODUCTS_MASTER = {
+    "prod_p19_pos": {
+        "id": "prod_p19_pos",
+        "catalogue_id": "P19",
+        "name": "Cloud POS & GST Billing Counter",
+        "short_name": "Cloud POS Billing",
+        "segment": "Micro retail & services",
+        "segment_key": "micro",
+        "segment_display": "Micro Retail & GST Billing",
+        "monthly_inr": 599,
+        "setup_inr": 2500,
+        "contract_months": 12,
+        "lead_time_days": 3,
+        "sla": "99.5% Cloud SLA | 4hr MTTR",
+        "products": [
+            {"id": "P19", "name": "Cloud POS & Billing Counter", "cat": "Cloud & Productivity", "desc": "GST-ready invoicing, barcode scanner support, inventory sync & instant UPI receipts"}
+        ],
+        "core_capabilities": ["cloud_productivity", "billing"],
+        "target_segments": ["kirana", "retail", "micro", "services", "shop", "general_store", "chemist", "billing"],
+        "max_recommended_employees": 15,
+        "max_recommended_locations": 1,
+        "typical_budget_min": 500,
+        "typical_budget_max": 1500,
+        "why": "Airtel Cloud POS & Billing (P19) gives you instant GST invoicing, inventory tracking, and UPI receipts on phone or tablet.",
+        "why_brief": "Airtel Cloud POS & Billing (P19) gives you instant GST invoicing, inventory tracking, and UPI receipts on phone or tablet."
+    }
+}
+
+ALL_PACKAGES_MASTER = {**HERO_BUNDLES_MASTER, **STANDALONE_PRODUCTS_MASTER}
+
 # Verified Modular Add-on Catalogue (Derived from product_catalogue.csv)
 MODULAR_ADDONS = {
+    "addon_airfiber": {
+        "id": "P04",
+        "addon_key": "addon_airfiber",
+        "name": "Biz 5G AirFiber 100 Mbps (High-Speed Wireless)",
+        "short_name": "Biz 5G AirFiber 100",
+        "monthly_inr": 899,
+        "setup_inr": 0,
+        "category": "Connectivity",
+        "requires_one_of": [],
+        "requires_gstin": False,
+        "description": "Plug-and-play wireless business broadband with 100 Mbps symmetrical speeds and 48-hr setup."
+    },
     "addon_cctv": {
         "id": "P23",
         "addon_key": "addon_cctv",
@@ -138,7 +181,7 @@ MODULAR_ADDONS = {
         "monthly_inr": 800,
         "setup_inr": 1200,
         "category": "Surveillance & Security",
-        "requires_one_of": ["P01", "P02", "P03", "P04", "P05", "P06"],
+        "requires_one_of": ["P01", "P02", "P03", "P04", "P05", "P06", "P19"],
         "requires_gstin": False,
         "description": "2 HD outdoor/indoor cameras with mobile live view, night vision, and tamper alerts."
     },
@@ -150,7 +193,7 @@ MODULAR_ADDONS = {
         "monthly_inr": 300,
         "setup_inr": 0,
         "category": "Connectivity",
-        "requires_one_of": ["P01", "P02", "P03", "P04"],
+        "requires_one_of": ["P01", "P02", "P03", "P04", "P19"],
         "requires_gstin": False,
         "description": "Dedicated public IP for on-premise billing servers, remote desktop, and local NVR access."
     },
@@ -213,6 +256,30 @@ MODULAR_ADDONS = {
         "requires_one_of": [],
         "requires_gstin": False,
         "description": "Tablet-ready POS software with barcode scanner support, inventory sync, and instant UPI receipt."
+    },
+    "addon_fiber": {
+        "id": "P01",
+        "addon_key": "addon_fiber",
+        "name": "Biz Fibre 100 Mbps (High-Speed Symmetrical Fiber)",
+        "short_name": "Biz Fibre 100",
+        "monthly_inr": 999,
+        "setup_inr": 0,
+        "category": "Connectivity",
+        "requires_one_of": [],
+        "requires_gstin": False,
+        "description": "Enterprise-grade symmetrical fiber broadband with 100 Mbps upload and download speeds."
+    },
+    "addon_failover": {
+        "id": "P09",
+        "addon_key": "addon_failover",
+        "name": "Instant UPI & POS Failover (Backup 4G/5G)",
+        "short_name": "Backup 4G/5G Failover",
+        "monthly_inr": 499,
+        "setup_inr": 1500,
+        "category": "Connectivity",
+        "requires_one_of": ["P01", "P02", "P03", "P04", "P05", "P06", "P19"],
+        "requires_gstin": False,
+        "description": "Dual-SIM 4G/5G automatic failover router for uninterrupted POS transactions."
     }
 }
 
@@ -252,6 +319,15 @@ def check_hard_constraints(bundle_id: str, profile: Dict[str, Any], identified_n
     # HARD CONSTRAINT 3: Single-site Micro cannot qualify for 10-employee minimum products without headcount
     if bundle_id == "bundle_manufacturer" and employees < 5:
         return False, "Industrial Suite requires enterprise infrastructure typically serving 5+ workstations."
+
+    # HARD CONSTRAINT 4: Standalone POS is strictly for single-location micro retail
+    if bundle_id in ["prod_p19_pos", "P19"]:
+        if locations >= 2 or btype in ["multisite", "retail_chain", "restaurant"] or "multi_location_networking" in need_cats:
+            return False, "Multi-branch retail operations require enterprise SD-WAN and inter-branch networking."
+        if any(k in btype for k in ["manufacturing", "factory", "plant"]) and employees >= 5:
+            return False, "Large manufacturing facilities require dedicated enterprise leased line infrastructure."
+        if btype in ["clinic", "doctor", "dental"] and "cloud_productivity" in need_cats:
+            return False, "Healthcare facilities require encrypted patient history cloud backup and symmetrical fiber."
 
     return True, None
 
@@ -314,6 +390,15 @@ def score_bundle(
             cat_score = 1.0
         else:
             cat_score = 0.05
+    elif bundle_id in ["prod_p19_pos", "P19"]:
+        if btype in ["kirana", "retail", "micro", "services", "shop", "general_store", "chemist", "billing"]:
+            cat_score = 1.0
+        elif btype in ["clinic", "pharmacy", "restaurant"]:
+            cat_score = 0.8
+        elif btype == "multisite":
+            cat_score = 0.5
+        else:
+            cat_score = 0.2
 
     # 2. Dimension 2: Pain-Point Compatibility (0.0 to 1.0)
     pain_score = 0.4 # Base baseline
@@ -339,6 +424,11 @@ def score_bundle(
             pain_score += 0.4
         if any(k in pains_joined for k in ["leased line", "1:1", "sla", "static ip", "server"]):
             pain_score += 0.2
+    elif bundle_id in ["prod_p19_pos", "P19"]:
+        if any(k in pains_joined for k in ["billing", "invoice", "invoicing", "pos", "gst", "paper", "software", "parcha", "bahi khata"]):
+            pain_score += 0.5
+        if any(k in pains_joined for k in ["inventory", "stock", "upi", "qr", "receipt", "bills"]):
+            pain_score += 0.3
     pain_score = min(1.0, pain_score)
 
     # 3. Dimension 3: Required Service Compatibility (0.0 to 1.0)
@@ -397,6 +487,11 @@ def score_bundle(
             eligibility_score = 0.8
         else:
             eligibility_score = 0.2
+    elif bundle_id in ["prod_p19_pos", "P19"]:
+        if locations == 1 and employees <= 15:
+            eligibility_score = 1.0
+        else:
+            eligibility_score = 0.7
 
     # Weighted Composite Score Calculation
     total_score = (
@@ -434,14 +529,18 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
     pains_text = " ".join(pain_points)
     user_tools = [t.lower() for t in profile.get("digital_tools", [])]
 
-    # Need 1: CCTV Surveillance
+    # Need 1: CCTV Surveillance - STRICTLY EXPLICIT ONLY
     has_cctv_in_bundle = "P23" in bundle_product_ids
-    asked_cctv = any(k in pains_text for k in ["cctv", "camera", "surveillance", "theft", "monitor store"])
+    asked_cctv = (
+        any(k in pains_text for k in ["cctv", "camera", "surveillance", "theft", "monitor store"]) or
+        any(("cctv" in n.get("customer_statement", "").lower() or "camera" in n.get("customer_statement", "").lower()) and n.get("type") == "explicit" for n in identified_needs)
+    )
     if asked_cctv and not has_cctv_in_bundle:
         unmet.append({
             "requirement": "Cloud CCTV Surveillance",
             "evidence": "Customer requested camera monitoring for store safety.",
-            "suggested_addon": MODULAR_ADDONS["addon_cctv"]
+            "suggested_addon": MODULAR_ADDONS["addon_cctv"],
+            "source": "explicit"
         })
 
     # Need 2: Static IP for server or remote access
@@ -451,7 +550,8 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
         unmet.append({
             "requirement": "Static Public IP Address",
             "evidence": "Customer uses on-premise billing server or requires remote IP access.",
-            "suggested_addon": MODULAR_ADDONS["addon_static_ip"]
+            "suggested_addon": MODULAR_ADDONS["addon_static_ip"],
+            "source": "explicit"
         })
 
     # Need 3: Official WhatsApp Messaging
@@ -461,7 +561,8 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
         unmet.append({
             "requirement": "WhatsApp Business API Starter",
             "evidence": "Customer sends promotions or bills to customers via WhatsApp.",
-            "suggested_addon": MODULAR_ADDONS["addon_whatsapp"]
+            "suggested_addon": MODULAR_ADDONS["addon_whatsapp"],
+            "source": "explicit"
         })
 
     # Need 4: Professional Mobile Line
@@ -470,7 +571,8 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
         unmet.append({
             "requirement": "Business Calling SIM",
             "evidence": "Customer requested dedicated business calling SIM.",
-            "suggested_addon": MODULAR_ADDONS["addon_sim"]
+            "suggested_addon": MODULAR_ADDONS["addon_sim"],
+            "source": "explicit"
         })
 
     # Need 5: Cloud Backup for Kirana
@@ -480,21 +582,35 @@ def find_unmet_requirements(bundle_spec: Dict[str, Any], profile: Dict[str, Any]
         unmet.append({
             "requirement": "Cloud Data Backup (1 TB)",
             "evidence": "Customer maintains digital accounts and needs automated off-site backup.",
-            "suggested_addon": MODULAR_ADDONS["addon_cloud_backup"]
+            "suggested_addon": MODULAR_ADDONS["addon_cloud_backup"],
+            "source": "explicit"
         })
 
-    # Need 6: Cloud POS & GST Billing Software (P19)
+    # Need 6: Cloud POS & GST Billing Software (P19) (for bundles lacking POS)
     has_pos = "P19" in bundle_product_ids
     asked_pos = (
-        any(k in pains_text for k in ["billing", "invoice", "invoicing", "pos", "gst bill", "bills", "parcha"]) or
-        any("P19" in n.get("classified_requirement", "") or "billing" in n.get("customer_statement", "").lower() for n in identified_needs)
+        any(k in pains_text for k in ["billing", "invoice", "invoicing", "pos software", "pos billing", "gst bill", "parcha", "bahi khata"]) or
+        any("P19" in n.get("classified_requirement", "") or "billing" in n.get("customer_statement", "").lower() or "invoicing" in n.get("customer_statement", "").lower() for n in identified_needs)
     )
     if asked_pos and not has_pos:
         unmet.append({
             "requirement": "Cloud POS & GST Billing Counter (P19)",
             "evidence": "Customer requires tablet/phone GST invoicing software with UPI acceptance.",
-            "suggested_addon": MODULAR_ADDONS["addon_pos"]
+            "suggested_addon": MODULAR_ADDONS["addon_pos"],
+            "source": "explicit"
         })
+
+    # Need 7: High-Speed Internet Connectivity (when Standalone POS is base)
+    if bundle_spec["id"] in ["prod_p19_pos", "P19"]:
+        has_connectivity = any(p.get("cat") == "Connectivity" for p in bundle_spec["products"])
+        asked_net = any(k in pains_text for k in ["internet", "wifi", "broadband", "airfiber", "fiber", "slow net"]) or any(n.get("category") == "connectivity" for n in identified_needs)
+        if asked_net and not has_connectivity:
+            unmet.append({
+                "requirement": "Biz 5G AirFiber 100 Wireless Broadband",
+                "evidence": "Customer requested high-speed connectivity to keep cloud POS and billing online.",
+                "suggested_addon": MODULAR_ADDONS["addon_airfiber"],
+                "source": "explicit"
+            })
 
     return unmet
 
@@ -556,6 +672,12 @@ def generate_matching_reasons(bundle_spec: Dict[str, Any], profile: Dict[str, An
         reasons.append("Plant Telemetry & Energy Monitoring: Machine Monitoring IoT (P24) tracks machine uptime, vibration, and power telemetry across shop floors.")
         reasons.append("Industrial Terminal Security: Endpoint Security (P20) protects plant management systems from ransomware and unauthorized external intrusions.")
 
+    elif bundle_id in ["prod_p19_pos", "P19"]:
+        reasons.append("Dedicated GST-Compliant Invoicing: Generates government-compliant GST tax invoices from phone, tablet or PC with automated HSN and tax calculations.")
+        reasons.append("Integrated Dynamic UPI QR: Displays transaction-specific dynamic UPI QR code with instant voice & visual payment confirmation.")
+        reasons.append("Live Inventory & Stock Sync: Automatically tracks item-level quantities and low-stock alerts with barcode scanner integration.")
+        reasons.append("Encrypted Cloud Backup & Multi-User: Secure cloud synchronization guarantees zero data loss from device damage or hardware failure.")
+
     return reasons
 
 
@@ -566,15 +688,16 @@ def evaluate_bundle_recommendation(
 ) -> Dict[str, Any]:
     """
     Main Deterministic Recommendation Function.
-    Evaluates all hero bundles, checks hard constraints, scores eligible bundles,
-    selects best bundle + alternative bundle, and computes complete explainability meta.
+    Evaluates all hero bundles and standalone packages, checks hard constraints,
+    scores eligible solutions, selects best bundle + alternative bundle, and computes complete explainability meta.
     """
     scoring_weights = weights or DEFAULT_WEIGHTS
 
     eligible_bundles = []
     disqualified_bundles = []
 
-    for bid, spec in HERO_BUNDLES_MASTER.items():
+    # Evaluate all assignment packages (4 Hero Bundles + Standalone Hero Products)
+    for bid, spec in ALL_PACKAGES_MASTER.items():
         is_eligible, reason = check_hard_constraints(bid, profile, identified_needs)
         if not is_eligible:
             disqualified_bundles.append({"bundle_id": bid, "name": spec["name"], "reason": reason})
@@ -661,7 +784,7 @@ def calculate_quote_pricing(
       3. Monthly subtotal vs 18% GST
       4. First payment amount (first month + setup fee)
     """
-    bundle = HERO_BUNDLES_MASTER.get(bundle_id, HERO_BUNDLES_MASTER["bundle_kirana"])
+    bundle = ALL_PACKAGES_MASTER.get(bundle_id) or HERO_BUNDLES_MASTER.get(bundle_id) or HERO_BUNDLES_MASTER["bundle_kirana"]
     monthly_base = int(bundle["monthly_inr"])
     setup_fee = int(bundle["setup_inr"])
 
@@ -703,6 +826,43 @@ def calculate_quote_pricing(
     final_monthly_payable = monthly_subtotal + gst_amount
     first_payment_total = final_monthly_payable + setup_fee
 
+    # Construct authoritative itemized line items list
+    base_prod_id = bundle["products"][0]["id"] if bundle.get("products") else bundle["id"]
+    line_items = [
+        {
+            "product_id": base_prod_id,
+            "name": f"Base Plan: {bundle['name']}",
+            "quantity": 1,
+            "monthly_before_tax": monthly_base,
+            "setup_fee": int(bundle.get("setup_inr", 0)),
+            "contract_months": bundle.get("contract_months", 12),
+            "type": "base_plan"
+        }
+    ]
+    for item in addon_items:
+        line_items.append({
+            "product_id": item["id"],
+            "name": item["name"],
+            "quantity": 1,
+            "monthly_before_tax": item["monthly_inr"],
+            "setup_fee": item["setup_inr"],
+            "contract_months": bundle.get("contract_months", 12),
+            "type": "addon"
+        })
+    addon_pids_set = {item["id"] for item in addon_items}
+    for p in bundle.get("products", []):
+        if p["id"] != base_prod_id and p["id"] not in addon_pids_set:
+            line_items.append({
+                "product_id": p["id"],
+                "name": f"{p['name']} (Included in Base Plan)",
+                "quantity": 1,
+                "monthly_before_tax": 0,
+                "setup_fee": 0,
+                "contract_months": bundle.get("contract_months", 12),
+                "type": "included",
+                "is_included": True
+            })
+
     return {
         "bundle_id": bundle["id"],
         "bundle_name": bundle["name"],
@@ -712,6 +872,7 @@ def calculate_quote_pricing(
         "installation_sla_days": bundle["lead_time_days"],
         "included_products": bundle["products"],
         "selected_addons": addon_items,
+        "line_items": line_items,
         "pricing": {
             "monthly_base_inr": monthly_base,
             "addons_monthly_inr": addons_monthly_total,

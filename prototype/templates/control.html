@@ -1,77 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Airtel Control Portal · Enterprise Operations &amp; Intelligence</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Airtel Premium UI Components -->
+  <link rel="stylesheet" href="/static/airtel-premium.css">
   <style>
     :root {
-      --airtel-red: #e40000;
-      --sidebar-bg: #0f172a;
-      --sidebar-hover: #1e293b;
-      --content-bg: #f8fafc;
-      --border-color: #e2e8f0;
+      --airtel-red: #E40000;
+      --airtel-red-dark: #B80000;
+      --airtel-red-glow: rgba(228, 0, 0, 0.25);
+      --sidebar-bg: #090D18;
+      --sidebar-hover: #131B2E;
+      --sidebar-active-bg: rgba(228, 0, 0, 0.12);
+      --content-bg: #F4F6FA;
+      --border-color: #E2E8F0;
+      --card-radius: 14px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.06);
     }
     body {
       background-color: var(--content-bg);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: #334155;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      color: #1E293B;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    /* Enterprise Sidebar */
+    /* Enterprise Sidebar (Sleek Dark Modern Aesthetic) */
     .sidebar {
       width: 260px;
       height: 100vh;
       position: fixed;
       left: 0;
       top: 0;
-      background-color: var(--sidebar-bg);
-      color: #94a3b8;
-      border-right: 1px solid #1e293b;
+      background: linear-gradient(180deg, #070B14 0%, #0D1424 100%);
+      color: #94A3B8;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       flex-direction: column;
       z-index: 1000;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
     }
     .sidebar-brand {
-      padding: 20px;
-      color: #ffffff;
-      border-bottom: 1px solid #1e293b;
+      padding: 22px 20px;
+      color: #FFFFFF;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
     }
     .sidebar-menu {
       list-style: none;
-      padding: 12px 0;
+      padding: 12px 10px;
       margin: 0;
       flex-grow: 1;
       overflow-y: auto;
+    }
+    .sidebar-menu::-webkit-scrollbar { width: 4px; }
+    .sidebar-menu::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    .sidebar-menu li {
+      margin-bottom: 3px;
     }
     .sidebar-menu li a {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 24px;
-      color: #94a3b8;
+      padding: 11px 16px;
+      color: #94A3B8;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
-      transition: all 0.2s;
+      border-radius: 9px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .sidebar-menu li a:hover, .sidebar-menu li a.active {
-      color: #ffffff;
+    .sidebar-menu li a:hover {
+      color: #FFFFFF;
       background-color: var(--sidebar-hover);
-      border-left: 3px solid var(--airtel-red);
+      transform: translateX(2px);
+    }
+    .sidebar-menu li a.active {
+      color: #FFFFFF;
+      background: linear-gradient(90deg, rgba(228, 0, 0, 0.18) 0%, rgba(228, 0, 0, 0.05) 100%);
+      border-left: 3.5px solid var(--airtel-red);
+      font-weight: 600;
+      box-shadow: inset 0 0 16px rgba(228, 0, 0, 0.08);
     }
     .sidebar-footer {
-      padding: 16px;
-      border-top: 1px solid #1e293b;
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.2);
     }
     /* Main Content Canvas */
     .main-canvas {
@@ -81,45 +112,71 @@
       flex-direction: column;
     }
     .topbar {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
-      padding: 12px 30px;
+      padding: 14px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 900;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.03);
     }
     .card-kpi {
-      background: #ffffff;
+      background: #FFFFFF;
       border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 18px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      border-radius: var(--card-radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .card-kpi:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
     .btn-airtel {
-      background-color: var(--airtel-red);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--airtel-red) 0%, #FF3535 100%);
+      color: #FFFFFF;
       font-weight: 600;
       border: none;
+      border-radius: 9px;
+      padding: 8px 18px;
+      box-shadow: 0 4px 12px rgba(228, 0, 0, 0.25);
+      transition: all 0.2s ease;
     }
     .btn-airtel:hover {
-      background-color: #b80000;
-      color: #ffffff;
+      background: linear-gradient(135deg, #CC0000 0%, #E40000 100%);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(228, 0, 0, 0.35);
     }
     .table-enterprise {
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      border-collapse: separate;
+      border-spacing: 0;
     }
     .table-enterprise th {
-      background-color: #f1f5f9;
+      background-color: #F8FAFC;
       color: #475569;
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.5px;
+      font-size: 0.72rem;
+      letter-spacing: 0.6px;
+      padding: 12px 16px;
+      border-bottom: 2px solid #E2E8F0;
     }
-  </style>
+    .table-enterprise td {
+      padding: 13px 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .table-enterprise tbody tr:hover td {
+      background-color: #F8FAFF;
+    }
+</style>
 </head>
 <body>
 
@@ -215,7 +272,15 @@
     <header class="topbar">
       <div class="d-flex align-items-center gap-3">
         <span class="badge bg-danger px-2 py-1"><i class="bi bi-broadcast me-1"></i> CONTROL CONSOLE</span>
-        <span class="text-muted small">Airtel SYNC 2026 · Enterprise Track A</span>
+        <span class="text-muted small d-none d-md-inline">Airtel SYNC 2026 · Enterprise Track A</span>
+        <div class="d-none d-lg-flex align-items-center gap-2 ms-2">
+          <a href="/" target="_blank" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 small text-decoration-none" style="font-size: 0.75rem;">
+            <i class="bi bi-shop me-1 text-danger"></i>Consumer Portal
+          </a>
+          <a href="/demo" target="_blank" class="btn btn-xs btn-outline-danger rounded-pill px-2 py-1 small text-decoration-none" style="font-size: 0.75rem;">
+            <i class="bi bi-stars me-1"></i>5-Step Demo
+          </a>
+        </div>
       </div>
 
       <div class="d-flex align-items-center gap-3">
@@ -273,7 +338,7 @@
               <div class="p-2 bg-white rounded border border-primary-subtle small">
                 <span class="badge bg-primary mb-1">DIMENSION 2</span>
                 <strong class="d-block text-primary">Assignment Target</strong>
-                <span class="text-muted" style="font-size: 0.75rem;">SYNC 2026 Directives (25.0% Conv, ≤3.0d TAT, ≤₹7,500 CAC)</span>
+                <span class="text-muted" style="font-size: 0.75rem;">Prompt.txt Master Directives (22.0% Conv, ≤3.5d TAT, ≤₹3,800 CAC, <0.2 Calls)</span>
               </div>
             </div>
             <div class="col-md-3">
@@ -1404,7 +1469,7 @@
                 <input type="range" class="form-range" id="simLeadRecovery" min="0" max="50" step="1" value="20" oninput="updateSimSliders()">
                 <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
                   <span>Baseline: 0.0%</span>
-                  <span>Phase 3 Pilot: 28.5%</span>
+                  <span>Phase 3 Target Assumption: 25.0%</span>
                 </div>
               </div>
 
@@ -1415,7 +1480,7 @@
                 </div>
                 <input type="range" class="form-range" id="simCacSpend" min="5000" max="20000" step="500" value="8500" oninput="updateSimSliders()">
                 <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
-                  <span>Target: ₹7,500</span>
+                  <span>Target: ₹3,800</span>
                   <span>Baseline: ₹15,000</span>
                 </div>
               </div>
@@ -2037,7 +2102,7 @@
     // 2. Smart KYC & Exception Queue Loader
     function loadKycQueue(filter = "") {
       currentKycFilter = filter;
-      fetch(`/api/kyc/queue?status=${encodeURIComponent(filter)}`)
+      fetch(`/api/kyc/queue?status=${encodeURIComponent(filter)}&role=${encodeURIComponent(activeRole)}`)
       .then(r => r.json())
       .then(data => {
         if (data.status !== "success") return;
@@ -2067,13 +2132,26 @@
           const tr = document.createElement("tr");
 
           let statusBadge = "";
-          if (app.status === "VERIFIED_APPROVED" || app.status === "APPROVED") {
-            statusBadge = `<span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i> VERIFIED</span>`;
-          } else if (app.status === "EXCEPTION_FAILED" || app.status === "REJECTED") {
-            statusBadge = `<span class="badge bg-danger"><i class="bi bi-x-circle-fill me-1"></i> EXCEPTION</span>`;
+          const st = (app.status || "").toUpperCase();
+          if (st === "VERIFIED_APPROVED" || st === "APPROVED" || st === "AUTOMATED_VERIFICATION_PASSED") {
+            statusBadge = `<span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i> APPROVED</span>`;
+          } else if (st === "EXCEPTION_FAILED" || st === "REJECTED" || st === "AUTOMATED_VERIFICATION_FAILED") {
+            statusBadge = `<span class="badge bg-danger"><i class="bi bi-x-circle-fill me-1"></i> REJECTED</span>`;
+          } else if (st === "MORE_INFO_REQUESTED" || st === "RESUBMISSION_REQUIRED") {
+            statusBadge = `<span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle-fill me-1"></i> INFO REQ</span>`;
+          } else if (st === "MANUAL_REVIEW_REQUESTED" || st === "PENDING" || st === "PENDING_REVIEW") {
+            statusBadge = `<span class="badge bg-warning text-dark"><i class="bi bi-clock-history me-1"></i> PENDING REVIEW</span>`;
           } else {
-            statusBadge = `<span class="badge bg-warning text-dark"><i class="bi bi-clock-history me-1"></i> REVIEW REQ</span>`;
+            statusBadge = `<span class="badge bg-secondary"><i class="bi bi-clock me-1"></i> ${app.status}</span>`;
           }
+
+          const modeBadge = (app.verification_mode === "manual")
+            ? `<span class="badge bg-secondary-subtle text-secondary border font-monospace" style="font-size:0.65rem;"><i class="bi bi-person me-1"></i>MANUAL</span>`
+            : `<span class="badge bg-primary-subtle text-primary border font-monospace" style="font-size:0.65rem;"><i class="bi bi-robot me-1"></i>AUTO</span>`;
+
+          const sourceBadge = app.is_specimen
+            ? `<span class="badge bg-dark" style="font-size:0.62rem;">BENCHMARK</span>`
+            : `<span class="badge bg-info text-dark" style="font-size:0.62rem;">LIVE CUSTOMER</span>`;
 
           const billBadge = app.bill_age_days <= 90
             ? `<span class="badge bg-success">${app.bill_date} (${app.bill_age_days}d)</span>`
@@ -2087,7 +2165,10 @@
           }
 
           tr.innerHTML = `
-            <td><code class="fw-bold ${app.is_specimen ? 'text-primary' : 'text-danger'}">${app.application_id}</code>${app.is_specimen ? ' <span class="badge bg-dark" style="font-size:0.65rem;">SPECIMEN</span>' : ''}</td>
+            <td>
+              <code class="fw-bold ${app.is_specimen ? 'text-primary' : 'text-danger'}">${app.application_id}</code>
+              <div class="mt-1 d-flex gap-1">${sourceBadge} ${modeBadge}</div>
+            </td>
             <td><strong>${app.applicant_name}</strong></td>
             <td>${app.business_name}</td>
             <td class="font-monospace">${app.masked_gstin}</td>
@@ -2382,7 +2463,7 @@ Receipt: ${res.cryptographic_receipt}`);
             <td><small class="text-danger">${l.drop_reason}</small></td>
             <td><span class="badge bg-${l.priority_badge}">${l.propensity_score}</span></td>
             <td>
-              <button class="btn btn-sm btn-outline-danger" onclick="alert('Initiating WhatsApp / Call follow-up for ${l.business_name}')">
+              <button class="btn btn-sm btn-outline-danger" onclick="alert('[PROTOTYPE DEMO] Simulated follow-up logged for ' + l.business_name + '. (External WhatsApp/Call gateway unconnected in prototype environment).')">
                 <i class="bi bi-telephone-fill"></i> Reach Out
               </button>
             </td>
@@ -2392,26 +2473,41 @@ Receipt: ${res.cryptographic_receipt}`);
       });
     }
 
-    // 5. Business Insights
+    // 5. Business Insights (Deterministic Rule-Based Intelligence)
     function loadInsights() {
       fetch("/api/control/analytics/insights")
       .then(r => r.json())
       .then(data => {
         const box = document.getElementById("insightsContainer");
+        if (!box) return;
         box.innerHTML = "";
         data.insights.forEach(i => {
           const col = document.createElement("div");
           col.className = "col-md-6";
+          
+          const hypoBadge = i.is_hypothesis ? 
+            `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle" style="font-size: 0.68rem;"><i class="bi bi-lightbulb me-1"></i>Informed Hypothesis</span>` : 
+            `<span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.68rem;"><i class="bi bi-check-circle me-1"></i>Verified Finding</span>`;
+
           col.innerHTML = `
-            <div class="card-kpi p-4 h-100 border-start border-4 border-danger">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="badge bg-danger">${i.category}</span>
-                <span class="small fw-bold text-dark">${i.stat}</span>
+            <div class="card-kpi p-4 h-100 border-start border-4 border-danger d-flex flex-column justify-content-between shadow-sm">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge bg-danger">${i.category}</span>
+                  ${hypoBadge}
+                </div>
+                <h5 class="fw-bold text-dark mb-2">${i.title}</h5>
+                <div class="small text-dark mb-2"><strong>Observation:</strong> ${i.observation}</div>
+                <div class="p-2 bg-light rounded small border mb-3">
+                  <strong>Supporting Data:</strong> ${i.evidence || i.supporting_data}
+                  <div class="text-muted mt-1" style="font-size: 0.7rem;"><i class="bi bi-database me-1"></i>Source: ${i.traceable_source || 'smb_leads.csv'}</div>
+                </div>
+                <div class="small text-muted mb-3">
+                  <strong>Business Implication:</strong> ${i.business_implication}
+                </div>
               </div>
-              <h5 class="fw-bold text-dark mb-2">${i.title}</h5>
-              <p class="small text-muted mb-3">${i.evidence}</p>
-              <div class="p-2 bg-light rounded small border">
-                <strong>Strategic Recommendation:</strong> ${i.recommendation}
+              <div class="p-2 bg-white rounded small border-start border-3 border-danger shadow-sm">
+                <strong>Recommended Action:</strong> ${i.recommendation}
               </div>
             </div>
           `;
@@ -2470,7 +2566,7 @@ Receipt: ${res.cryptographic_receipt}`);
         .catch(err => console.error("Error loading recovery analytics:", err));
 
       // 2. Fetch Records Queue
-      fetch('/api/control/recovery/queue?filter=' + activeRecoveryFilter)
+      fetch('/api/control/recovery/queue?filter=' + activeRecoveryFilter + '&role=' + activeRole)
         .then(r => r.json())
         .then(data => {
           if (data.status === 'success') {
@@ -2507,8 +2603,12 @@ Receipt: ${res.cryptographic_receipt}`);
           'opted_out': '<span class="badge bg-secondary"><i class="bi bi-slash-circle me-1"></i>Opted Out</span>'
         }[r.recovery_status] || `<span class="badge bg-light text-dark">${r.recovery_status}</span>`;
 
+        const originBadge = r.is_seeded ?
+          `<span class="badge bg-secondary-subtle text-secondary border ms-1" style="font-size: 0.65rem;"><i class="bi bi-box-seam me-1"></i>Seeded Example</span>` :
+          `<span class="badge bg-danger-subtle text-danger border ms-1" style="font-size: 0.65rem;"><i class="bi bi-broadcast me-1"></i>Live Abandoned</span>`;
+
         tr.innerHTML = `
-          <td><code>${r.recovery_id}</code></td>
+          <td><code>${r.recovery_id}</code>${originBadge}</td>
           <td>
             <strong>${r.business_name}</strong>
             <div class="small text-muted">${r.contact_person} &bull; ${r.contact_phone}</div>
@@ -2574,7 +2674,7 @@ Receipt: ${res.cryptographic_receipt}`);
 
     function openRecoveryModal(recoveryId) {
       activeModalRecoveryId = recoveryId;
-      fetch('/api/control/recovery/' + recoveryId)
+      fetch('/api/control/recovery/' + recoveryId + '?role=' + activeRole)
         .then(r => r.json())
         .then(data => {
           if (data.status === 'success') {
@@ -2649,7 +2749,7 @@ Receipt: ${res.cryptographic_receipt}`);
 
     function refreshRecoveryDraft(lang) {
       if (!activeModalRecoveryId) return;
-      fetch('/api/control/recovery/' + activeModalRecoveryId + '/action', {
+      fetch('/api/control/recovery/' + activeModalRecoveryId + '/action?role=' + activeRole, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'generate_draft', language: lang })
@@ -3061,19 +3161,61 @@ Receipt: ${res.cryptographic_receipt}`);
                 borderAccent = "border-info";
               }
               
+              // Source badge styling
+              let sourceBadgeClass = "bg-primary-subtle text-primary border border-primary-subtle";
+              let sourceBadgeText = "LIVE PROTOTYPE";
+              if (m.status === "unavailable") {
+                sourceBadgeClass = "bg-secondary-subtle text-secondary border border-secondary-subtle";
+                sourceBadgeText = "UNAVAILABLE";
+              } else if (m.data_source === "HISTORICAL_BASELINE_DATASET") {
+                sourceBadgeClass = "bg-dark text-white";
+                sourceBadgeText = "HISTORICAL";
+              } else if (m.is_demo_included) {
+                sourceBadgeClass = "bg-info-subtle text-info-emphasis border border-info-subtle";
+                sourceBadgeText = "PROTOTYPE (DEMO INCL)";
+              }
+
+              // Value rendering (Muted italic icon when unavailable)
+              let valueHtml = `<div class="fs-4 fw-bold text-dark mt-1">${m.prototype_value}</div>`;
+              if (m.status === "unavailable") {
+                valueHtml = `<div class="fs-6 fw-semibold text-muted mt-2 mb-2"><i class="bi bi-dash-circle me-1 text-secondary"></i>${m.prototype_value}</div>`;
+              }
+
+              // Delta badge: only render when comparison is genuinely available
+              let changeBadgeHtml = "";
+              if (m.comparison_available && m.change && m.change !== "No comparison available") {
+                const badgeColor = m.trend === "positive" ? "bg-success-subtle text-success" : (m.trend === "negative" ? "bg-danger-subtle text-danger" : "bg-light text-secondary border");
+                changeBadgeHtml = `<span class="badge ${badgeColor} fw-bold" style="font-size: 0.68rem;">${m.change}</span>`;
+              } else {
+                changeBadgeHtml = `<span class="badge bg-light text-muted border" style="font-size: 0.65rem;">No delta</span>`;
+              }
+              
               col.innerHTML = `
-                <div class="card-kpi p-3 h-100 border-start border-4 ${borderAccent} shadow-sm position-relative">
-                  <div class="d-flex justify-content-between align-items-start mb-1">
-                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.72rem;">${m.label}</span>
-                    <span class="badge bg-light text-dark border" style="font-size: 0.65rem;">${m.data_source === 'LIVE_PROTOTYPE_TRANSACTIONS' ? 'PROTOTYPE' : 'BASELINE'}</span>
+                <div class="card-kpi p-3 h-100 border-start border-4 ${borderAccent} shadow-sm position-relative d-flex flex-column justify-content-between">
+                  <div>
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                      <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.72rem;">${m.label}</span>
+                      <span class="badge ${sourceBadgeClass}" style="font-size: 0.63rem;">${sourceBadgeText}</span>
+                    </div>
+                    ${valueHtml}
+                    <div class="d-flex justify-content-between align-items-center mt-2 small">
+                      <span class="text-muted" style="font-size: 0.73rem;">Baseline: <strong>${m.historical_baseline}</strong></span>
+                      ${changeBadgeHtml}
+                    </div>
+                    <div class="small text-muted mt-1" style="font-size: 0.72rem;">
+                      Target: <strong>${m.target_value}</strong>
+                    </div>
                   </div>
-                  <div class="fs-4 fw-bold text-dark mt-1">${m.prototype_value}</div>
-                  <div class="d-flex justify-content-between align-items-center mt-2 small">
-                    <span class="text-muted" style="font-size: 0.75rem;">Baseline: <strong>${m.historical_baseline}</strong></span>
-                    <span class="badge bg-success-subtle text-success fw-bold" style="font-size: 0.7rem;">${m.change}</span>
-                  </div>
-                  <div class="mt-2 text-muted" style="font-size: 0.72rem; line-height: 1.3;">
-                    <i class="bi bi-info-circle me-1"></i>${m.explanation}
+                  <div class="mt-2 pt-2 border-top">
+                    <div class="text-muted" style="font-size: 0.7rem; line-height: 1.3;">
+                      <i class="bi bi-info-circle me-1"></i>${m.explanation}
+                    </div>
+                    <div class="text-muted opacity-75 mt-1" style="font-size: 0.65rem; font-family: monospace;">
+                      Formula: ${m.formula || 'N/A'}
+                    </div>
+                    <div class="text-muted opacity-75 mt-0" style="font-size: 0.65rem;">
+                      Source: ${m.data_source} · ${m.period || 'Current Runtime'}
+                    </div>
                   </div>
                 </div>
               `;

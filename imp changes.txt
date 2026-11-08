@@ -1,0 +1,1073 @@
+# PROJECT UDYAM DIGITAL — COMPLETE CONVERSATIONAL-FIRST EXPERIENCE & SYNCHRONIZED GUI
+
+## PRIMARY OBJECTIVE
+
+Redesign the initial user experience of Project Udyam Digital into a premium, conversational-first digital onboarding platform for Indian MSMEs.
+
+The experience should combine:
+
+1. A visually impressive Indian-inspired brand introduction.
+2. A smooth animated transition into the application.
+3. An intelligent AI chatbot that guides users through the entire journey.
+4. A dynamic GUI that displays only the information and controls relevant to the current conversation.
+5. Complete bidirectional synchronization between chatbot interactions and GUI interactions.
+6. Separate customer and Airtel employee journeys.
+
+**Core principle: The user must be able to complete the entire journey using either the chatbot or the GUI, and switch between them at any point without losing progress.**
+
+Do not build a chatbot alongside an unrelated static dashboard. Build one integrated conversational application in which the chatbot and GUI are two interfaces to the same underlying workflow and state.
+
+---
+
+# PHASE 1 — BRAND INTRODUCTION AND ANIMATED ENTRY EXPERIENCE
+
+## 1.1 Initial website loading experience
+
+When a user opens the website, do not immediately show the full dashboard or chatbot.
+
+First, display a branded introductory screen.
+
+The screen should contain:
+
+- Airtel branding, following the existing brand guidelines and logo assets.
+- Project Udyam Digital identity.
+- A custom, traditional Indian-inspired illustration.
+- A short, elegant introductory animation.
+
+The design should communicate:
+
+- Indian entrepreneurship.
+- Small businesses and local commerce.
+- Digital transformation.
+- Technology empowering Bharat.
+- Trust, simplicity, and innovation.
+
+## 1.2 Create a custom Indian-inspired illustration
+
+Generate an original visual asset using AI image generation if available.
+
+The visual should combine traditional Indian business culture with modern technology.
+
+Possible visual elements:
+
+- A modern Indian kirana shop.
+- A shopkeeper or entrepreneur.
+- A traditional Indian architectural element or decorative motif.
+- Subtle digital connectivity symbols.
+- UPI/payment interaction.
+- A smartphone or POS terminal.
+- Subtle references to Indian craftsmanship and patterns.
+
+Design direction:
+
+- Premium, contemporary Indian visual identity.
+- Minimalist illustration rather than a crowded scene.
+- Warm Indian-inspired colors.
+- Airtel red used as an accent.
+- Elegant and professional.
+- Avoid cartoonish characters, generic AI illustrations, excessive gradients, or stereotypical cultural imagery.
+
+### Asset requirements
+
+Prefer an SVG illustration wherever possible.
+
+If AI generates a raster image:
+
+- Optimize it.
+- Use WebP/AVIF where supported.
+- Preserve transparency if useful.
+- Keep it lightweight.
+
+If an SVG is created manually, ensure it is clean, scalable, and optimized.
+
+Do not use a random stock illustration or a generic placeholder.
+
+Save the asset in the project's proper assets directory and reuse it consistently.
+
+## 1.3 Logo animation
+
+The introductory experience should have a carefully designed transition.
+
+Sequence:
+
+**Step 1: Initial state**
+
+- Show the logo at the center of the screen.
+- Display the custom Indian-inspired illustration around or beneath it.
+- Use a clean background.
+- The screen should feel premium and welcoming.
+
+**Step 2: Intro animation**
+
+- The illustration gently appears.
+- The logo becomes the focal point.
+- Use subtle motion and easing.
+- Avoid excessive movement or flashy effects.
+
+**Step 3: Logo transition**
+
+This is particularly important.
+
+The logo should smoothly move from the center of the screen to the top-left corner, where the existing website logo is located.
+
+It should feel like the introductory brand experience is transforming into the actual application.
+
+Do not simply hide the centered logo and suddenly display another logo in the header.
+
+Use a smooth position, size, and opacity transition.
+
+The final logo position must align precisely with the existing application header.
+
+**Step 4: Application reveal**
+
+As the logo reaches the top-left position:
+
+- The application background and layout fade into view.
+- The chatbot panel appears.
+- The contextual workspace appears alongside it.
+- The introductory illustration transitions away naturally.
+
+Use Framer Motion if it is already installed. Otherwise use the existing animation solution or CSS transitions.
+
+Respect `prefers-reduced-motion` and provide an accessible reduced-motion experience.
+
+Avoid unnecessary animation libraries.
+
+The complete introduction should be short enough that users are not forced to wait before interacting with the application.
+
+Remember the user's onboarding progress and do not replay the entire introduction on every navigation or page refresh.
+
+---
+
+# PHASE 2 — FIRST CONVERSATION AND USER IDENTIFICATION
+
+Once the introduction finishes, the chatbot should become the primary point of interaction.
+
+Do not immediately ask the user about product bundles, internet speed, billing software, or technical requirements.
+
+Start with a basic, natural greeting.
+
+Example:
+
+AI:
+"Namaste! Welcome to Airtel Business.
+
+Are you a business owner looking for digital solutions, or an Airtel employee assisting customers?"
+
+Display two contextual quick-reply options:
+
+1. I am a Business Owner
+2. I am an Airtel Employee
+
+The user must be able to select an option using either:
+- Chat quick-reply buttons.
+- A corresponding GUI selection displayed alongside the chatbot.
+
+Both must update the same application state.
+
+## 2.1 Language support
+
+The first greeting should respect the language selector and existing multilingual functionality.
+
+Support:
+
+- English
+- Hindi
+- Hinglish
+- Punjabi
+
+Example in Hindi:
+
+"नमस्ते! Airtel Business में आपका स्वागत है।
+
+क्या आप अपने व्यवसाय के लिए डिजिटल समाधान ढूँढ रहे हैं या Airtel के कर्मचारी हैं जो ग्राहकों की सहायता कर रहे हैं?"
+
+Do not hardcode only one language into the initial experience.
+
+The AI should respond in the currently selected language.
+
+---
+
+# PHASE 3 — SEPARATE CUSTOMER AND AIRTEL EMPLOYEE JOURNEYS
+
+These two journeys must be independent.
+
+## 3.1 BUSINESS OWNER JOURNEY
+
+If the user selects Business Owner:
+
+The AI should respond:
+
+"Great! Are you already an Airtel Business customer?"
+
+Display:
+
+- Yes, I already have an account.
+- No, I am new to Airtel Business.
+
+This selection must be available in both chat and GUI.
+
+### If the user already has an account
+
+AI:
+
+"Welcome back! Let's get you signed in."
+
+The GUI workspace alongside the chatbot should dynamically display an actual login interface.
+
+Show:
+
+- Registered mobile number/email.
+- Password.
+- Show/hide password.
+- Forgot password.
+- Login button.
+- Sign-up option.
+
+The chatbot can guide the customer through the login process.
+
+For example:
+
+AI:
+"Please enter your registered mobile number or email in the login panel."
+
+The customer enters credentials in the GUI.
+
+The chatbot should understand that the login details have been submitted, but it must never ask the user to reveal their password in the chat.
+
+Important security requirements:
+
+- Passwords must only be entered into secure form inputs.
+- Never send passwords or OTPs to the LLM.
+- Never include credentials in chatbot conversation history.
+- Authentication must be handled by the existing secure authentication backend.
+- Never simulate a successful login without backend verification.
+
+After successful login:
+
+- Restore the user's previous profile.
+- Restore previous conversations where appropriate.
+- Restore any saved quote or incomplete onboarding.
+- Continue from the last incomplete step.
+
+### If the user does not have an account
+
+AI:
+
+"No problem! Let's create your Airtel Business account."
+
+The GUI should display the signup interface.
+
+Collect the required information through a proper form.
+
+Possible fields:
+
+- Business owner's name.
+- Mobile number.
+- Email address.
+- Password.
+- Business name.
+
+Only collect fields required by the existing authentication and onboarding requirements.
+
+Include:
+- OTP verification where supported.
+- Password validation.
+- Terms and conditions.
+- Appropriate DPDP Act 2023 privacy notice and consent.
+- Clear validation errors.
+
+The chatbot should guide the user through the process without asking for passwords or OTPs in chat.
+
+After successful signup:
+
+- Create or retrieve the customer profile.
+- Initialize the business discovery workflow.
+- Continue directly into business onboarding.
+
+Do not make the customer repeat information already provided during signup.
+
+---
+
+## 3.2 AIRTEL EMPLOYEE JOURNEY
+
+If the user selects Airtel Employee:
+
+Do not show the customer login/signup flow.
+
+Since this is a competition trial/demo, provide a direct Airtel employee demo entry.
+
+AI:
+
+"Welcome! You can explore the Airtel employee experience directly in this demo."
+
+Display:
+
+- Enter Employee Demo
+
+Clicking it should take the user to the existing Airtel Control Portal.
+
+Important:
+
+- This direct access is strictly for the competition/demo environment.
+- Do not represent this as production-grade employee authentication.
+- Clearly mark the session as Demo Mode.
+- Keep the employee interface separate from the customer interface.
+- Preserve the existing employee dashboard, analytics, KYC monitoring, quote management, operations, and other administrative functionality.
+- Do not expose the employee portal to ordinary business-owner sessions.
+
+Production-ready RBAC must remain in place or be clearly distinguished from the demo bypass.
+
+---
+
+# PHASE 4 — DYNAMIC CONVERSATIONAL WORKSPACE
+
+After customer authentication, transition into the main onboarding experience.
+
+This should be a two-part layout.
+
+## 4.1 Layout
+
+Desktop:
+
+Left/primary panel:
+- AI chatbot.
+- Conversation history.
+- Quick replies.
+- Message input.
+- Language selector.
+
+Right/secondary panel:
+- Dynamic contextual workspace.
+
+The right-side panel must change according to the current conversation and onboarding stage.
+
+Do not show a permanent dashboard containing every possible feature.
+
+Only show the information relevant to what the chatbot is currently discussing.
+
+For example:
+
+| Chatbot conversation | GUI displayed alongside |
+|---|---|
+| Login discussion | Login form |
+| Signup discussion | Signup form |
+| Business identification | Business type selection |
+| Business discovery | Relevant business requirements |
+| Problem identification | Problem/need selection |
+| Plan discussion | Available Airtel plans |
+| Personalized recommendation | Recommended package card |
+| Quote discussion | Current quotation and pricing |
+| Package customization | Package customization controls |
+| KYC discussion | KYC upload and verification interface |
+| Installation discussion | Installation information and tracking |
+| Completed onboarding | Customer dashboard/status |
+
+The workspace must feel like a natural extension of the conversation.
+
+## 4.2 Dynamic workspace architecture
+
+Implement a reusable contextual workspace.
+
+Suggested component architecture:
+
+- `ConversationalLayout`
+- `ChatPanel`
+- `ContextualWorkspace`
+- `LoginWorkspace`
+- `SignupWorkspace`
+- `BusinessTypeWorkspace`
+- `BusinessDiscoveryWorkspace`
+- `RequirementsWorkspace`
+- `PlanCatalogueWorkspace`
+- `RecommendationWorkspace`
+- `QuoteWorkspace`
+- `PackageCustomizationWorkspace`
+- `KYCWorkspace`
+- `InstallationWorkspace`
+
+Use the existing project architecture and naming conventions where possible.
+
+Do not duplicate the same forms and business logic in multiple components.
+
+The chatbot should communicate which contextual workspace is currently required through structured backend responses or workflow state, not by asking the frontend to guess from arbitrary message text.
+
+---
+
+# PHASE 5 — BUSINESS DISCOVERY THROUGH CHAT AND GUI
+
+After successful signup/login, the chatbot should begin understanding the customer's business.
+
+Start with the most basic question.
+
+AI:
+
+"Great! Let's understand your business so I can suggest the right digital solutions.
+
+What kind of business do you run?"
+
+The GUI alongside the chatbot should display visual business-category options.
+
+Examples:
+
+- Kirana & Grocery Store
+- Retail & Showroom
+- Clinic & Healthcare
+- CA & Professional Services
+- Restaurant & Hospitality
+- Manufacturing
+- Education
+- Logistics
+- Other
+
+Use custom illustrations or icons that match the visual identity.
+
+Do not show a huge list of complicated technical Airtel products at this stage.
+
+### Bidirectional behavior
+
+If the user selects Kirana & Grocery Store in the GUI:
+
+- Update the central customer profile.
+- Update chatbot context.
+- AI acknowledges the selection.
+- Move to the next relevant question.
+
+If the user says in chat:
+
+"I run a kirana shop."
+
+Then:
+
+- Update the customer profile.
+- Automatically select Kirana & Grocery Store in the GUI.
+- Show the next relevant discovery step.
+
+Both interaction methods must remain synchronized.
+
+## 5.1 Understand business problems
+
+The AI should ask natural, contextual questions.
+
+Example:
+
+"What are the biggest challenges you face while running your shop?"
+
+Possible selectable options in GUI:
+
+- Billing and invoicing.
+- Internet connectivity.
+- Digital payments.
+- Inventory management.
+- Customer communication.
+- Security and CCTV.
+- Multiple store connectivity.
+- Data backup.
+- Other.
+
+Allow multiple selections where appropriate.
+
+If the customer explains a problem in natural language, extract the relevant structured requirements and update the GUI selections.
+
+Do not force the customer to use only predefined options.
+
+## 5.2 Ask follow-up questions intelligently
+
+The AI should ask questions based on the business category and the customer's requirements.
+
+For example, if the customer needs billing:
+
+- Do they need GST invoicing?
+- Approximately how many invoices do they generate?
+- Do they need inventory management?
+- Do they need UPI/payment integration?
+
+Ask only what is useful for selecting an actual catalogue product.
+
+Avoid asking irrelevant technical questions.
+
+Do not repeatedly ask the same question if the user says they do not know.
+
+If the customer delegates a low-risk preference to the AI, choose a sensible default and explain why.
+
+Never assume legal consent, purchase authorization, KYC details, or payment approval.
+
+---
+
+# PHASE 6 — SHOW AVAILABLE PLANS AND PERSONALIZED RECOMMENDATIONS
+
+Once sufficient business information is collected, the AI should introduce the available Airtel Business solutions.
+
+There should be two ways of exploring plans.
+
+### Option A: Personalized recommendation
+
+AI:
+
+"Based on your business requirements, I have found a suitable Airtel Business solution for you."
+
+The GUI should display a recommendation card containing:
+
+- Product/package name.
+- Monthly price.
+- Setup fee, if applicable.
+- Applicable GST.
+- Total monthly cost.
+- Included services.
+- Important features.
+- Compatibility.
+- Recommendation explanation.
+- Customize Package.
+- View Itemized Quote.
+- Accept Quote & Verify.
+
+The card must be generated from the actual product catalogue and recommendation engine.
+
+The LLM must not invent product names, prices, or features.
+
+### Option B: Explore all available plans
+
+If the customer says:
+
+"Show me all available plans."
+
+The GUI should switch to a catalogue view.
+
+Display the actual eligible plans in a clean, easy-to-compare layout.
+
+Each plan should include:
+
+- Product name.
+- Price.
+- Main features.
+- Included services.
+- Relevant limitations.
+- Select/View Details action.
+
+The customer should be able to choose a plan from the GUI.
+
+If the customer selects a plan:
+
+- Update the selected product in the central state.
+- Update chatbot context.
+- Ask the AI to explain the selected plan.
+- Generate/update the corresponding quote.
+
+If the customer selects a plan through chat, update the GUI to reflect that selection.
+
+### Important recommendation logic
+
+Do not display all packages all the time.
+
+Start with a personalized recommendation when sufficient information is available.
+
+Let the customer explore the complete catalogue if requested.
+
+Never show an irrelevant package simply because it is the default package in the frontend.
+
+---
+
+# PHASE 7 — CHAT AND GUI MUST BE COMPLETELY SYNCHRONIZED
+
+This is the most important technical requirement of the entire task.
+
+The user must be able to switch freely between chat and GUI.
+
+Neither interface should be considered secondary or independent.
+
+### Example 1: Business category
+
+User selects Kirana in GUI.
+
+Expected:
+- Profile updates.
+- Chatbot acknowledges Kirana.
+- Next question appears.
+
+User instead says "I own a clinic" in chat.
+
+Expected:
+- GUI changes selection to Clinic.
+- Profile updates.
+- Next question is clinic-specific.
+
+### Example 2: Requirements
+
+User clicks Billing and Inventory in GUI.
+
+Expected:
+- Both requirements are saved in the customer profile.
+- Chatbot receives updated context.
+- Chatbot asks the next relevant question.
+
+User says "I also need CCTV" in chat.
+
+Expected:
+- CCTV requirement is added to the GUI.
+- The chatbot explains relevant available options.
+
+Do not automatically add paid products without the necessary confirmation.
+
+### Example 3: Plan selection
+
+User selects a plan in GUI.
+
+Expected:
+- Chatbot knows the selected plan.
+- Recommendation card updates.
+- Quote is generated from that plan.
+
+User says "Show me the cheaper plan" in chat.
+
+Expected:
+- Recommendation engine searches eligible catalogue products.
+- GUI displays the alternative.
+- Chatbot explains the trade-offs.
+
+### Example 4: Package customization
+
+User removes an add-on through the customization GUI.
+
+Expected:
+- Quote updates in backend.
+- Chatbot receives the new quote.
+- Chatbot describes the updated price.
+
+User says "Add a Static IP" in chat.
+
+Expected:
+- GUI shows the new selection after required confirmation.
+- Quote updates.
+- Pricing changes.
+
+### Example 5: Switching interaction methods
+
+The user can:
+
+- Start in chat.
+- Complete a few steps through GUI.
+- Return to chat.
+- Continue through GUI.
+- Return to chat again.
+
+At no point should they lose progress or be forced to restart.
+
+---
+
+# PHASE 8 — CENTRAL WORKFLOW AND STATE MANAGEMENT
+
+Implement a single authoritative workflow state shared across both interfaces.
+
+Suggested workflow states:
+
+- `WELCOME`
+- `USER_TYPE_SELECTION`
+- `CUSTOMER_ACCOUNT_CHECK`
+- `CUSTOMER_LOGIN`
+- `CUSTOMER_SIGNUP`
+- `EMPLOYEE_DEMO_ENTRY`
+- `BUSINESS_IDENTIFICATION`
+- `BUSINESS_DISCOVERY`
+- `REQUIREMENTS_COLLECTION`
+- `PLAN_EXPLORATION`
+- `PLAN_RECOMMENDATION`
+- `QUOTE_REVIEW`
+- `PACKAGE_CUSTOMIZATION`
+- `KYC_VERIFICATION`
+- `INSTALLATION_TRACKING`
+- `ONBOARDING_COMPLETE`
+
+These are illustrative names. Adapt them to the existing backend architecture.
+
+Each workflow step should define:
+
+- Current stage.
+- Customer profile.
+- Collected information.
+- Missing information.
+- Current question.
+- Available GUI actions.
+- Current contextual workspace.
+- Selected product/package.
+- Current quote ID and version.
+- Pending confirmations.
+- Completion status.
+
+### Synchronization architecture
+
+Use the existing backend and database as the authoritative source for persisted workflow state.
+
+The frontend should maintain a responsive local representation of that state.
+
+Suggested event structure:
+
+- `USER_TYPE_SELECTED`
+- `LOGIN_REQUESTED`
+- `LOGIN_SUCCEEDED`
+- `SIGNUP_SUCCEEDED`
+- `BUSINESS_CATEGORY_SELECTED`
+- `REQUIREMENT_ADDED`
+- `REQUIREMENT_REMOVED`
+- `PLAN_SELECTED`
+- `RECOMMENDATION_UPDATED`
+- `QUOTE_UPDATED`
+- `CUSTOMIZATION_SAVED`
+- `KYC_SUBMITTED`
+- `WORKFLOW_STEP_COMPLETED`
+
+Every chat interaction and GUI action should result in an appropriate structured state transition.
+
+Avoid maintaining separate chatbot and GUI profiles.
+
+Avoid stale state and conflicting updates.
+
+Use the existing real-time communication architecture where appropriate. Do not introduce unnecessary infrastructure.
+
+---
+
+# PHASE 9 — VISUAL DESIGN AND RESPONSIVENESS
+
+The design must feel like a premium Airtel Business product.
+
+### Design language
+
+- Airtel red as a restrained accent.
+- Warm white/off-white background.
+- Charcoal typography.
+- Subtle Indian-inspired design details.
+- Professional typography.
+- Clean borders and spacing.
+- Soft, restrained shadows.
+- Clear visual hierarchy.
+- Smooth, purposeful transitions.
+
+Avoid:
+
+- Excessive gradients.
+- Purple AI-themed interfaces.
+- Neon colors.
+- Glassmorphism.
+- Generic SaaS dashboard templates.
+- Excessive cards.
+- Cartoon robot imagery.
+- Overly decorative Indian patterns.
+
+### Desktop
+
+Use a balanced two-column layout.
+
+The chatbot should have enough width to support readable conversations.
+
+The contextual workspace should have enough width for actual forms, plans, and quote details.
+
+### Tablet
+
+Adapt the two-column layout intelligently.
+
+Do not compress the forms until they become unusable.
+
+### Mobile
+
+Use a mobile-first approach.
+
+The chatbot and GUI should work together without forcing a side-by-side layout.
+
+Use a clear transition between:
+
+- Chat view.
+- Current action/workspace view.
+
+The user must be able to switch between the two without losing state.
+
+---
+
+# PHASE 10 — LANGUAGE AND CHAT EXPERIENCE
+
+Preserve and integrate the existing dynamic language synchronization.
+
+Support:
+
+- English.
+- Hindi.
+- Hinglish.
+- Punjabi.
+
+The chatbot and contextual workspace must respect the selected language.
+
+If the user switches from English to Hindi:
+
+- Chatbot responds in Hindi.
+- Contextual headings, descriptions, quick replies, and validation messages update appropriately.
+- Existing customer profile and workflow progress remain intact.
+
+If the user switches back to English, continue in English.
+
+Do not reset the conversation or quote during language changes.
+
+The language selector must be accessible throughout onboarding.
+
+---
+
+# PHASE 11 — SECURITY AND BUSINESS RULES
+
+- Customer sessions must only access their own customer data.
+- Airtel employee demo access must be clearly separated from production authentication.
+- Passwords and OTPs must never be sent to the LLM.
+- KYC documents must be handled securely.
+- Consent must be explicit and traceable.
+- Do not collect unnecessary personal information.
+- Do not expose internal employee analytics to customers.
+- Never treat an AI-generated recommendation as a confirmed purchase.
+- Never fabricate catalogue entries or prices.
+- Do not create duplicate customer accounts when restoring an existing session.
+- Preserve the current project's DPDP Act 2023 compliance approach.
+
+---
+
+# PHASE 12 — TESTING AND ACCEPTANCE CRITERIA
+
+Perform actual end-to-end testing, not just code inspection.
+
+### Test A: First-time customer
+
+1. Open website.
+2. Verify logo animation.
+3. Select Business Owner.
+4. Select No Account.
+5. Complete signup.
+6. Verify business discovery begins.
+7. Select business category in GUI.
+8. Verify chatbot receives the selection.
+9. Enter requirements in chat.
+10. Verify GUI selections update.
+11. Generate recommendation.
+12. Verify the correct package is displayed.
+
+### Test B: Existing customer
+
+1. Select Business Owner.
+2. Select Existing Account.
+3. Verify login panel appears alongside chat.
+4. Authenticate through the GUI.
+5. Verify profile restoration.
+6. Verify onboarding resumes from the correct stage.
+
+### Test C: Airtel employee
+
+1. Open website.
+2. Select Airtel Employee.
+3. Verify customer login/signup is bypassed.
+4. Enter Employee Demo.
+5. Verify Airtel Control Portal opens.
+6. Verify demo mode is clearly indicated.
+7. Verify customer data is not unintentionally exposed.
+
+### Test D: Chat-to-GUI synchronization
+
+1. Select Kirana through chat.
+2. Verify GUI selection changes.
+3. Select Billing through GUI.
+4. Verify chatbot understands it.
+5. Select a plan through GUI.
+6. Verify chatbot discusses the selected plan.
+7. Change a requirement through chat.
+8. Verify recommendation and quote update.
+
+### Test E: Switching interfaces
+
+1. Start onboarding in chat.
+2. Complete some steps in GUI.
+3. Return to chat.
+4. Continue the process.
+5. Return to GUI.
+6. Verify every selection and previous answer is preserved.
+
+### Test F: Refresh and session restoration
+
+1. Complete part of onboarding.
+2. Refresh the website.
+3. Verify customer session is restored.
+4. Verify workflow state is restored.
+5. Verify chatbot context and GUI state are consistent.
+
+### Test G: Responsive experience
+
+Test:
+
+- Desktop.
+- Tablet.
+- Mobile.
+
+Check layout, transitions, forms, scrolling, and contextual workspace behavior.
+
+### Test H: Regression
+
+Ensure that the following existing functionality still works:
+
+- Recommendation engine.
+- Quote calculations.
+- Package customization.
+- Chat-based quote modification.
+- Dynamic language synchronization.
+- KYC.
+- Airtel employee dashboard.
+- Existing customer authentication.
+- Existing backend APIs.
+
+---
+
+# IMPLEMENTATION APPROACH
+
+Before changing anything:
+
+1. Inspect the existing frontend and backend architecture.
+2. Inspect the current landing page and header.
+3. Identify existing logo assets and brand styles.
+4. Inspect existing chatbot state management.
+5. Inspect authentication and employee portal flows.
+6. Inspect the business discovery and recommendation workflow.
+7. Inspect the quote and database models.
+
+Then implement this as an integrated redesign.
+
+Do not rebuild the entire application from scratch.
+
+Do not break existing backend functionality.
+
+Do not replace working APIs with hardcoded demo responses.
+
+Do not create a separate, disconnected chatbot flow.
+
+Reuse existing components and refactor where necessary.
+
+Implement in logical stages, verify each stage, and preserve the existing working application throughout.
+
+## FINAL DEFINITION OF DONE
+
+The final experience should feel like this:
+
+A user opens Project Udyam Digital.
+
+They see a beautiful Indian-inspired brand illustration and Airtel identity.
+
+The logo smoothly transitions from the center of the screen into the existing top-left header.
+
+The chatbot welcomes the user and asks whether they are a business owner or an Airtel employee.
+
+A business owner can log in or sign up directly through the conversational experience, with the actual authentication form appearing alongside the chatbot.
+
+An Airtel employee can directly enter the demo employee portal.
+
+After authentication, the AI guides the customer through business identification, problems, requirements, and available Airtel services.
+
+At every step, the GUI displays exactly what is relevant to the ongoing conversation.
+
+The customer can complete every step using chat or GUI, switch between them freely, and never lose progress.
+
+The final recommendation and quotation reflect the actual customer requirements and the real Airtel catalogue.
+
+**The chatbot is the guide. The GUI is the interactive workspace. Both are two synchronized interfaces of one intelligent application.**
+
+After implementation, perform browser-based end-to-end testing, backend API testing, database persistence testing, responsive testing, and regression testing.
+
+Produce a detailed implementation and QA report.
+
+Fix all critical and high-priority issues.
+
+Do not automatically start another development phase. Stop and wait for my approval.  # ADDITIONAL NON-NEGOTIABLE REQUIREMENT: DUAL-MODE INDEPENDENT USABILITY
+
+The application must support two equally capable interaction modes:
+
+1. **Conversational Mode:** The customer completes the journey primarily through the AI chatbot.
+2. **GUI Mode:** The customer completes the journey using visual interfaces, forms, selections, buttons, and dashboards without needing to interact with the chatbot.
+
+These are not separate applications. They must use the same backend APIs, business logic, customer profile, workflow state, product catalogue, and quote records.
+
+## 1. GUI must work independently
+
+A customer must be able to:
+
+- Select their user type.
+- Sign up or log in.
+- Identify their business.
+- Specify business requirements.
+- Explore available Airtel plans.
+- Compare packages.
+- Select a recommendation.
+- Customize packages.
+- Generate and review quotations.
+- Complete KYC.
+- Track installation and onboarding.
+
+All without sending a single chatbot message.
+
+## 2. Chatbot must work independently
+
+A customer must also be able to complete the same supported journey through natural conversation.
+
+The chatbot should:
+- Ask relevant questions.
+- Understand natural-language responses.
+- Update the customer profile.
+- Trigger appropriate workflow transitions.
+- Retrieve available products.
+- Request quote modifications.
+- Explain pricing.
+- Guide the customer through KYC and onboarding.
+
+It must not force users to interact with GUI controls unnecessarily.
+
+Sensitive operations such as password entry, OTP entry, document upload, and explicit consent must use secure GUI controls where required.
+
+## 3. Bidirectional synchronization
+
+Every action from either interface must update the same authoritative application state.
+
+Examples:
+
+- Chat selection → GUI selection updates.
+- GUI selection → chatbot context updates.
+- Chat requirement change → business profile updates.
+- GUI requirement change → chatbot context updates.
+- Chat package selection → GUI recommendation updates.
+- GUI package selection → chatbot understands the selected package.
+- Chat quote modification → customization interface updates.
+- GUI quote modification → chatbot receives the new quote.
+
+No duplicate state systems.
+
+## 4. Interaction mode preference
+
+Provide a subtle option to switch between:
+
+- Chat-first experience.
+- GUI-first experience.
+
+Do not force the user to choose a mode during onboarding.
+
+Allow them to switch at any time without losing progress.
+
+Remember their preferred interaction mode for subsequent visits where appropriate.
+
+## 5. Testing requirement
+
+Perform two complete independent end-to-end tests:
+
+**Test A: GUI-only journey**
+Complete the entire customer onboarding journey without sending any chatbot messages.
+
+**Test B: Chat-only journey**
+Complete the entire supported customer onboarding journey through conversation, using GUI only for operations that require secure or explicit visual input.
+
+**Test C: Mixed journey**
+Start in chat, continue through GUI, return to chat, and finish through GUI.
+
+All three journeys must produce consistent customer profiles, product selections, quotations, KYC records, and onboarding status.
+
+## Definition of Done
+
+The GUI is not merely a companion to the chatbot.
+
+The chatbot is not merely a conversational wrapper around a form.
+
+Both must be independently useful, fully functional, and synchronized interfaces to the same Airtel Business onboarding platform.

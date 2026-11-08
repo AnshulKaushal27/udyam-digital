@@ -679,6 +679,10 @@ def create_recovery_record(
         "reentry_url": f"/?resume={token}",
         "reentry_count": 0,
         
+        # Provenance & Data Origin
+        "is_seeded": bool(profile.get("is_seeded", False) or "seed" in str(session_id).lower()),
+        "record_origin": "Seeded Benchmark Example" if (profile.get("is_seeded", False) or "seed" in str(session_id).lower()) else "Live Customer Abandonment",
+
         # Ownership & Lifecycle
         "recovery_status": "draft_ready", # draft_ready, contacted, recovered, closed_lost, opted_out
         "assigned_agent": assigned_agent,
